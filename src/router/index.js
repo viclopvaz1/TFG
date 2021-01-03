@@ -46,7 +46,6 @@ export default router
 
 router.beforeEach((to, from, next) => {
   let usuario = firebase.auth().currentUser;
-  console.log(usuario);
   let autorizacion = to.matched.some(record => record.meta.autentificado);
 
   //A donde vas cuando no estas logeado e intentas ir a una página con autorización

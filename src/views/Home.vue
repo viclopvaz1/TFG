@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(profe, p) in profesoresRef" :key="p">
+          <tr v-for="(profe, p) in profesoresDB" :key="p">
             <td>
               {{profe.nombre}}
             </td>
@@ -31,7 +31,7 @@
       </table>
     </div>
     <pre>
-      {{profesoresRef}}
+      {{profesoresDB}}
     </pre>
   </div>
   
@@ -45,19 +45,33 @@ import firebase from 'firebase';
 import {
   mapFields
 } from 'vuex-map-fields'
+import { mapActions, mapMutations } from 'vuex';
+import store from '../store';
+
 
 export default {
   name: 'Home',
   components: {
     BarraSinRegistrar
   },
+  data () {
+    return {}
+  },
   computed: {
-    ...mapFields(["profesor", "profesoresRef"]),
+    ...mapFields(["profesor", "profesoresDB"]),
+    ...mapActions(['getData'])
+  },
+  created () {
+    //Para que se actualice la lista profesoresDB con todos los profesores en la base
+    //de datos
+    store.dispatch('getData');
   },
   methods: {
     logout() {
       firebase.auth().signOut().then(() => this.$router.replace('login'));
-    }
+    },
+    
   }
+  
 }
 </script>

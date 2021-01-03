@@ -50,7 +50,8 @@
 import firebase from 'firebase';
 import {
   mapFields
-} from 'vuex-map-fields'
+} from 'vuex-map-fields';
+import {db} from '../main';
 
 // import config from '@/config';
 
@@ -74,12 +75,31 @@ export default {
     //   profesores: profesoresRef
     // },
     computed: {
-    ...mapFields(["profesor", "profesoresRef"]),
+    ...mapFields(["profesor", "profesoresDB"]),
     },
     methods: {
-      registrarse() {
-        this.profesor.proyectosDocentes.push(this.proyectoDocente);
-        this.profesoresRef.push(this.profesor)
+      async registrarse() {
+        try {
+          this.profesor.proyectosDocentes.push(this.proyectoDocente);
+
+          await db.collection('profesores').add({
+            nombre: this.profesor.nombre,
+            apellidos: this.profesor.apellidos,
+            email: this.profesor.email,
+            contrasena: this.profesor.contrasena,
+            confirmarContrasena: this.profesor.confirmarContrasena,
+            proyectosDocentes: this.profesor.proyectosDocentes,
+            publicacionesDocentes: [],
+            publicaciones: [],
+            horas: [],
+            cursosDocentes: [],
+            trabajosSupervisados: [],
+            estancias: []
+          })
+        } catch (error) {
+          console.log(error);
+        }
+        
         firebase
         .auth()
         .createUserWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
