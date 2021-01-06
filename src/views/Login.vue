@@ -1,10 +1,25 @@
 <template>
-  <div>
+  <div class="mt-5 col-md-4 text-center mx-auto">
+  <b-card>
     <h2>Login</h2>
     <form @submit.prevent="login">
-      <b-form-input v-model="profesor.email" type="email" placeholder="Email"></b-form-input>
-      <b-form-input v-model="profesor.contrasena" type="password" placeholder="Contraseña"></b-form-input>
-      <b-button type="submit"> Acceder </b-button>
+    <b-form-group
+        id="input-group-1"
+        label="Correo Electronico:"
+        label-for="input-1"
+        class="mt-5"
+      >
+        <b-form-input v-model="profesor.email" type="email"></b-form-input>
+      </b-form-group> 
+
+      <b-form-group
+        id="input-group-2"
+        label="Contraseña:"
+        label-for="input-2"
+      >
+        <b-form-input v-model="profesor.contrasena" type="password"></b-form-input>
+      </b-form-group> 
+        <b-button type="submit"> Acceder </b-button>
     </form>
 
     <div>
@@ -14,6 +29,7 @@
     <pre>
       {{ profesor.email }} - {{ profesor.contrasena }}
     </pre>
+  </b-card>
   </div>
 </template>
 
