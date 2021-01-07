@@ -24,15 +24,19 @@ export default new Vuex.Store({
       email: '',
       contrasena: '',
       confirmarContrasena: '',
+      foto: '',
+      puntuacion: 0.0,
       proyectosDocentes: [],
       publicacionesDocentes: [],
       publicaciones: [],
       horas: [],
       cursosDocentes: [],
       trabajosSupervisados: [],
-      estancias: []
+      estancias: [],
+      correoAlumnos: []
     },
-    profesoresDB: []
+    profesoresDB: [],
+    registrado: false
   },
   getters: {
     getField
@@ -61,7 +65,27 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    // async updateFields() {
+    //   try {
+    //     const profesoresRef = await db.collection('profesores').where('email', '==', 'Ivan_LH97@hotmail.com').get();
+    //     console.log(profesoresRef.docs[0]);
+    //     var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
+    //     console.log(p);
+
+    //   p.update( {
+    //     nombre: 'perro'
+    //   })
+    //   .then(function() {
+    //     console.log("Document changed");
+    //   })
+    //   .catch(function(error) {
+    //     console.log("Error: " + error);
+    //   })
+    //   } catch (error) {
+        
+    //   }
+    // }
   },
   modules: {
   }
