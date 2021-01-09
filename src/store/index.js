@@ -66,26 +66,34 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    // async updateFields() {
-    //   try {
-    //     const profesoresRef = await db.collection('profesores').where('email', '==', 'Ivan_LH97@hotmail.com').get();
-    //     console.log(profesoresRef.docs[0]);
-    //     var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
-    //     console.log(p);
+    async updateFields(profesoresRef) {
+      try {
+        var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
 
-    //   p.update( {
-    //     nombre: 'perro'
-    //   })
-    //   .then(function() {
-    //     console.log("Document changed");
-    //   })
-    //   .catch(function(error) {
-    //     console.log("Error: " + error);
-    //   })
-    //   } catch (error) {
+      p.update( {
+        nombre: this.state.profesor.nombre,
+        apellidos: this.state.profesor.apellidos,
+        contrasena: this.state.profesor.contrasena,
+        confirmarContrasena: this.state.profesor.confirmarContrasena,
+        foto: this.state.profesor.foto,
+        proyectosDocentes: this.state.profesor.proyectosDocentes,
+        publicacionesDocentes: this.state.profesor.publicacionesDocentes,
+        publicaciones: this.state.profesor.publicaciones,
+        cursosDocentes: this.state.profesor.cursosDocentes,
+        trabajosSupervisados: this.state.profesor.trabajosSupervisados,
+        estancias: this.state.profesor.estancias,
+        correoAlumnos: this.state.profesor.correoAlumnos
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
         
-    //   }
-    // }
+      }
+    }
   },
   modules: {
   }

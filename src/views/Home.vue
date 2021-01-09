@@ -4,33 +4,13 @@
     <BarraRegistrado v-if="registrado" class="mt-10"/>
 
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Contraseña</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              {{profesor.nombre}}
-            </td>
-            <td>
-              {{profesor.email}}
-            </td>
-            <td>
-              {{profesor.contrasena}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+     <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
+       Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
+       horas impartidas en los distintos centros en los que has estado, cursos privados 
+       en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
+       encontrar una vez te registres. ¡Pruebalo!</p>
     </div>
-    <pre>
-      {{profesor}}
-      {{registrado}}
-    </pre>
+   
   </div>
   
 </template>

@@ -42,8 +42,10 @@ import firebase from 'firebase';
 import {
   mapFields
 } from 'vuex-map-fields'
+import { mapActions} from 'vuex';
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import {db} from '../main';
+import store from '../store';
 
 export default {
   name: 'Login',
@@ -57,6 +59,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapActions(['getData'])
   },
   methods: {
     async login() {
@@ -65,7 +68,6 @@ export default {
         console.log(profesoresRef.docs[0]);
         
         profesoresRef.forEach(doc => {
-        //console.log(doc.data())
         let data = doc.data();
         this.profesor.nombre = data.nombre;
         this.profesor.apellidos = data.apellidos;
@@ -82,9 +84,9 @@ export default {
         this.profesor.trabajosSupervisados = data.trabajosSupervisados;
         this.profesor.estancias = data.estancias;
         this.profesor.correoAlumnos = data.correoAlumnos;
-        //console.log(this.profesor)
         });
-        this.updateField(profesoresRef);
+        store.dispatch('updateFields', profesoresRef);
+        //this.updateField(profesoresRef);
       } catch (error) {
         console.log(error);
       }
@@ -95,20 +97,20 @@ export default {
         .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
         .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarLogin = true});
     },
-    updateField(profesoresRef) {
-      console.log(profesoresRef.docs[0])
-      var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
+    // updateField(profesoresRef) {
+    //   console.log(profesoresRef.docs[0])
+    //   var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
 
-      p.update( {
-        nombre: this.profesor.apellidos
-      })
-      .then(function() {
-        console.log("Document changed");
-      })
-      .catch(function(error) {
-        console.log("Error: " + error);
-      })
-    }
+    //   p.update( {
+    //     nombre: this.profesor.apellidos
+    //   })
+    //   .then(function() {
+    //     console.log("Document changed");
+    //   })
+    //   .catch(function(error) {
+    //     console.log("Error: " + error);
+    //   })
+    // }
   },
 };
 </script>
