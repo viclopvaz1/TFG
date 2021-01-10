@@ -17,7 +17,7 @@
             <b-icon icon="gear-fill" aria-hidden="true"></b-icon> {{profesor.nombre}}
         </template>
         <b-dropdown-item-button>
-          Pagina principal
+          <router-link to="/paginaPrincipal">Pagina Principal</router-link>
         </b-dropdown-item-button>
         <b-dropdown-item-button>
           Tu perfil

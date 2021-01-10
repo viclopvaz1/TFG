@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 
 import Login from '../views/Login.vue'
 import Registro from '../views/Registro.vue'
+import PaginaPrincipal from '../views/PaginaPrincipal.vue'
 import firebase from 'firebase';
 
 Vue.use(VueRouter)
@@ -26,6 +27,11 @@ const routes = [
     path: '/registro',
     name: 'Registro',
     component: Registro
+  },
+  {
+    path: '/paginaPrincipal',
+    name: 'PaginaPrincipal',
+    component: PaginaPrincipal
   },
   {
     path: '/home',
