@@ -1,53 +1,40 @@
 <template>
   <div>
-      <BarraSinRegistrar v-if="!registrado" class="mt-10"/>
-      <BarraRegistrado v-if="registrado" class="mt-10"/>
-
-      <b-card :img-src=profesor.foto img-alt="Card image" 
-          img-left class="mb-3" rounded="circle" img-height="150" img-width="150"
-          border-variant="secondary">
-        <b-card-text>
-            {{profesor.nombre}}  {{profesor.apellidos}}
-        </b-card-text>
-      </b-card>
-
-      <pre>
-      {{profesor}}
-      {{registrado}}
-    </pre>
+    <BarraSinRegistrar v-if="!registrado"/>
+    <BarraRegistrado v-if="registrado"/>
+    
+    <InformacionProfesor/>
   </div>
 </template>
 
 <script>
-import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
-import BarraRegistrado from '@/components/BarraRegistrado.vue'
-import {
-  mapFields
-} from 'vuex-map-fields'
-import { mapActions} from 'vuex';
-import store from '../store';
+import BarraSinRegistrar from "@/components/BarraSinRegistrar.vue";
+import BarraRegistrado from "@/components/BarraRegistrado.vue";
+import InformacionProfesor from "@/components/InformacionProfesor.vue";
+import { mapFields } from "vuex-map-fields";
+import { mapActions } from "vuex";
+import store from "../store";
 
 export default {
-name: 'PaginaPrincipal',
+  name: "PaginaPrincipal",
   components: {
     BarraSinRegistrar,
-    BarraRegistrado
+    BarraRegistrado,
+    InformacionProfesor
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
-    ...mapActions(['getData'])
+    ...mapActions(["getData"]),
   },
-  created () {
+  created() {
     //Para que se actualice la lista profesoresDB con todos los profesores en la base
     //de datos
-    store.dispatch('getData');
+    store.dispatch("getData");
     //store.dispatch('updateFields');
   },
-  methods: {
-    
-  }
-}
+  methods: {},
+};
 </script>

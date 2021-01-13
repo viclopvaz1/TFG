@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BarraSinRegistrar class="mt-10"/>
+    <BarraSinRegistrar/>
 
     <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
       <b-card>
@@ -95,6 +95,9 @@ export default {
               confirmarContrasena: this.profesor.confirmarContrasena,
               foto: '',
               puntuacion: 0.0,
+              centro: '',
+              departamento: '',
+              despacho: '',
               proyectosDocentes: this.profesor.proyectosDocentes,
               publicacionesDocentes: [],
               publicaciones: [],
@@ -102,7 +105,16 @@ export default {
               cursosDocentes: [],
               trabajosSupervisados: [],
               estancias: [],
-              correoAlumnos: []
+              correoAlumnos: [],
+              descripcion: '',
+              seguidos: [],
+              seguidores: [],
+              comentrarios: [],
+              twitter: '',
+              paginaPersonal: '',
+              researchGate: '',
+              seleccionPublica: [false, false, false, false, false, false, false, false, false, false],
+              seleccionPrivada: [false, false, false, false, false, false, false, false, false, false, false]
             })
           } catch (error) {
             console.log(error);

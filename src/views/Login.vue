@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BarraSinRegistrar class="mt-10"/>
+    <BarraSinRegistrar/>
 
     <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
       <b-card>
@@ -54,17 +54,28 @@ export default {
   },
   data() {
     return {
-      validarLogin: false
+      validarLogin: false,
     }
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
-    ...mapActions(['getData'])
+    ...mapActions(['getData']),
+    emailToLogin: function(){
+      return this.profesor.email;
+    },
+    passwordToLogin: function(){
+      return this.profesor.contrasena;
+    }
+  },
+  mounted() {
+    console.log(firebase.auth().currentUser);
+    store.dispatch('getData');
   },
   methods: {
     async login() {
+      localStorage.setItem('userEmail', this.emailToLogin);
       try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
+        const profesoresRef = await db.collection('profesores').where('email', '==', localStorage.getItem('userEmail')).get();
         console.log(profesoresRef.docs[0]);
         
         profesoresRef.forEach(doc => {
@@ -76,6 +87,9 @@ export default {
         this.profesor.confirmarContrasena = data.confirmarContrasena;
         this.profesor.foto = data.foto;
         this.profesor.puntuacion = data.puntuacion;
+        this.profesor.centro = data.centro;
+        this.profesor.departamento = data.departamento;
+        this.profesor.despacho = data.despacho;
         this.profesor.proyectosDocentes = data.proyectosDocentes;
         this.profesor.publicacionesDocentes = data.publicacionesDocentes;
         this.profesor.publicaciones = data.publicaciones;
@@ -84,6 +98,16 @@ export default {
         this.profesor.trabajosSupervisados = data.trabajosSupervisados;
         this.profesor.estancias = data.estancias;
         this.profesor.correoAlumnos = data.correoAlumnos;
+        this.profesor.descripcion = data.descripcion;
+        this.profesor.seguidos = data.seguidos;
+        this.profesor.seguidores = data.seguidores;
+        this.profesor.comentarios = data.comentarios;
+        this.profesor.twitter = data.twitter;
+        this.profesor.paginaPersonal = data.paginaPersonal;
+        this.profesor.researchGate = data.researchGate;
+        this.profesor.seleccionPublica = [false, false, false, false, false, false, false, false, false, false];
+        this.profesor.seleccionPrivada = [false, false, false, false, false, false, false, false, false, false, false];
+        
         });
         store.dispatch('updateFields', profesoresRef);
         //this.updateField(profesoresRef);
@@ -91,26 +115,15 @@ export default {
         console.log(error);
       }
       
+      localStorage.setItem('userEmail', this.emailToLogin);
+      localStorage.setItem('userPassword', this.passwordToLogin);
+      localStorage.setItem('userRegistrado', true);
       
       firebase
         .auth()
         .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-        .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarLogin = true});
+        .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarLogin = true}, console.log(firebase.auth().currentUser.email));
     },
-    // updateField(profesoresRef) {
-    //   console.log(profesoresRef.docs[0])
-    //   var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
-
-    //   p.update( {
-    //     nombre: this.profesor.apellidos
-    //   })
-    //   .then(function() {
-    //     console.log("Document changed");
-    //   })
-    //   .catch(function(error) {
-    //     console.log("Error: " + error);
-    //   })
-    // }
   },
 };
 </script>
