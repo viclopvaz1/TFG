@@ -50,13 +50,6 @@ export default {
     console.log(firebase.auth().currentUser);
     this.compruebaUsuarioRegistrado();
     
-
-    // Desloguear cuando se cierra la ventana
-            // window.onbeforeunload = function (e) {
-            //     firebase.auth().signOut();
-            // }
-    
-    //store.dispatch('updateFields');
   },
   methods: {
     compruebaUsuarioRegistrado() {

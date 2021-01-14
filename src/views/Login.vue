@@ -60,12 +60,7 @@ export default {
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
     ...mapActions(['getData']),
-    emailToLogin: function(){
-      return this.profesor.email;
-    },
-    passwordToLogin: function(){
-      return this.profesor.contrasena;
-    }
+    
   },
   mounted() {
     console.log(firebase.auth().currentUser);
@@ -73,17 +68,14 @@ export default {
   },
   methods: {
     async login() {
-      localStorage.setItem('userEmail', this.emailToLogin);
       try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', localStorage.getItem('userEmail')).get();
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
         console.log(profesoresRef.docs[0]);
         
         profesoresRef.forEach(doc => {
         let data = doc.data();
         this.profesor.nombre = data.nombre;
         this.profesor.apellidos = data.apellidos;
-        //this.profesor.email = data.email;
-        //this.profesor.contrasena = data.contrasena;
         this.profesor.confirmarContrasena = data.confirmarContrasena;
         this.profesor.foto = data.foto;
         this.profesor.puntuacion = data.puntuacion;
@@ -110,19 +102,17 @@ export default {
         
         });
         store.dispatch('updateFields', profesoresRef);
-        //this.updateField(profesoresRef);
       } catch (error) {
         console.log(error);
       }
       
-      localStorage.setItem('userEmail', this.emailToLogin);
-      localStorage.setItem('userPassword', this.passwordToLogin);
+      localStorage.setItem('userEmail', this.profesor.email);
       localStorage.setItem('userRegistrado', true);
       
       firebase
         .auth()
         .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-        .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarLogin = true}, console.log(firebase.auth().currentUser.email));
+        .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarLogin = true});
     },
   },
 };

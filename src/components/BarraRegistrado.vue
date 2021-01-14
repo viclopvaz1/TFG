@@ -55,7 +55,6 @@ export default {
       this.profesor.contrasena = '';
       this.registrado = false;
       localStorage.setItem('userEmail', '');
-      localStorage.setItem('userPassword', '');
       localStorage.setItem('userRegistrado', false);
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },

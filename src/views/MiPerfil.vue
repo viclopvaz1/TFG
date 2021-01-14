@@ -16,9 +16,6 @@
       </b-row>
     </b-container>
 
-    <pre>
-      {{registrado}}
-    </pre>
   </div>
 
     
@@ -34,12 +31,6 @@ import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import firebase from 'firebase';
 
-// Desloguear cuando se cierra la ventana
-            // window.onbeforeunload = function (e) {
-            //     firebase.auth().signOut();
-            //     localStorage.setItem('userRegistrado', false);
-            //     return null;
-            // }
 
 export default {
     name: "MiPerfil",

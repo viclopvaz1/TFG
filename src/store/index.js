@@ -118,33 +118,16 @@ export default new Vuex.Store({
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },
     async recuperarState() {
-      let userEmail = localStorage.getItem('userEmail');
-      let userPassword = localStorage.getItem('userPassword');
-      //Para prevenir que te desloguee cuando actualizas cualquier página
-      if (userEmail != '' && userPassword != '') {
-        this.state.registrado = true;
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(userEmail, userPassword)
-  }
-    // let userRegistrado = localStorage.getItem('userRegistrado')
-    //     if (userRegistrado == true) {
-    //       this.state.registrado = true;
-    //     } else if(userRegistrado == false) {
-    //       this.state.registrado = false;
-    //     }
       try {
         const profesoresRef = await db.collection('profesores').where('email', '==', localStorage.getItem('userEmail')).get();
         console.log(profesoresRef.docs[0]);
 
-        
-        
         profesoresRef.forEach(doc => {
         let data = doc.data();
         this.state.profesor.nombre = data.nombre;
         this.state.profesor.apellidos = data.apellidos;
-        //this.profesor.email = data.email;
-        //this.profesor.contrasena = data.contrasena;
+        this.state.profesor.email = data.email;
+        this.state.profesor.contrasena = data.contrasena;
         this.state.profesor.confirmarContrasena = data.confirmarContrasena;
         this.state.profesor.foto = data.foto;
         this.state.profesor.puntuacion = data.puntuacion;
@@ -172,6 +155,12 @@ export default new Vuex.Store({
         });
       } catch (error) {
         console.log(error);
+      }
+      if (this.state.profesor.email != '') {
+        this.state.registrado = true;
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
       }
       console.log(this.state.registrado)
     }
