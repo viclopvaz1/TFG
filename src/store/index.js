@@ -52,6 +52,35 @@ export default new Vuex.Store({
     },
     profesoresDB: [],
     registrado: false,
+    tarjetaProfesor: {
+      nombre: '',
+      apellidos: '',
+      email: '',
+      contrasena: '',
+      confirmarContrasena: '',
+      foto: '',
+      puntuacion: 0.0,
+      centro: '',
+      departamento: '',
+      despacho: '',
+      proyectosDocentes: [],
+      publicacionesDocentes: [],
+      publicaciones: [],
+      horas: [],
+      cursosDocentes: [],
+      trabajosSupervisados: [],
+      estancias: [],
+      correoAlumnos: [],
+      descripcion: '',
+      seguidos: [],
+      seguidores: [],
+      comentarios: [],
+      twitter: '',
+      paginaPersonal: '',
+      researchGate: '',
+      seleccionPublica: [],
+      seleccionPrivada: []
+    }
     
   },
   getters: {
@@ -82,9 +111,10 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async updateFields(profesoresRef) {
+    async updateFields() {
       try {
-        var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
 
       p.update( {
         nombre: this.state.profesor.nombre,

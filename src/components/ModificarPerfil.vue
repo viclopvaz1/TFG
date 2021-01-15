@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card>
-      <form @submit.prevent="registrarse">
+      <form @submit.prevent="guardar">
         <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2" label-cols-md="2">
           <b-form-input id="input-nombre" v-model="profesor.nombre" type="text" required></b-form-input>
         </b-form-group>
@@ -54,13 +54,44 @@ import {
   mapFields
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
+import {db} from '../main';
 import store from '../store';
 
 export default {
   name: "ModificarPerfil",
+  data() {
+    return {
+      
+    }
+  },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
-    ...mapActions(['getData'])
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
+    ...mapActions(["getData", "updateFields"])
+  },
+  methods: {
+    guardar() {
+
+      this.tarjetaProfesor.nombre = this.profesor.nombre;
+      this.tarjetaProfesor.apellidos = this.profesor.apellidos;
+      this.tarjetaProfesor.despacho = this.profesor.despacho;
+      this.tarjetaProfesor.departamento = this.profesor.departamento;
+      this.tarjetaProfesor.centro = this.profesor.centro;
+      this.tarjetaProfesor.twitter = this.profesor.twitter;
+      this.tarjetaProfesor.paginaPersonal = this.profesor.paginaPersonal;
+      this.tarjetaProfesor.researchGate = this.profesor.researchGate;
+
+      this.update();
+      
+    },
+    async update(){
+      try {
+        
+        store.dispatch('updateFields');
+        //this.updateFields(profesoresRef);
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }
 </script>

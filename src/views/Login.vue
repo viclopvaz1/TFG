@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
     ...mapActions(['getData']),
     
   },
@@ -108,6 +108,7 @@ export default {
       
       localStorage.setItem('userEmail', this.profesor.email);
       localStorage.setItem('userRegistrado', true);
+      this.tarjetaProfesor = this.profesor;
       
       firebase
         .auth()

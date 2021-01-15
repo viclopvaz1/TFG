@@ -32,6 +32,7 @@ import { mapActions } from "vuex";
 import firebase from 'firebase';
 
 
+
 export default {
     name: "MiPerfil",
     components: {
@@ -42,11 +43,13 @@ export default {
         ModificarPerfil
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
     ...mapActions(["getData"]),
+    
   },
   created() {
-    console.log(firebase.auth().currentUser)
+    console.log(this.tarjetaProfesor);
+    this.tarjetaProfesor = this.profesor;
   },
   mounted() {
     
