@@ -5,7 +5,9 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Registro from '../views/Registro.vue'
 import PaginaPrincipal from '../views/PaginaPrincipal.vue'
+import MiPerfil from '../views/MiPerfil.vue'
 import firebase from 'firebase';
+import store from '../store';
 
 Vue.use(VueRouter)
 
@@ -34,6 +36,14 @@ const routes = [
     component: PaginaPrincipal
   },
   {
+    path: '/miPerfil',
+    name: 'MiPerfil',
+    component: MiPerfil,
+    meta: {
+      autentificado: true
+    }
+  },
+  {
     path: '/home',
     name: 'Home',
     component: Home,
@@ -50,16 +60,23 @@ const router = new VueRouter({
 
 export default router
 
+// && !usuario && !store.state.registrado
+
 router.beforeEach((to, from, next) => {
   let usuario = firebase.auth().currentUser;
   let autorizacion = to.matched.some(record => record.meta.autentificado);
 
+  let userEmail = localStorage.getItem('userEmail');
+  
+    // Si intentas ir a un sitio que requiere autorización pero no estás logueado
+    if (autorizacion && userEmail == '') {
+      firebase.auth().signOut().then(next('login'));
+      // A donde vas si la url ya esta bien
+    } else {
+      next();
+    }
+
   //A donde vas cuando no estas logeado e intentas ir a una página con autorización
-  if (autorizacion && !usuario) {
-    next('login');
-    // A donde vas si la url ya esta bien
-  } else {
-    next();
-  }
+  
 
 })

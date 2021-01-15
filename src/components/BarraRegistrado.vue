@@ -20,7 +20,7 @@
           <router-link to="/paginaPrincipal">Pagina Principal</router-link>
         </b-dropdown-item-button>
         <b-dropdown-item-button>
-          Tu perfil
+          <router-link to="/miPerfil">Mi Perfil</router-link>
         </b-dropdown-item-button>
         <b-dropdown-item-button>
           <a href="#" @click="logout">Logout</a>
@@ -54,6 +54,8 @@ export default {
       this.profesor.email = '';
       this.profesor.contrasena = '';
       this.registrado = false;
+      localStorage.setItem('userEmail', '');
+      localStorage.setItem('userRegistrado', false);
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },
   }

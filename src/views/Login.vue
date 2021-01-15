@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BarraSinRegistrar class="mt-10"/>
+    <BarraSinRegistrar/>
 
     <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
       <b-card>
@@ -42,8 +42,10 @@ import firebase from 'firebase';
 import {
   mapFields
 } from 'vuex-map-fields'
+import { mapActions} from 'vuex';
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import {db} from '../main';
+import store from '../store';
 
 export default {
   name: 'Login',
@@ -52,11 +54,17 @@ export default {
   },
   data() {
     return {
-      validarLogin: false
+      validarLogin: false,
     }
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
+    ...mapActions(['getData']),
+    
+  },
+  mounted() {
+    console.log(firebase.auth().currentUser);
+    store.dispatch('getData');
   },
   methods: {
     async login() {
@@ -65,15 +73,15 @@ export default {
         console.log(profesoresRef.docs[0]);
         
         profesoresRef.forEach(doc => {
-        //console.log(doc.data())
         let data = doc.data();
         this.profesor.nombre = data.nombre;
         this.profesor.apellidos = data.apellidos;
-        //this.profesor.email = data.email;
-        //this.profesor.contrasena = data.contrasena;
         this.profesor.confirmarContrasena = data.confirmarContrasena;
         this.profesor.foto = data.foto;
         this.profesor.puntuacion = data.puntuacion;
+        this.profesor.centro = data.centro;
+        this.profesor.departamento = data.departamento;
+        this.profesor.despacho = data.despacho;
         this.profesor.proyectosDocentes = data.proyectosDocentes;
         this.profesor.publicacionesDocentes = data.publicacionesDocentes;
         this.profesor.publicaciones = data.publicaciones;
@@ -82,33 +90,31 @@ export default {
         this.profesor.trabajosSupervisados = data.trabajosSupervisados;
         this.profesor.estancias = data.estancias;
         this.profesor.correoAlumnos = data.correoAlumnos;
-        //console.log(this.profesor)
+        this.profesor.descripcion = data.descripcion;
+        this.profesor.seguidos = data.seguidos;
+        this.profesor.seguidores = data.seguidores;
+        this.profesor.comentarios = data.comentarios;
+        this.profesor.twitter = data.twitter;
+        this.profesor.paginaPersonal = data.paginaPersonal;
+        this.profesor.researchGate = data.researchGate;
+        this.profesor.seleccionPublica = [false, false, false, false, false, false, false, false, false, false];
+        this.profesor.seleccionPrivada = [false, false, false, false, false, false, false, false, false, false, false];
+        
         });
-        this.updateField(profesoresRef);
+        store.dispatch('updateFields', profesoresRef);
       } catch (error) {
         console.log(error);
       }
       
+      localStorage.setItem('userEmail', this.profesor.email);
+      localStorage.setItem('userRegistrado', true);
+      this.tarjetaProfesor = this.profesor;
       
       firebase
         .auth()
         .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
         .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarLogin = true});
     },
-    updateField(profesoresRef) {
-      console.log(profesoresRef.docs[0])
-      var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
-
-      p.update( {
-        nombre: this.profesor.apellidos
-      })
-      .then(function() {
-        console.log("Document changed");
-      })
-      .catch(function(error) {
-        console.log("Error: " + error);
-      })
-    }
   },
 };
 </script>
