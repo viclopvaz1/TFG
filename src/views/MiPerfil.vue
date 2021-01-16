@@ -10,8 +10,12 @@
         <b-col md="2" style="padding-left: 20px">
           <BotonesPrivado/>
         </b-col>
-        <b-col md="10" style="padding-right: 20px">
+        <!-- <b-col md="10" style="padding-right: 20px">
           <ModificarPerfil/>
+        </b-col> -->
+        <b-col md="8" style="padding-right: 20px">
+          <!-- <ModificarPerfil/> -->
+          <ModificarContrasena />
         </b-col>
       </b-row>
     </b-container>
@@ -27,6 +31,7 @@ import BarraRegistrado from "@/components/BarraRegistrado.vue";
 import InformacionProfesor from "@/components/InformacionProfesor.vue";
 import BotonesPrivado from "@/components/BotonesPrivado";
 import ModificarPerfil from "@/components/ModificarPerfil";
+import ModificarContrasena from "@/components/ModificarContrasena";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import firebase from 'firebase';
@@ -40,7 +45,8 @@ export default {
         BarraRegistrado,
         InformacionProfesor,
         BotonesPrivado,
-        ModificarPerfil
+        ModificarPerfil,
+        ModificarContrasena
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
