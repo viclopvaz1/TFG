@@ -97,11 +97,11 @@ export default {
         this.profesor.twitter = data.twitter;
         this.profesor.paginaPersonal = data.paginaPersonal;
         this.profesor.researchGate = data.researchGate;
-        this.profesor.seleccionPublica = [false, false, false, false, false, false, false, false, false, false];
-        this.profesor.seleccionPrivada = [false, false, false, false, false, false, false, false, false, false, false];
+        this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false];
+        this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false];
         
         });
-        store.dispatch('updateFields', profesoresRef);
+        store.dispatch('updateFields');
       } catch (error) {
         console.log(error);
       }

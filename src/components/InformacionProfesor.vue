@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card
-      class="overflow-hidden"
+      class="overflow: hidden"
       border-variant="secondary"
       style="margin: 20px"
     >
@@ -16,8 +16,28 @@
         <b-col md="10">
           <b-row style="height: 7rem">
             <b-col>
-              <b-row> {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }} </b-row>
-              <b-row> {{ profesor.descripcion }} </b-row>
+              <b-row>
+                <b-col>
+                  <b-card-text>
+                  {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }}  
+                </b-card-text>
+                </b-col>
+                <b-col>
+                  <b-card-text>
+                    {{ tarjetaProfesor.despacho }} {{tarjetaProfesor.departamento}} {{tarjetaProfesor.centro}}
+                  </b-card-text>
+                </b-col>
+                <b-col style="max-width: fit-content">
+                  Aquí van los iconos
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-card-text>
+                    {{ profesor.descripcion }}
+                </b-card-text> 
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
           <b-row style="height: 3rem">

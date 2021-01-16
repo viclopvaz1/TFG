@@ -10,12 +10,10 @@
         <b-col md="2" style="padding-left: 20px">
           <BotonesPrivado/>
         </b-col>
-        <!-- <b-col md="10" style="padding-right: 20px">
-          <ModificarPerfil/>
-        </b-col> -->
+      
         <b-col md="8" style="padding-right: 20px">
-          <!-- <ModificarPerfil/> -->
-          <ModificarContrasena />
+          <ModificarPerfil :style="profesor.seleccionPrivada[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <ModificarContrasena :style="profesor.seleccionPrivada[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
     </b-container>
@@ -54,7 +52,6 @@ export default {
     
   },
   created() {
-    console.log(this.tarjetaProfesor);
     this.tarjetaProfesor = this.profesor;
   },
   mounted() {

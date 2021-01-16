@@ -122,6 +122,9 @@ export default new Vuex.Store({
         contrasena: this.state.profesor.contrasena,
         confirmarContrasena: this.state.profesor.confirmarContrasena,
         foto: this.state.profesor.foto,
+        centro: this.state.profesor.centro,
+        departamento: this.state.profesor.departamento,
+        despacho: this.state.profesor.despacho,
         proyectosDocentes: this.state.profesor.proyectosDocentes,
         publicacionesDocentes: this.state.profesor.publicacionesDocentes,
         publicaciones: this.state.profesor.publicaciones,
@@ -130,9 +133,12 @@ export default new Vuex.Store({
         estancias: this.state.profesor.estancias,
         correoAlumnos: this.state.profesor.correoAlumnos,
         descripcion: this.state.profesor.descripcion,
+        seguidos: this.state.profesor.seguidos,
         twitter: this.state.profesor.twitter,
         paginaPersonal: this.state.profesor.paginaPersonal,
-        researchGate: this.state.profesor.researchGate
+        researchGate: this.state.profesor.researchGate,
+        seleccionPublica: this.state.profesor.seleccionPublica,
+        seleccionPrivada: this.state.profesor.seleccionPrivada
       })
       .then(function() {
         console.log("Document changed");
@@ -179,8 +185,8 @@ export default new Vuex.Store({
         this.state.profesor.twitter = data.twitter;
         this.state.profesor.paginaPersonal = data.paginaPersonal;
         this.state.profesor.researchGate = data.researchGate;
-        this.state.profesor.seleccionPublica = [false, false, false, false, false, false, false, false, false, false];
-        this.state.profesor.seleccionPrivada = [false, false, false, false, false, false, false, false, false, false, false];
+        this.state.profesor.seleccionPublica = data.seleccionPublica;
+        this.state.profesor.seleccionPrivada = data.seleccionPrivada;
         
         });
       } catch (error) {
@@ -192,7 +198,6 @@ export default new Vuex.Store({
           .auth()
           .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
       }
-      console.log(this.state.registrado)
     }
   },
   modules: {
