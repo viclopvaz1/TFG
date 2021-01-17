@@ -28,7 +28,16 @@
                   </b-card-text>
                 </b-col>
                 <b-col style="max-width: fit-content">
-                  Aquí van los iconos
+                  <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''">
+                    <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
+                  </a>
+                  <a :href="tarjetaProfesor.researchGate" target="_blank" v-if="tarjetaProfesor.researchGate != ''">
+                    <b-icon icon="book-fill" class="h4 mb-2" style="margin-left: 15px"></b-icon>
+                  </a>
+                  <a :href="tarjetaProfesor.twitter" target="_blank" v-if="tarjetaProfesor.twitter != ''">
+                    <b-icon icon="twitter" class="h4 mb-2" style="margin-left: 15px"></b-icon>
+                  </a>
+
                 </b-col>
               </b-row>
               <b-row>
