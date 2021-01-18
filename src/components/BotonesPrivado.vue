@@ -5,11 +5,17 @@
                 Mis datos
                 <b-icon icon="arrow-down-short" class="h4 mb-2"></b-icon>
             </b-row>
+
             <b-row style="margin-bottom: 5px">
                 <b-button @click="privada(0)" variant="primary" :pressed.sync="profesor.seleccionPrivada[0]">Modificar Perfil</b-button>
             </b-row>
+
             <b-row style="margin-bottom: 5px">
                 <b-button @click="privada(1)" variant="primary" :pressed.sync="profesor.seleccionPrivada[1]">Cambiar Contraseña</b-button>
+            </b-row>
+
+            <b-row style="margin-bottom: 5px">
+                <b-button @click="privada(2)" variant="primary" :pressed.sync="profesor.seleccionPrivada[2]">Comentarios</b-button>
             </b-row>
         </b-col>
     </div>
