@@ -17,6 +17,10 @@
             <b-row style="margin-bottom: 5px">
                 <b-button @click="privada(2)" variant="primary" :pressed.sync="profesor.seleccionPrivada[2]">Comentarios</b-button>
             </b-row>
+
+            <b-row style="margin-bottom: 5px">
+                <b-button @click="privada(3)" variant="primary" :pressed.sync="profesor.seleccionPrivada[3]">Resumenes</b-button>
+            </b-row>
         </b-col>
     </div>
 </template>

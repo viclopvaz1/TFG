@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
+
 import {BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -42,6 +46,7 @@ export const db = firebase.firestore();
               break;
             case 2: 
               console.info("TYPE_BACK_FORWARD");
+              this.$store.dispatch('recuperarState');
               break;  
             case 255:
               console.info("255");
