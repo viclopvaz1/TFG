@@ -44,9 +44,16 @@ export default {
 
         firebase
         .auth()
+        .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
+
+        firebase
+        .auth()
         .currentUser
-        .updatePassword(this.contrasena).then(function() {
-          console.log('Update successful.')
+        .updatePassword(this.contrasena)
+        .then(() => {
+          console.log('Update successful.');
+          this.profesor.contrasena = this.contrasena;
+          store.dispatch('updateFields');
         }).catch(function(error) {
           // An error happened.
           console.log(error)
@@ -59,3 +66,4 @@ export default {
   }
 }
 </script>
+

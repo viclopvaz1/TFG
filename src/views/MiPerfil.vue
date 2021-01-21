@@ -10,12 +10,11 @@
         <b-col md="2" style="padding-left: 20px">
           <BotonesPrivado/>
         </b-col>
-        <!-- <b-col md="10" style="padding-right: 20px">
-          <ModificarPerfil/>
-        </b-col> -->
+      
         <b-col md="8" style="padding-right: 20px">
-          <!-- <ModificarPerfil/> -->
-          <ModificarContrasena />
+          <ModificarPerfil :style="profesor.seleccionPrivada[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <ModificarContrasena :style="profesor.seleccionPrivada[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <Comentarios :style="profesor.seleccionPrivada[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
     </b-container>
@@ -32,6 +31,7 @@ import InformacionProfesor from "@/components/InformacionProfesor.vue";
 import BotonesPrivado from "@/components/BotonesPrivado";
 import ModificarPerfil from "@/components/ModificarPerfil";
 import ModificarContrasena from "@/components/ModificarContrasena";
+import Comentarios from "@/components/Comentarios";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import firebase from 'firebase';
@@ -46,7 +46,8 @@ export default {
         InformacionProfesor,
         BotonesPrivado,
         ModificarPerfil,
-        ModificarContrasena
+        ModificarContrasena,
+        Comentarios
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
@@ -54,7 +55,6 @@ export default {
     
   },
   created() {
-    console.log(this.tarjetaProfesor);
     this.tarjetaProfesor = this.profesor;
   },
   mounted() {

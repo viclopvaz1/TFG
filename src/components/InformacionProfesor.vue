@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card
-      class="overflow-hidden"
+      class="overflow: hidden"
       border-variant="secondary"
       style="margin: 20px"
     >
@@ -16,8 +16,37 @@
         <b-col md="10">
           <b-row style="height: 7rem">
             <b-col>
-              <b-row> {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }} </b-row>
-              <b-row> {{ profesor.descripcion }} </b-row>
+              <b-row>
+                <b-col>
+                  <b-card-text>
+                  {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }}  
+                </b-card-text>
+                </b-col>
+                <b-col>
+                  <b-card-text>
+                    {{ tarjetaProfesor.despacho }} {{tarjetaProfesor.departamento}} {{tarjetaProfesor.centro}}
+                  </b-card-text>
+                </b-col>
+                <b-col style="max-width: fit-content">
+                  <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''">
+                    <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
+                  </a>
+                  <a :href="tarjetaProfesor.researchGate" target="_blank" v-if="tarjetaProfesor.researchGate != ''">
+                    <b-icon icon="book-fill" class="h4 mb-2" style="margin-left: 15px"></b-icon>
+                  </a>
+                  <a :href="tarjetaProfesor.twitter" target="_blank" v-if="tarjetaProfesor.twitter != ''">
+                    <b-icon icon="twitter" class="h4 mb-2" style="margin-left: 15px"></b-icon>
+                  </a>
+
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-card-text>
+                    {{ profesor.descripcion }}
+                </b-card-text> 
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
           <b-row style="height: 3rem">

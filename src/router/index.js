@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Registro from '../views/Registro.vue'
 import PaginaPrincipal from '../views/PaginaPrincipal.vue'
 import MiPerfil from '../views/MiPerfil.vue'
+import Valoracion from '../views/Valoracion.vue'
 import firebase from 'firebase';
 import store from '../store';
 
@@ -50,6 +51,11 @@ const routes = [
     // meta: {
     //   autentificado: true
     // }
+  },
+  {
+    path: '/valoracion',
+    name: 'Valoracion',
+    component: Valoracion,
   }
   
 ]
@@ -71,7 +77,9 @@ router.beforeEach((to, from, next) => {
     // Si intentas ir a un sitio que requiere autorización pero no estás logueado
     if (autorizacion && userEmail == '') {
       firebase.auth().signOut().then(next('login'));
-      // A donde vas si la url ya esta bien
+      // Para evitar que vayas al login o al registro si estas autenticado
+    } else if((to.path == '/login' || to.path == '/registro') && userEmail != ''){
+      next('home');
     } else {
       next();
     }
