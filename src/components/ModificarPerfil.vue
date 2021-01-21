@@ -10,8 +10,8 @@
           <b-form-input id="input-apellidos" v-model="profesor.apellidos" type="text" required :maxlength="40"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Descripción:" label-for="input-descripción" class="mt-2" label-cols-md="2">
-          <b-form-textarea id="input-descripción" v-model="profesor.descripcion" type="text" :maxlength="300"></b-form-textarea>
+        <b-form-group label="Descripción:" label-for="input-descripcion" class="mt-2" label-cols-md="2">
+          <b-form-textarea id="input-descripcion" v-model="profesor.descripcion" type="text" :maxlength="300"></b-form-textarea>
         </b-form-group>
 
         <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2">

@@ -8,7 +8,7 @@
             </b-card-text>
             <b-form-textarea id="textarea" v-model="correos" placeholder="Añade el correo de tus alumnos aquí"></b-form-textarea>
             <b-card-text v-if="!validacionCorreo">El correo {{ correoErroneo }} no tiene un formato correcto. Debe acabar en @alumn.us.es</b-card-text>
-            <b-button variant="primary" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
+            <b-button variant="primary" style="margin-top: 15px" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
 
         </b-card>
     </div>

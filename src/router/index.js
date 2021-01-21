@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Registro from '../views/Registro.vue'
 import PaginaPrincipal from '../views/PaginaPrincipal.vue'
 import MiPerfil from '../views/MiPerfil.vue'
+import Valoracion from '../views/Valoracion.vue'
 import firebase from 'firebase';
 import store from '../store';
 
@@ -50,6 +51,11 @@ const routes = [
     // meta: {
     //   autentificado: true
     // }
+  },
+  {
+    path: '/valoracion',
+    name: 'Valoracion',
+    component: Valoracion,
   }
   
 ]
