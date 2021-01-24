@@ -73,6 +73,8 @@ export default {
 
       this.tarjetaProfesor.nombre = this.profesor.nombre;
       this.tarjetaProfesor.apellidos = this.profesor.apellidos;
+      this.tarjetaProfesor.descripcion = this.profesor.descripcion;
+      this.tarjetaProfesor.foto = this.profesor.foto;
       this.tarjetaProfesor.despacho = this.profesor.despacho;
       this.tarjetaProfesor.departamento = this.profesor.departamento;
       this.tarjetaProfesor.centro = this.profesor.centro;

@@ -7,7 +7,7 @@
                 dejar un comentario y una valoración.
             </b-card-text>
             <b-form-textarea id="textarea" v-model="correos" placeholder="Añade el correo de tus alumnos aquí"></b-form-textarea>
-            <b-card-text v-if="!validacionCorreo">El correo {{ correoErroneo }} no tiene un formato correcto. Debe acabar en @alumn.us.es</b-card-text>
+            <b-card-text v-if="!validacionCorreo">El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios</b-card-text>
             <b-button variant="primary" style="margin-top: 15px" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
 
         </b-card>
@@ -15,12 +15,10 @@
 </template>
 
 <script>
-import firebase from 'firebase';
 import {
   mapFields
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
-import {db} from '../main';
 import store from '../store';
 
 export default {
@@ -38,18 +36,13 @@ export default {
     },
     methods: {
         enviarInvitacion() {
-            console.log(this.correos);
+            const emailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,63}){1,3})$/;
             var correos = this.correos.split(',');
             this.profesor.correoAlumnos = [];
             for (let i = 0; i < correos.length; i++) {
-                console.log(correos[i]);
-                console.log("entra en el for");
-                console.log(correos[i].substring(correos[i].length - 12, correos[i].length));
-                this.validacionCorreo = correos[i].substring(correos[i].length - 12, correos[i].length) == '@alumn.us.es'
+                this.validacionCorreo = emailRegex.test(correos[i].trim());
                 if (this.validacionCorreo) {
-                    console.log("entra en el if");
                     this.profesor.correoAlumnos.push(correos[i]);
-                    console.log(this.profesor.correoAlumnos);
                 } else {
                     this.correoErroneo = correos[i];
                     break;

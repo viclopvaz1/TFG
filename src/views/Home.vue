@@ -45,22 +45,15 @@ export default {
     //Para que se actualice la lista profesoresDB con todos los profesores en la base
     //de datos
     store.dispatch('getData');
-    console.log(this.profesor);
-    console.log(this.registrado);
-    console.log(firebase.auth().currentUser);
     this.compruebaUsuarioRegistrado();
     
   },
   methods: {
     compruebaUsuarioRegistrado() {
-      let userRegistrado = localStorage.getItem('userRegistrado');
-      console.log(userRegistrado);
       if (firebase.auth().currentUser==null){
         localStorage.setItem('userEmail', '');
-        localStorage.setItem('userPassword', '');
         firebase.auth().signOut();
     } else if(firebase.auth().currentUser!=null){
-        console.log('recuperaState');
         store.dispatch('recuperarState');
     }
     }

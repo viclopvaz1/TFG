@@ -37,6 +37,7 @@ import Resumenes from "@/components/Resumenes";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import firebase from 'firebase';
+import store from '../store';
 
 
 export default {
@@ -53,7 +54,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(["getData"]),
+    ...mapActions(['getData', 'recuperarState']),
     
   },
   created() {

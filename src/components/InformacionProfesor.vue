@@ -8,7 +8,7 @@
       <b-row no-gutters>
         <b-col md="2">
           <b-avatar
-            :src="profesor.foto"
+            :src="tarjetaProfesor.foto"
             alt="Foto profesor"
             size="10rem"
           ></b-avatar>
@@ -43,7 +43,7 @@
               <b-row>
                 <b-col>
                   <b-card-text>
-                    {{ profesor.descripcion }}
+                    {{ tarjetaProfesor.descripcion }}
                 </b-card-text> 
                 </b-col>
               </b-row>
@@ -52,24 +52,49 @@
           <b-row style="height: 3rem">
             <b-col>
               <b-row style="justify-content: center"> Publicaciones totales </b-row>
-              <b-row style="justify-content: center"> {{ tarjetaProfesor.publicacionesDocentes.length + tarjetaProfesor.publicaciones.length}} </b-row>
+              <b-row style="justify-content: center">
+                <b-card-text>
+                  {{ tarjetaProfesor.publicacionesDocentes.length + tarjetaProfesor.publicaciones.length}} 
+                </b-card-text>
+              </b-row>
             </b-col>
+
             <b-col>
               <b-row style="justify-content: center"> Seguidos </b-row>
-              <b-row style="justify-content: center"> {{ tarjetaProfesor.seguidos.length}} </b-row>
+              <b-row style="justify-content: center">
+                <b-card-text>
+                  {{ tarjetaProfesor.seguidos.length}} 
+                </b-card-text>
+              </b-row>
             </b-col>
+            
             <b-col>
               <b-row style="justify-content: center"> Seguidores </b-row>
-              <b-row style="justify-content: center"> {{ tarjetaProfesor.seguidores.length}} </b-row>
+              <b-row style="justify-content: center">
+                <b-card-text>
+                  {{ tarjetaProfesor.seguidores.length}} 
+                </b-card-text>
+              </b-row>
             </b-col>
+
             <b-col>
               <b-row style="justify-content: center"> Puntuación </b-row>
-              <b-row style="justify-content: center"> {{ tarjetaProfesor.puntuacion}} </b-row>
+              <b-row style="justify-content: center">
+                <b-card-text>
+                 {{ tarjetaProfesor.puntuacion}} 
+                </b-card-text>
+              </b-row>
             </b-col>
+
             <b-col>
               <b-row style="justify-content: center"> Comentarios </b-row>
-              <b-row style="justify-content: center"> {{ tarjetaProfesor.comentarios.length}} </b-row>
+              <b-row style="justify-content: center">
+                <b-card-text>
+                  {{ tarjetaProfesor.comentarios.length}}
+                </b-card-text>
+              </b-row>
             </b-col>
+
           </b-row>
         </b-col>
       </b-row>
@@ -79,11 +104,17 @@
 
 <script>
 import { mapFields } from "vuex-map-fields";
+import { mapActions} from 'vuex';
 
 export default {
   name: "InformacionProfesor",
   computed: {
     ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
+    ...mapActions(['getData', 'recuperarState']),
   },
+  created() {
+    this.tarjetaProfesor = this.profesor;
+  }
+  
 };
 </script>

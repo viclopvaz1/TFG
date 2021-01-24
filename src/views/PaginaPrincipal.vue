@@ -27,13 +27,14 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
-    ...mapActions(["getData"]),
+    ...mapActions(["getData", "recuperarState"]),
   },
   created() {
     //Para que se actualice la lista profesoresDB con todos los profesores en la base
     //de datos
     store.dispatch("getData");
     //store.dispatch('updateFields');
+    store.dispatch("recuperarState");
   },
   methods: {},
 };

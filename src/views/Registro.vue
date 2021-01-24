@@ -21,7 +21,7 @@
 
           <b-form-group label="Contraseña:" label-for="input-contraseña" class="mt-2">
             <b-form-input id="input-contraseña" v-model="profesor.contrasena" type="password" required></b-form-input>
-            <p v-if="validarContrasena">Las contraseñas no coinciden</p>
+            <p v-if="validarContrasena">Las contraseñas no coinciden o miden menos de 6 caracteres</p>
           </b-form-group>
 
           <b-form-group label="Confirmar Contraseña:" label-for="input-confirmar-contraseña" class="mt-2">
@@ -83,8 +83,16 @@ export default {
     },
     methods: {
       async registrarse() {
-        if (this.profesor.contrasena == this.profesor.confirmarContrasena) {
+        if (this.profesor.contrasena == this.profesor.confirmarContrasena && this.profesor.contrasena.length >= 6) {
+
+          firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
+          .then((user) => {this.$router.replace('home'); this.registrado = true; localStorage.setItem('userEmail', this.profesor.email)},
+          (error) => {console.error(error); this.validarCorreo = true});
+
           try {
+            this.profesor.proyectosDocentes = [];
             this.profesor.proyectosDocentes.push(this.proyectoDocente);
 
             await db.collection('profesores').add({
@@ -109,7 +117,7 @@ export default {
               descripcion: '',
               seguidos: [],
               seguidores: [],
-              comentrarios: [],
+              comentarios: [],
               twitter: '',
               paginaPersonal: '',
               researchGate: '',
@@ -119,11 +127,8 @@ export default {
           } catch (error) {
             console.log(error);
           }
+          this.tarjetaProfesor = this.profesor;
           
-          firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-          .then((user) => {this.$router.replace('home'); this.registrado = true}, (error) => {console.error(error); this.validarCorreo = true});
         } else {
           this.validarContrasena = true;
         }

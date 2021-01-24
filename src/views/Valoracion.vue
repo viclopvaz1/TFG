@@ -9,7 +9,7 @@
 
         <b-form-group label="Tu correo:" label-for="input-tuCorreo" class="mt-2" label-cols-md="2">
           <b-form-input id="input-tuCorreo" v-model="correoAlumno" type="email" 
-          placeholder="Introduce tu correo electrónico acabado en @alumn.us.es" required></b-form-input>
+          placeholder="Introduce tu correo electrónico" required></b-form-input>
         </b-form-group>
 
         <b-form-group label="Comentario:" label-for="input-comentario" class="mt-2" label-cols-md="2">
@@ -102,7 +102,6 @@ export default {
         } catch (error) {
             console.log(error);
         }
-        
     },
     async getProfesor() {
         try {
