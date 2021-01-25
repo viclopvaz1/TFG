@@ -4,7 +4,7 @@
 
     <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
       <b-card>
-        <h2>Regístro</h2>
+        <h2>Registro</h2>
         <form @submit.prevent="registrarse">
           <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2">
             <b-form-input id="input-nombre" v-model="profesor.nombre" type="text" required></b-form-input>

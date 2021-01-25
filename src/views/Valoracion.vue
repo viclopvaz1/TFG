@@ -28,7 +28,7 @@
 
         <b-row class="mt-3" style="justify-content: center">
             <b-alert :show="errorCorreoAlumno" dismissible variant="warning">
-                El correo que has introducido no acaba en @alumn.us.es o no pertenece a la lista de correos del correo del profesor
+                El correo que has introducido no pertenece a la lista de correos del profesor que permite que le hagan comentarios
             </b-alert>
         </b-row>
 
@@ -84,7 +84,6 @@ export default {
             await this.getProfesor();
             this.errorCorreoProfesor = false;
             this.errorCorreoAlumno = false;
-            console.log(this.profesorComentario);
         if (this.profesorComentario.nombre == '') {
             this.errorCorreoProfesor = true;
         } else {
