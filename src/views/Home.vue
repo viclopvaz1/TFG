@@ -1,18 +1,63 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <BarraSinRegistrar v-if="!registrado" />
+    <BarraRegistrado v-if="registrado"/>
+
+    <div>
+     <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
+       Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
+       horas impartidas en los distintos centros en los que has estado, cursos privados 
+       en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
+       encontrar una vez te registres. ¡Pruebalo!</p>
+    </div>
+
   </div>
+  
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
+import BarraRegistrado from '@/components/BarraRegistrado.vue'
+import {
+  mapFields
+} from 'vuex-map-fields'
+import { mapActions} from 'vuex';
+import store from '../store';
+import firebase from 'firebase';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    BarraSinRegistrar,
+    BarraRegistrado
+  },
+  data () {
+    return {}
+  },
+  computed: {
+    ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapActions(['getData', 'recuperarState']),
+   
+  },
+  created () {
+    //Para que se actualice la lista profesoresDB con todos los profesores en la base
+    //de datos
+    store.dispatch('getData');
+    this.compruebaUsuarioRegistrado();
+    
+  },
+  methods: {
+    compruebaUsuarioRegistrado() {
+      if (firebase.auth().currentUser==null){
+        localStorage.setItem('userEmail', '');
+        firebase.auth().signOut();
+    } else if(firebase.auth().currentUser!=null){
+        store.dispatch('recuperarState');
+    }
+    }
   }
+  
 }
 </script>
