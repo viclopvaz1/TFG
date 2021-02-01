@@ -56,6 +56,7 @@ export default {
           console.log('Update successful.');
           this.profesor.contrasena = this.contrasena;
           store.dispatch('updateFields');
+          this.$router.replace('home');
         }).catch(function(error) {
           // An error happened.
           console.log(error)
