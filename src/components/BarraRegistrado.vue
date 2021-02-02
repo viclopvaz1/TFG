@@ -53,6 +53,33 @@ export default {
     logout() {
       this.profesor.email = '';
       this.profesor.contrasena = '';
+      
+      this.profesor.nombre = '';
+      this.profesor.apellidos = '';
+      this.profesor.confirmarContrasena = '';
+      this.profesor.foto = '';
+      this.profesor.puntuacion = 0.0;
+      this.profesor.centro = '';
+      this.profesor.departamento = '';
+      this.profesor.despacho = '';
+      this.profesor.proyectosDocentes = [];
+      this.profesor.publicacionesDocentes = [];
+      this.profesor.publicaciones = [];
+      this.profesor.horas = [];
+      this.profesor.cursosDocentes = [];
+      this.profesor.trabajosSupervisados = [];
+      this.profesor.estancias = [];
+      this.profesor.correoAlumnos = [];
+      this.profesor.descripcion = '';
+      this.profesor.seguidos = [];
+      this.profesor.seguidores = [];
+      this.profesor.comentarios = [];
+      this.profesor.twitter = '';
+      this.profesor.paginaPersonal = '';
+      this.profesor.researchGate = '';
+      this.profesor.seleccionPublica = [];
+      this.profesor.seleccionPrivada = [];
+
       this.registrado = false;
       localStorage.setItem('userEmail', '');
       firebase.auth().signOut().then(() => this.$router.replace('login'));

@@ -19,8 +19,8 @@
               <b-row>
                 <b-col>
                   <b-card-text>
-                  {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }}  
-                </b-card-text>
+                    {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }}  
+                  </b-card-text>
                 </b-col>
                 <b-col>
                   <b-card-text>
