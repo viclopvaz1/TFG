@@ -12,7 +12,7 @@
             label-for="input-1"
             class="mt-5"
           >
-            <b-form-input v-model="profesor.email" type="email" required></b-form-input>
+            <b-form-input v-model="emailUsuario" type="email" required></b-form-input>
           </b-form-group> 
 
           <b-form-group
@@ -20,7 +20,7 @@
             label="Contraseña"
             label-for="input-2"
           >
-            <b-form-input v-model="profesor.contrasena" type="password" required></b-form-input>
+            <b-form-input v-model="contrasenaUsuario" type="password" required></b-form-input>
             <p v-if="validarLogin">El email o la contraseña son incorrectos</p>
           </b-form-group> 
           <b-button type="submit"> Acceder </b-button>
@@ -55,6 +55,8 @@ export default {
   data() {
     return {
       validarLogin: false,
+      emailUsuario: '',
+      contrasenaUsuario: ''
     }
   },
   computed: {
@@ -68,6 +70,8 @@ export default {
   },
   methods: {
     async login() {
+      this.profesor.email = this.emailUsuario;
+      this.profesor.contrasena = this.contrasenaUsuario;
       try {
         const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
         console.log(profesoresRef.docs[0]);

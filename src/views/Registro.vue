@@ -15,12 +15,12 @@
           </b-form-group>
 
           <b-form-group label="Email:" label-for="input-email" class="mt-2">
-            <b-form-input id="input-email" v-model="profesor.email" type="email" required></b-form-input>
+            <b-form-input id="input-email" v-model="emailUsuario" type="email" required></b-form-input>
             <p v-if="validarCorreo">Este correo ya está registrado</p>
           </b-form-group>
 
           <b-form-group label="Contraseña:" label-for="input-contraseña" class="mt-2">
-            <b-form-input id="input-contraseña" v-model="profesor.contrasena" type="password" required></b-form-input>
+            <b-form-input id="input-contraseña" v-model="contrasenaUsuario" type="password" required></b-form-input>
             <p v-if="validarContrasena">Las contraseñas no coinciden o miden menos de 6 caracteres</p>
           </b-form-group>
 
@@ -74,6 +74,8 @@ export default {
           descripcion: '',
           url: ''
         },
+        emailUsuario: '',
+        contrasenaUsuario: '',
         validarContrasena: false,
         validarCorreo: false
       }
@@ -83,6 +85,8 @@ export default {
     },
     methods: {
       async registrarse() {
+        this.profesor.email = this.emailUsuario;
+        this.profesor.contrasena = this.contrasenaUsuario;
         if (this.profesor.contrasena == this.profesor.confirmarContrasena && this.profesor.contrasena.length >= 6) {
 
           // firebase
