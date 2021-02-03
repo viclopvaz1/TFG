@@ -10,8 +10,10 @@
         <b-col md="2" style="padding-left: 20px">
           <BotonesPublico/>
         </b-col>
-      
         <b-col md="8" style="padding-right: 20px">
+          <VisualizacionProyectoDocente :style="profesor.seleccionPublica[3] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionCursoDocente :style="profesor.seleccionPublica[4] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionTrabajoSupervisado :style="profesor.trabajosSupervisados[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionComentarios :style="profesor.seleccionPublica[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
@@ -26,6 +28,9 @@ import BarraRegistrado from "@/components/BarraRegistrado.vue";
 import InformacionProfesor from "@/components/InformacionProfesor.vue";
 import BotonesPublico from "@/components/BotonesPublico";
 import VisualizacionComentarios from "@/components/VisualizacionComentarios.vue";
+import VisualizacionProyectoDocente from "@/components/VisualizacionProyectoDocente.vue";
+import VisualizacionCursoDocente from "@/components/VisualizacionCursoDocente.vue";
+import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSupervisado.vue";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import store from "../store";
@@ -37,7 +42,10 @@ export default {
     BarraRegistrado,
     InformacionProfesor,
     BotonesPublico,
-    VisualizacionComentarios
+    VisualizacionComentarios,
+    VisualizacionProyectoDocente,
+    VisualizacionCursoDocente,
+    VisualizacionTrabajoSupervisado
   },
   data() {
     return {};
