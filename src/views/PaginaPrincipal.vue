@@ -13,7 +13,8 @@
         <b-col md="8" style="padding-right: 20px">
           <VisualizacionProyectoDocente :style="profesor.seleccionPublica[3] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionCursoDocente :style="profesor.seleccionPublica[4] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <VisualizacionTrabajoSupervisado :style="profesor.trabajosSupervisados[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionTrabajoSupervisado :style="profesor.seleccionPublica[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionEstancias :style="profesor.seleccionPublica[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionComentarios :style="profesor.seleccionPublica[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
@@ -31,6 +32,7 @@ import VisualizacionComentarios from "@/components/VisualizacionComentarios.vue"
 import VisualizacionProyectoDocente from "@/components/VisualizacionProyectoDocente.vue";
 import VisualizacionCursoDocente from "@/components/VisualizacionCursoDocente.vue";
 import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSupervisado.vue";
+import VisualizacionEstancias from "@/components/VisualizacionEstancias.vue";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import store from "../store";
@@ -45,7 +47,8 @@ export default {
     VisualizacionComentarios,
     VisualizacionProyectoDocente,
     VisualizacionCursoDocente,
-    VisualizacionTrabajoSupervisado
+    VisualizacionTrabajoSupervisado,
+    VisualizacionEstancias
   },
   data() {
     return {};
@@ -55,14 +58,13 @@ export default {
     ...mapActions(["getData", "recuperarState"]),
   },
   created() {
-    if (this.profesor.nombre == "") {
+    store.dispatch("recuperarState");
+    if (localStorage.getItem('userEmail') == "") {
       this.$router.replace('home');
     }
     //Para que se actualice la lista profesoresDB con todos los profesores en la base
     //de datos
     store.dispatch("getData");
-    //store.dispatch('updateFields');
-    store.dispatch("recuperarState");
   },
   methods: {},
 };
