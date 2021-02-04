@@ -36,13 +36,12 @@ export const db = firebase.firestore();
           switch(performance.navigation.type) {
             case 0:
               console.info("TYPE_NAVIGATE");
-              //this.$store.dispatch('initialLogout');
-              //store.state.registrado = false;
-              //firebase.auth().signOut();
               break;
             case 1: 
               console.info("TYPE_RELOAD");
               this.$store.dispatch('recuperarState');
+              this.$store.dispatch('getAdmins');
+              this.$store.dispatch('getData');
               break;
             case 2: 
               console.info("TYPE_BACK_FORWARD");

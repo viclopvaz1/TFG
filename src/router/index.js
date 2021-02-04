@@ -7,6 +7,7 @@ import Registro from '../views/Registro.vue'
 import PaginaPrincipal from '../views/PaginaPrincipal.vue'
 import MiPerfil from '../views/MiPerfil.vue'
 import Valoracion from '../views/Valoracion.vue'
+import ValidacionHoras from '../views/ValidacionHoras.vue'
 import firebase from 'firebase';
 import store from '../store';
 
@@ -56,6 +57,11 @@ const routes = [
     path: '/valoracion',
     name: 'Valoracion',
     component: Valoracion,
+  },
+  {
+    path: '/validacionHoras',
+    name: 'ValidacionHoras',
+    component: ValidacionHoras,
   }
   
 ]

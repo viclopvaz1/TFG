@@ -60,63 +60,86 @@ export default {
     }
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(['getData']),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administrador", "administradoresDB"]),
+    ...mapActions(['getData', 'getAdmins']),
     
   },
   mounted() {
     console.log(firebase.auth().currentUser);
     store.dispatch('getData');
+    store.dispatch('getAdmins');
   },
   methods: {
     async login() {
-      this.profesor.email = this.emailUsuario;
-      this.profesor.contrasena = this.contrasenaUsuario;
-      try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
-        console.log(profesoresRef.docs[0]);
-        
-        profesoresRef.forEach(doc => {
-        let data = doc.data();
-        this.profesor.nombre = data.nombre;
-        this.profesor.apellidos = data.apellidos;
-        this.profesor.confirmarContrasena = data.confirmarContrasena;
-        this.profesor.foto = data.foto;
-        this.profesor.puntuacion = data.puntuacion;
-        this.profesor.centro = data.centro;
-        this.profesor.departamento = data.departamento;
-        this.profesor.despacho = data.despacho;
-        this.profesor.proyectosDocentes = data.proyectosDocentes;
-        this.profesor.publicacionesDocentes = data.publicacionesDocentes;
-        this.profesor.publicaciones = data.publicaciones;
-        this.profesor.horas = data.horas;
-        this.profesor.cursosDocentes = data.cursosDocentes;
-        this.profesor.trabajosSupervisados = data.trabajosSupervisados;
-        this.profesor.estancias = data.estancias;
-        this.profesor.correoAlumnos = data.correoAlumnos;
-        this.profesor.descripcion = data.descripcion;
-        this.profesor.seguidos = data.seguidos;
-        this.profesor.seguidores = data.seguidores;
-        this.profesor.comentarios = data.comentarios;
-        this.profesor.twitter = data.twitter;
-        this.profesor.paginaPersonal = data.paginaPersonal;
-        this.profesor.researchGate = data.researchGate;
-        this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false];
-        this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false];
+      var admin = false;
+      for (var adminKey in this.administradoresDB) {
+        if (this.emailUsuario == this.administradoresDB[adminKey].email && this.contrasenaUsuario == this.administradoresDB[adminKey].contrasena){
+          admin = true;
+          break;
+        }
+      }
+
+      if (admin) {
+        this.administrador.email = this.emailUsuario;
+        this.administrador.contrasena = this.contrasenaUsuario;
+
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.administrador.email, this.administrador.contrasena)
+          .then((user) => {this.$router.replace('validacionHoras'); this.registrado = true; localStorage.setItem('userEmail', this.administrador.email)},
+          (error) => {console.error(error); this.validarLogin = true});
+
+      } else {
+        this.profesor.email = this.emailUsuario;
+        this.profesor.contrasena = this.contrasenaUsuario;
+        try {
+          const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
+          console.log(profesoresRef.docs[0]);
+          
+          profesoresRef.forEach(doc => {
+          let data = doc.data();
+          this.profesor.nombre = data.nombre;
+          this.profesor.apellidos = data.apellidos;
+          this.profesor.confirmarContrasena = data.confirmarContrasena;
+          this.profesor.foto = data.foto;
+          this.profesor.puntuacion = data.puntuacion;
+          this.profesor.centro = data.centro;
+          this.profesor.departamento = data.departamento;
+          this.profesor.despacho = data.despacho;
+          this.profesor.proyectosDocentes = data.proyectosDocentes;
+          this.profesor.publicacionesDocentes = data.publicacionesDocentes;
+          this.profesor.publicaciones = data.publicaciones;
+          this.profesor.horas = data.horas;
+          this.profesor.cursosDocentes = data.cursosDocentes;
+          this.profesor.trabajosSupervisados = data.trabajosSupervisados;
+          this.profesor.estancias = data.estancias;
+          this.profesor.correoAlumnos = data.correoAlumnos;
+          this.profesor.descripcion = data.descripcion;
+          this.profesor.seguidos = data.seguidos;
+          this.profesor.seguidores = data.seguidores;
+          this.profesor.comentarios = data.comentarios;
+          this.profesor.twitter = data.twitter;
+          this.profesor.paginaPersonal = data.paginaPersonal;
+          this.profesor.researchGate = data.researchGate;
+          this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false];
+          this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false];
         
         });
-        store.dispatch('updateFields');
-      } catch (error) {
-        console.log(error);
+          store.dispatch('updateFields');
+        } catch (error) {
+          console.log(error);
+        }
+      
+        this.tarjetaProfesor = this.profesor;
+      
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
+          .then((user) => {this.$router.replace('home'); this.registrado = true; localStorage.setItem('userEmail', this.profesor.email)},
+          (error) => {console.error(error); this.validarLogin = true});
       }
+
       
-      this.tarjetaProfesor = this.profesor;
-      
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-        .then((user) => {this.$router.replace('home'); this.registrado = true; localStorage.setItem('userEmail', this.profesor.email)},
-        (error) => {console.error(error); this.validarLogin = true});
     },
   },
 };

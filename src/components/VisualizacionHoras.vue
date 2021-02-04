@@ -21,18 +21,17 @@ import { mapActions } from "vuex";
 export default {
     name: "VisualizacionHoras",
     computed: {
-    ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
-    ...mapActions(['getData', 'recuperarState']),
-    profe() {
-        var profeHoras = [];
-        for (let index in this.profesor.horas) {
-            if (this.profesor.horas[index].validada){
-                profeHoras.push(this.profesor.horas[index]);
+        ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
+        ...mapActions(['getData', 'recuperarState']),
+        profe() {
+            var profeHoras = [];
+            for (let index in this.profesor.horas) {
+                if (this.profesor.horas[index].validada){
+                    profeHoras.push(this.profesor.horas[index]);
+                }
             }
+            return profeHoras;
         }
-        return profeHoras;
-
-    }
     },
     created() {
         this.tarjetaProfesor = this.profesor;

@@ -55,11 +55,17 @@ export default {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
     ...mapActions(["getData", "recuperarState"]),
   },
-  created() {
-    store.dispatch("recuperarState");
-    if (localStorage.getItem('userEmail') == "") {
-      this.$router.replace('home');
+  async created() {
+    try {
+      await store.dispatch("recuperarState");
+      console.log(localStorage.getItem('userEmail'))
+      if (localStorage.getItem('userEmail') == "") {
+        this.$router.replace('home');
+      }
+    } catch (error) {
+      console.log(error);
     }
+    
     //Para que se actualice la lista profesoresDB con todos los profesores en la base
     //de datos
     store.dispatch("getData");

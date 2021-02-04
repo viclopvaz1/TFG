@@ -36,6 +36,8 @@ export default new Vuex.Store({
       publicacionesDocentes: [],
       publicaciones: [],
       horas: [],
+      urlArchivoHoras: '',
+      justificacionHoras: '',
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -67,6 +69,8 @@ export default new Vuex.Store({
       publicacionesDocentes: [],
       publicaciones: [],
       horas: [],
+      urlArchivoHoras: '',
+      justificacionHoras: '',
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -80,7 +84,12 @@ export default new Vuex.Store({
       researchGate: '',
       seleccionPublica: [],
       seleccionPrivada: []
-    }
+    },
+    administrador: {
+      email: '',
+      contrasena: ''
+    },
+    administradoresDB: []
     
   },
   getters: {
@@ -90,6 +99,9 @@ export default new Vuex.Store({
     updateField,
     SET_PROFESORESDB(state, profesores) {
       state.profesoresDB = profesores;
+    },
+    SET_ADMINISTRADORESDB(state, administradores) {
+      state.administradoresDB = administradores;
     }
   },
   actions: {
@@ -106,6 +118,23 @@ export default new Vuex.Store({
           profesores.push(profesorData);
         })
         commit('SET_PROFESORESDB', profesores);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getAdmins({commit}) {
+      try {
+        const listaAdmins = await db.collection('administradores').get();
+        const administradores = [];
+  
+        listaAdmins.forEach(doc => {
+          //console.log(doc.data());
+          let administradorData = doc.data();
+          administradorData.id = doc.id;
+          administradores.push(administradorData);
+        })
+        commit('SET_ADMINISTRADORESDB', administradores);
         
       } catch (error) {
         console.log(error);
@@ -128,6 +157,9 @@ export default new Vuex.Store({
         proyectosDocentes: this.state.profesor.proyectosDocentes,
         publicacionesDocentes: this.state.profesor.publicacionesDocentes,
         publicaciones: this.state.profesor.publicaciones,
+        horas: this.state.profesor.horas,
+        urlArchivoHoras: this.state.profesor.urlArchivoHoras,
+        justificacionHoras: this.state.profesor.justificacionHoras,
         cursosDocentes: this.state.profesor.cursosDocentes,
         trabajosSupervisados: this.state.profesor.trabajosSupervisados,
         estancias: this.state.profesor.estancias,
@@ -174,6 +206,7 @@ export default new Vuex.Store({
         this.state.profesor.publicacionesDocentes = data.publicacionesDocentes;
         this.state.profesor.publicaciones = data.publicaciones;
         this.state.profesor.horas = data.horas;
+        this.state.profesor.urlArchivoHoras = data.urlArchivoHoras;
         this.state.profesor.cursosDocentes = data.cursosDocentes;
         this.state.profesor.trabajosSupervisados = data.trabajosSupervisados;
         this.state.profesor.estancias = data.estancias;
@@ -197,6 +230,8 @@ export default new Vuex.Store({
         firebase
           .auth()
           .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
+      } else {
+        localStorage.setItem('userEmail', '');
       }
     }
   },
