@@ -115,7 +115,7 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-        .then((user) => {this.$router.replace('home'); this.registrado = true; localStorage.setItem('userEmail', this.profesor.email)},
+        .then((user) => {this.$router.replace('home'); this.registrado = true;},
         (error) => {console.error(error); this.validarLogin = true});
     },
   },

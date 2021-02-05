@@ -39,7 +39,6 @@ import { mapActions } from "vuex";
 import firebase from 'firebase';
 import store from '../store';
 
-
 export default {
     name: "MiPerfil",
     components: {
@@ -58,7 +57,14 @@ export default {
     
   },
   created() {
-    this.tarjetaProfesor = this.profesor;
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        store.dispatch("recuperarState", {email: user.email})
+        this.tarjetaProfesor = this.profesor;
+      } else {
+        this.profesorPrueba = null;
+      }
+    })
   },
   mounted() {
     

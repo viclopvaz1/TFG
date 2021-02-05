@@ -17,7 +17,6 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import BarraRegistrado from '@/components/BarraRegistrado.vue'
 import {
@@ -42,22 +41,15 @@ export default {
    
   },
   created () {
-    //Para que se actualice la lista profesoresDB con todos los profesores en la base
-    //de datos
-    store.dispatch('getData');
-    this.compruebaUsuarioRegistrado();
-    
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log(user.email)
+        store.dispatch("recuperarState", {email: user.email})
+        this.tarjetaProfesor = this.profesor;
+      } else {
+        this.profesorPrueba = null;
+      }
+    });    
   },
-  methods: {
-    compruebaUsuarioRegistrado() {
-      if (firebase.auth().currentUser==null){
-        localStorage.setItem('userEmail', '');
-        firebase.auth().signOut();
-    } else if(firebase.auth().currentUser!=null){
-        store.dispatch('recuperarState');
-    }
-    }
-  }
-  
 }
 </script>

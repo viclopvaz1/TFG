@@ -35,7 +35,8 @@ import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSu
 import VisualizacionEstancias from "@/components/VisualizacionEstancias.vue";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
-import store from "../store";
+import firebase from 'firebase';
+import store from '../store';
 
 export default {
   name: "PaginaPrincipal",
@@ -58,25 +59,14 @@ export default {
     ...mapActions(["getData", "recuperarState"]),
   },
   created() {
-    store.dispatch("recuperarState");
-    if (localStorage.getItem('userEmail') == "") {
-      this.$router.replace('home');
-    }
-    // Encode the String
-    var encodedStringBtoA = btoa(localStorage.getItem('userEmail'));
-    var kk = encodedStringBtoA.slice(0, 2) + "i" + encodedStringBtoA.slice(2, 6) + "v" + encodedStringBtoA.slice(6);
-    console.log('Encriptado= ' + encodedStringBtoA);
-    console.log('Encriptado modificado= ' + kk);
-    var decodedStringAtoB = atob(encodedStringBtoA);
-    console.log('Desencriptado = ' + decodedStringAtoB);
-    var kk3 = kk.slice(0, 2) + kk.slice(3, 7) + kk.slice(8);
-    console.log(kk3)
-    console.log(kk3 == encodedStringBtoA)
-    var kk4 = atob(kk3);
-    console.log('Desencriptado Bien= ' + kk4)
-    //Para que se actualice la lista profesoresDB con todos los profesores en la base
-    //de datos
-    store.dispatch("getData");
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        store.dispatch("recuperarState", {email: user.email})
+        this.tarjetaProfesor = this.profesor;
+      } else {
+        this.profesorPrueba = null;
+      }
+    })
   },
   methods: {},
 };
