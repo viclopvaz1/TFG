@@ -130,16 +130,17 @@ export default {
           console.log(error);
         }
       
-      this.tarjetaProfesor = this.profesor;
-      
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-        .then((user) => {this.$router.replace('home'); this.registrado = true;},
-        (error) => {console.error(error); this.validarLogin = true});
+        this.tarjetaProfesor = this.profesor;
+        
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
+          .then((user) => {this.$router.replace('home'); this.registrado = true;},
+          (error) => {console.error(error); this.validarLogin = true});
+      }
     },
-  },
-};
+  }
+}
 </script>
 
 <style></style>

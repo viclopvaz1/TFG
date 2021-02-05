@@ -54,8 +54,7 @@ export default {
     VisualizacionComentarios,
     VisualizacionPublicacionesDocentes,
     VisualizacionPublicaciones,
-    VisualizacionHoras
-    VisualizacionComentarios,
+    VisualizacionHoras,
     VisualizacionProyectoDocente,
     VisualizacionCursoDocente,
     VisualizacionTrabajoSupervisado,
@@ -74,6 +73,7 @@ export default {
         store.dispatch("recuperarState", {email: user.email})
         this.tarjetaProfesor = this.profesor;
       } else {
+        this.$router.replace('home');
         this.profesorPrueba = null;
       }
     })
