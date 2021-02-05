@@ -10,11 +10,14 @@
         <b-col md="2" style="padding-left: 20px">
           <BotonesPublico/>
         </b-col>
-      
         <b-col md="8" style="padding-right: 20px">
           <VisualizacionPublicacionesDocentes :style="profesor.seleccionPublica[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionPublicaciones :style="profesor.seleccionPublica[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionHoras :style="profesor.seleccionPublica[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionProyectoDocente :style="profesor.seleccionPublica[3] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionCursoDocente :style="profesor.seleccionPublica[4] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionTrabajoSupervisado :style="profesor.seleccionPublica[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionEstancias :style="profesor.seleccionPublica[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionComentarios :style="profesor.seleccionPublica[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
@@ -32,9 +35,14 @@ import VisualizacionComentarios from "@/components/VisualizacionComentarios.vue"
 import VisualizacionPublicacionesDocentes from "@/components/VisualizacionPublicacionesDocentes.vue";
 import VisualizacionPublicaciones from "@/components/VisualizacionPublicaciones.vue";
 import VisualizacionHoras from "@/components/VisualizacionHoras.vue";
+import VisualizacionProyectoDocente from "@/components/VisualizacionProyectoDocente.vue";
+import VisualizacionCursoDocente from "@/components/VisualizacionCursoDocente.vue";
+import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSupervisado.vue";
+import VisualizacionEstancias from "@/components/VisualizacionEstancias.vue";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
-import store from "../store";
+import firebase from 'firebase';
+import store from '../store';
 
 export default {
   name: "PaginaPrincipal",
@@ -47,6 +55,11 @@ export default {
     VisualizacionPublicacionesDocentes,
     VisualizacionPublicaciones,
     VisualizacionHoras
+    VisualizacionComentarios,
+    VisualizacionProyectoDocente,
+    VisualizacionCursoDocente,
+    VisualizacionTrabajoSupervisado,
+    VisualizacionEstancias
   },
   data() {
     return {};
@@ -55,20 +68,15 @@ export default {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
     ...mapActions(["getData", "recuperarState"]),
   },
-  async created() {
-    try {
-      await store.dispatch("recuperarState");
-      console.log(localStorage.getItem('userEmail'))
-      if (localStorage.getItem('userEmail') == "") {
-        this.$router.replace('home');
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        store.dispatch("recuperarState", {email: user.email})
+        this.tarjetaProfesor = this.profesor;
+      } else {
+        this.profesorPrueba = null;
       }
-    } catch (error) {
-      console.log(error);
-    }
-    
-    //Para que se actualice la lista profesoresDB con todos los profesores en la base
-    //de datos
-    store.dispatch("getData");
+    })
   },
   methods: {},
 };

@@ -224,9 +224,10 @@ export default new Vuex.Store({
     initialLogout() {
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },
-    async recuperarState() {
+    async recuperarState({ commit }, payload) {
+      console.log(payload.email)
       try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', localStorage.getItem('userEmail')).get();
+        const profesoresRef = await db.collection('profesores').where('email', '==', payload.email).get();
         console.log(profesoresRef.docs[0]);
 
         profesoresRef.forEach(doc => {
@@ -264,14 +265,13 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
-      if (this.state.profesor.email != '') {
-        this.state.registrado = true;
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
-      } else {
-        localStorage.setItem('userEmail', '');
-      }
+      this.state.registrado = true;
+      // if (this.state.profesor.email != '') {
+      //   this.state.registrado = true;
+      //   firebase
+      //     .auth()
+      //     .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
+      // }
     }
   },
   modules: {

@@ -113,7 +113,8 @@ export default {
     ...mapActions(['getData', 'recuperarState']),
   },
   created() {
-    this.tarjetaProfesor = this.profesor;
+    console.log("Informacion Profesor: " + this.tarjetaProfesor);
+    // this.tarjetaProfesor = this.profesor;
   }
   
 };

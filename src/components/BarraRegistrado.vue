@@ -16,14 +16,10 @@
         <template #button-content>
             <b-icon icon="gear-fill" aria-hidden="true"></b-icon> {{profesor.nombre}}
         </template>
-        <b-dropdown-item-button>
-          <router-link to="/paginaPrincipal">Pagina Principal</router-link>
-        </b-dropdown-item-button>
-        <b-dropdown-item-button>
-          <router-link to="/miPerfil">Mi Perfil</router-link>
-        </b-dropdown-item-button>
-        <b-dropdown-item-button>
-          <a href="#" @click="logout">Logout</a>
+          <router-link to="/paginaPrincipal" tag="b-dropdown-item-button">Pagina Principal</router-link>
+        <router-link to="/miPerfil" tag="b-dropdown-item-button">Mi Perfil</router-link>
+        <b-dropdown-item-button @click="logout">
+          Logout
         </b-dropdown-item-button>
       </b-dropdown>
     </b-navbar>

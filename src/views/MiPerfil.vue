@@ -39,7 +39,6 @@ import { mapActions } from "vuex";
 import firebase from 'firebase';
 import store from '../store';
 
-
 export default {
     name: "MiPerfil",
     components: {
@@ -57,21 +56,15 @@ export default {
     ...mapActions(['getData', 'recuperarState']),
     
   },
-  async created() {
-    try {
-      this.tarjetaProfesor = this.profesor;
-      await store.dispatch("recuperarState");
-      console.log(localStorage.getItem('userEmail'))
-      if (localStorage.getItem('userEmail') == "") {
-        this.$router.replace('home');
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        store.dispatch("recuperarState", {email: user.email})
+        this.tarjetaProfesor = this.profesor;
+      } else {
+        this.profesorPrueba = null;
       }
-    } catch (error) {
-      console.log(error);
-    }
-    
-    //Para que se actualice la lista profesoresDB con todos los profesores en la base
-    //de datos
-    store.dispatch("getData");
+    })
   },
   mounted() {
     
