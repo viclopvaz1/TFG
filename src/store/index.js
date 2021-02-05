@@ -71,6 +71,7 @@ export default new Vuex.Store({
       horas: [],
       urlArchivoHoras: '',
       justificacionHoras: '',
+      tieneJustificacion: false,
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -171,6 +172,44 @@ export default new Vuex.Store({
         researchGate: this.state.profesor.researchGate,
         seleccionPublica: this.state.profesor.seleccionPublica,
         seleccionPrivada: this.state.profesor.seleccionPrivada
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
+    async updateHoras() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update( {
+        horas: this.state.profesor.horas,
+        tieneJustificacion: this.state.profesor.tieneJustificacion
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
+    async updateJustificacion() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update({
+        justificacionHoras: this.state.profesor.justificacionHoras,
+        tieneJustificacion: this.state.profesor.tieneJustificacion
       })
       .then(function() {
         console.log("Document changed");

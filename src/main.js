@@ -46,6 +46,8 @@ export const db = firebase.firestore();
             case 2: 
               console.info("TYPE_BACK_FORWARD");
               this.$store.dispatch('recuperarState');
+              this.$store.dispatch('getAdmins');
+              this.$store.dispatch('getData');
               break;  
             case 255:
               console.info("255");
