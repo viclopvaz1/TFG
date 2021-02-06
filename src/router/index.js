@@ -61,6 +61,9 @@ const routes = [
     path: '/validacionHoras',
     name: 'ValidacionHoras',
     component: ValidacionHoras,
+    meta: {
+      autentificado: true
+    }
   }
   
 ]
@@ -71,12 +74,11 @@ const router = new VueRouter({
 
 export default router
 
-// && !usuario && !store.state.registrado
-
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.autentificado);
   const isAuthenticated = firebase.auth().currentUser;
   console.log("isauthenticated", isAuthenticated);
+  console.log(to.name)
   if (requiresAuth && !isAuthenticated) {
     next("/login");
   } else {

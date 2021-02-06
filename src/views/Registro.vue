@@ -83,23 +83,23 @@ export default {
     computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado"]),
     },
+    created() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          this.$router.replace('home');
+        } 
+      })
+    },
     methods: {
       async registrarse() {
         this.profesor.email = this.emailUsuario;
         this.profesor.contrasena = this.contrasenaUsuario;
         if (this.profesor.contrasena == this.profesor.confirmarContrasena && this.profesor.contrasena.length >= 6) {
 
-          // firebase
-          // .auth()
-          // .createUserWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-          // .then((user) => {this.$router.replace('home'); this.registrado = true; localStorage.setItem('userEmail', this.profesor.email)},
-          // (error) => {console.error(error); this.validarCorreo = true});
-
           await firebase.auth().createUserWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
           .then((user) => {
             this.$router.replace('home');
             this.registrado = true;
-            localStorage.setItem('userEmail', this.profesor.email);
             try {
               this.profesor.proyectosDocentes = [];
               this.profesor.proyectosDocentes.push(this.proyectoDocente);
@@ -119,6 +119,9 @@ export default {
                 publicacionesDocentes: [],
                 publicaciones: [],
                 horas: [],
+                justificacionHoras: '',
+                tieneJustificacion: false,
+                urlArchivoHoras: '',
                 cursosDocentes: [],
                 trabajosSupervisados: [],
                 estancias: [],
@@ -138,52 +141,9 @@ export default {
             }
           })
           .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.error(error);
-            console.error(errorCode);
-            console.error(errorMessage);
+            console.log(error);
             this.validarCorreo = true;
           });
-
-          console.log(this.validarCorreo);
-      
-          // try {
-          //   this.profesor.proyectosDocentes = [];
-          //   this.profesor.proyectosDocentes.push(this.proyectoDocente);
-
-          //   await db.collection('profesores').add({
-          //     nombre: this.profesor.nombre,
-          //     apellidos: this.profesor.apellidos,
-          //     email: this.profesor.email,
-          //     contrasena: this.profesor.contrasena,
-          //     confirmarContrasena: this.profesor.confirmarContrasena,
-          //     foto: '',
-          //     puntuacion: 0.0,
-          //     centro: '',
-          //     departamento: '',
-          //     despacho: '',
-          //     proyectosDocentes: this.profesor.proyectosDocentes,
-          //     publicacionesDocentes: [],
-          //     publicaciones: [],
-          //     horas: [],
-          //     cursosDocentes: [],
-          //     trabajosSupervisados: [],
-          //     estancias: [],
-          //     correoAlumnos: [],
-          //     descripcion: '',
-          //     seguidos: [],
-          //     seguidores: [],
-          //     comentarios: [],
-          //     twitter: '',
-          //     paginaPersonal: '',
-          //     researchGate: '',
-          //     seleccionPublica: [false, false, false, false, false, false, false, false, false, false],
-          //     seleccionPrivada: [false, false, false, false, false, false, false, false, false, false, false]
-          //   })
-          // } catch (error) {
-          //   console.log(error);
-          // }
           this.tarjetaProfesor = this.profesor;
           
         } else {
@@ -193,7 +153,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

@@ -62,7 +62,7 @@ export default {
         store.dispatch("recuperarState", {email: user.email})
         this.tarjetaProfesor = this.profesor;
       } else {
-        this.profesorPrueba = null;
+        this.$router.replace('home');
       }
     })
   },

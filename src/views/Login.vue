@@ -64,14 +64,22 @@ export default {
     ...mapActions(['getData', 'getAdmins']),
     
   },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$router.replace('home');
+      } 
+    })
+
+  },
   mounted() {
-    console.log(firebase.auth().currentUser);
-    store.dispatch('getData');
     store.dispatch('getAdmins');
+    store.dispatch('getData');
   },
   methods: {
     async login() {
       var admin = false;
+      console.log(this.administradoresDB);
       for (var adminKey in this.administradoresDB) {
         if (this.emailUsuario == this.administradoresDB[adminKey].email && this.contrasenaUsuario == this.administradoresDB[adminKey].contrasena){
           admin = true;
@@ -86,7 +94,7 @@ export default {
         firebase
           .auth()
           .signInWithEmailAndPassword(this.administrador.email, this.administrador.contrasena)
-          .then((user) => {this.$router.replace('validacionHoras'); this.registrado = true; localStorage.setItem('userEmail', this.administrador.email)},
+          .then((user) => {this.$router.replace('validacionHoras'); this.registrado = true;},
           (error) => {console.error(error); this.validarLogin = true});
 
       } else {

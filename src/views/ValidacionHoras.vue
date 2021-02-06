@@ -1,7 +1,6 @@
 <template>
     <div>
-        <BarraSinRegistrar v-if="!registrado"/>
-        <BarraRegistrado v-if="registrado"/>
+        <BarraAdmin v-if="registrado"/>
 
         <b-card class="overflow-auto" style="height: 600px; display: block">
             <b-card v-for="(profesor, key) in profesores" :key="key" style="margin-bottom: 5px">
@@ -59,15 +58,14 @@
 <script>
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
-import BarraSinRegistrar from "@/components/BarraSinRegistrar.vue";
-import BarraRegistrado from "@/components/BarraRegistrado.vue";
+import BarraAdmin from "@/components/BarraAdmin.vue";
 import store from "../store";
+import firebase from 'firebase';
 
 export default {
     name: "ValidacionHoras",
     components: {
-        BarraSinRegistrar,
-        BarraRegistrado,
+        BarraAdmin,
     },
     data() {
         return {
@@ -75,8 +73,8 @@ export default {
         }
     },
     computed: {
-        ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
-        ...mapActions(['getData', 'recuperarState', 'updateHoras', 'updateJustificacion']),
+        ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB", "administrador"]),
+        ...mapActions(['getData', 'recuperarState', 'updateHoras', 'updateJustificacion', 'recuperarStateAdmin']),
         profesores() {
             var profeHoras = [];
             for (let profIndex in this.profesoresDB) {
@@ -93,17 +91,20 @@ export default {
         }
     },
     created() {
-        var admin = false;
-        for (var adminKey in this.administradoresDB) {
-            if (localStorage.getItem('userEmail') == this.administradoresDB[adminKey].email){
-                admin = true;
-                break;
-            }
-        }
-
-        if (!admin) {
-            this.$router.replace('home');
-        }
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                for (var adminKey in this.administradoresDB) {
+                    if (user.email == this.administradoresDB[adminKey].email){
+                        store.dispatch("recuperarStateAdmin", {email: user.email, router: this.$router});
+                        break;
+                    } else {
+                        this.$router.replace('home');
+                    }
+                }
+                
+                
+            }            
+        });
 
         store.dispatch("getData");
     },

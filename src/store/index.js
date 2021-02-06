@@ -224,6 +224,20 @@ export default new Vuex.Store({
     initialLogout() {
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },
+    async recuperarStateAdmin({ commit }, payload) {
+      try {
+        const administradoresRef = await db.collection('administradores').where('email', '==', payload.email).get();
+        
+        administradoresRef.forEach(doc => {
+        let data = doc.data();
+        this.state.administrador.email = data.email;
+        this.state.administrador.contrasena = data.contrasena;          
+        });
+        
+      } catch (error) {
+          console.log(error);
+      }
+    },
     async recuperarState({ commit }, payload) {
       console.log(payload.email)
       try {

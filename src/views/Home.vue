@@ -36,16 +36,22 @@ export default {
     return {}
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
     ...mapActions(['getData', 'recuperarState']),
    
   },
   created () {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log(user.email)
-        store.dispatch("recuperarState", {email: user.email})
-        this.tarjetaProfesor = this.profesor;
+        for (var adminKey in this.administradoresDB) {
+          if (user.email == this.administradoresDB[adminKey].email){
+              this.$router.replace('validacionHoras');
+              break;
+          } else {
+            store.dispatch("recuperarState", {email: user.email})
+            this.tarjetaProfesor = this.profesor;
+          }
+        }
       } else {
         this.profesorPrueba = null;
       }

@@ -16,9 +16,9 @@
         <template #button-content>
             <b-icon icon="gear-fill" aria-hidden="true"></b-icon> {{profesor.nombre}}
         </template>
-          <router-link to="/paginaPrincipal" tag="b-dropdown-item-button">Pagina Principal</router-link>
-        <router-link to="/miPerfil" tag="b-dropdown-item-button">Mi Perfil</router-link>
-        <b-dropdown-item-button @click="logout">
+        <b-dropdown-item to="/paginaPrincipal" variant="primary">Pagina Principal</b-dropdown-item>
+        <b-dropdown-item to="/miPerfil" variant="primary">Mi Perfil</b-dropdown-item>
+        <b-dropdown-item-button @click="logout" variant="primary">
           Logout
         </b-dropdown-item-button>
       </b-dropdown>
@@ -37,7 +37,7 @@ import store from '../store';
 export default {
   name: "BarraRegistrado",
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "administrador"]),
     ...mapActions(['getData'])
   },
   created () {
@@ -76,8 +76,10 @@ export default {
       this.profesor.seleccionPublica = [];
       this.profesor.seleccionPrivada = [];
 
+      this.administrador.email = '';
+      this.administrador.contrasena = '';
+
       this.registrado = false;
-      localStorage.setItem('userEmail', '');
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },
   }
