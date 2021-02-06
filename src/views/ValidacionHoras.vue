@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BarraAdmin v-if="registrado"/>
+        <BarraAdmin/>
 
         <b-card class="overflow-auto" style="height: 600px; display: block">
             <b-card v-for="(profesor, key) in profesores" :key="key" style="margin-bottom: 5px">
@@ -66,11 +66,6 @@ export default {
     name: "ValidacionHoras",
     components: {
         BarraAdmin,
-    },
-    data() {
-        return {
-            
-        }
     },
     computed: {
         ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB", "administrador"]),
