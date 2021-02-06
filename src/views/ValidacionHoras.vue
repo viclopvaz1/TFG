@@ -45,7 +45,7 @@
                 </b-row>
 
                 <b-row no-gutters>
-                    <b-alert :show="profesor.tieneJustificacion" variant="warning" class="mt-3">
+                    <b-alert :show="!profesor.tieneJustificacion" variant="warning" class="mt-3">
                         Se debe de proporcionar una justificacion al no validar
                     </b-alert>
                 </b-row>
@@ -73,7 +73,7 @@ export default {
         profesores() {
             var profeHoras = [];
             for (let profIndex in this.profesoresDB) {
-                if (this.profesor.justificacionHoras == "") {
+                if (!this.profesoresDB[profIndex].tieneJustificacion) {
                     for (let horaIndex in this.profesoresDB[profIndex].horas) {
                         if (!this.profesoresDB[profIndex].horas[horaIndex].validada) {
                             profeHoras.push(this.profesoresDB[profIndex]);
@@ -121,11 +121,11 @@ export default {
             if (profesor.justificacionHoras != "") {
                 this.profesor.email = profesor.email;
                 this.profesor.justificacionHoras = profesor.justificacionHoras;
-                profesor.tieneJustificacion = false;
+                profesor.tieneJustificacion = true;
                 this.profesor.tieneJustificacion = profesor.tieneJustificacion;
                 store.dispatch("updateJustificacion");
             } else {
-                profesor.tieneJustificacion = true;
+                profesor.tieneJustificacion = false;
             }
         }
     }
