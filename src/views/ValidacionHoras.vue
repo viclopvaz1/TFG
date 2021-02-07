@@ -57,7 +57,7 @@
 
 <script>
 import { mapFields } from "vuex-map-fields";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import BarraAdmin from "@/components/BarraAdmin.vue";
 import store from "../store";
 import firebase from 'firebase';
@@ -67,9 +67,14 @@ export default {
     components: {
         BarraAdmin,
     },
+    data() {
+        return{
+            administradores: []
+        }
+    },
     computed: {
         ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB", "administrador"]),
-        ...mapActions(['getData', 'recuperarState', 'updateHoras', 'updateJustificacion', 'recuperarStateAdmin']),
+        ...mapActions(['getData', 'recuperarState', 'updateHoras', 'updateJustificacion', 'recuperarStateAdmin', 'getAdmins']),
         profesores() {
             var profeHoras = [];
             for (let profIndex in this.profesoresDB) {
@@ -85,23 +90,79 @@ export default {
             return profeHoras;
         }
     },
-    created() {
+    async created() {
+        try {
+            let admins = await store.dispatch("getAdmins");
+            this.administradoresDB = admins;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    mounted() {
+
+    //     firebase.auth().onAuthStateChanged(user => {
+    //   store.dispatch("getAdmins")
+    //   .then(() => {
+    //     if (user) {
+    //       for (var adminKey in this.administradoresDB) {
+    //         if (user.email == this.administradoresDB[adminKey].email){
+                
+    //             store.dispatch("getData")
+    //             this.$router.replace('validacionHoras');
+    //             break;
+    //         } else {
+    //           store.dispatch("recuperarState", {email: user.email});
+    //           this.$router.replace('home');
+    //           this.tarjetaProfesor = this.profesor;
+    //         }
+    //       }
+    //     }
+    //   });
+    // })
+
+        var notAdmin = true;
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 for (var adminKey in this.administradoresDB) {
                     if (user.email == this.administradoresDB[adminKey].email){
                         store.dispatch("recuperarStateAdmin", {email: user.email, router: this.$router});
+                        notAdmin = false;
                         break;
-                    } else {
-                        this.$router.replace('home');
                     }
                 }
-                
-                
-            }            
+
+                if (notAdmin) {
+                    this.$router.replace('home');
+                }
+
+            }          
         });
 
         store.dispatch("getData");
+        store.dispatch("getAdmins");
+
+        // try {
+        // var notAdmin = true;
+        
+        //     if (firebase.auth().currentUser) {
+        //         for (var adminKey in this.administradoresDB) {
+
+        //             if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
+        //                 store.dispatch("recuperarStateAdmin", {email: firebase.auth().currentUser.email, router: this.$router});
+        //                 notAdmin = false;
+        //                 break;
+        //             }
+        //         }
+
+        //         if (notAdmin) {
+        //             this.$router.replace('home');
+        //             this.tarjetaProfesor = this.profesor;
+        //         }
+
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        // }
     },
     methods: {
         validar(profesor){

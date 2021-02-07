@@ -64,19 +64,63 @@ export default {
     return {};
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
-    ...mapActions(["getData", "recuperarState"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
+    ...mapActions(["getData", "recuperarState", "getAdmins"]),
   },
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        store.dispatch("recuperarState", {email: user.email})
-        this.tarjetaProfesor = this.profesor;
-      } else {
-        this.$router.replace('home');
-        this.profesorPrueba = null;
-      }
-    })
+  async created() {
+    try {
+      let admins = await store.dispatch("getAdmins");
+      this.administradoresDB = admins;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async mounted() {
+    // var notAdmin = true;
+    // firebase.auth().onAuthStateChanged(user => {
+    //   console.log(this.profesoresDB);
+    //   store.dispatch("getAdmins")
+    //   .then(() => {
+    //     if (user) {
+    //       for (var adminKey in this.administradoresDB) {
+    //         if (user.email == this.administradoresDB[adminKey].email){
+    //           this.$router.replace('validacionHoras');
+    //           notAdmin = false;
+    //           break;
+    //         }
+    //       }
+
+    //       if (notAdmin) {
+    //         store.dispatch("recuperarState", {email: user.email});
+    //         this.tarjetaProfesor = this.profesor;
+    //       }
+
+    //     }
+    //   });
+    // })
+
+    try {
+      var notAdmin = true;
+      
+        if (firebase.auth().currentUser) {
+          for (var adminKey in this.administradoresDB) {
+
+            if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
+              this.$router.replace('validacionHoras');
+              notAdmin = false;
+              break;
+            }
+          }
+
+          if (notAdmin) {
+            store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+            this.tarjetaProfesor = this.profesor;
+          }
+
+        }
+    } catch (error) {
+      console.log(error);
+    }
   },
   methods: {},
 };

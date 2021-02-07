@@ -136,10 +136,16 @@ export default new Vuex.Store({
           administradores.push(administradorData);
         })
         commit('SET_ADMINISTRADORESDB', administradores);
+        console.log(administradores);
+        return administradores;
+        
         
       } catch (error) {
         console.log(error);
       }
+    },
+    setAdmins({commit}){
+      commit('SET_ADMINISTRADORESDB', administradores);
     },
     async updateFields() {
       try {

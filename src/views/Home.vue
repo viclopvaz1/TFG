@@ -33,29 +33,81 @@ export default {
     BarraRegistrado
   },
   data () {
-    return {}
+    return {
+      administradores: []
+    }
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
-    ...mapActions(['getData', 'recuperarState']),
+    ...mapActions(['getData', 'recuperarState', 'getAdmins']),
    
   },
-  created () {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        for (var adminKey in this.administradoresDB) {
-          if (user.email == this.administradoresDB[adminKey].email){
+  async created() {
+    try {
+      let admins = await store.dispatch("getAdmins");
+      this.administradoresDB = admins;
+      console.log(this.administradoresDB);
+
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async mounted() {
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     for (var adminKey in this.administradoresDB) {
+    //       if (user.email == this.administradoresDB[adminKey].email){
+    //           this.$router.replace('validacionHoras');
+    //           break;
+    //       } else {
+    //         store.dispatch("recuperarState", {email: user.email})
+    //         this.tarjetaProfesor = this.profesor;
+    //       }
+    //     }
+    //   } 
+    // });
+
+    // firebase.auth().onAuthStateChanged(user => {
+    //   store.dispatch("getAdmins")
+    //   .then(() => {
+    //     if (user) {
+    //       for (var adminKey in this.administradoresDB) {
+    //         if (user.email == this.administradoresDB[adminKey].email){
+    //             this.$router.replace('validacionHoras');
+    //             break;
+    //         } else {
+    //           store.dispatch("recuperarState", {email: user.email});
+    //           this.tarjetaProfesor = this.profesor;
+    //         }
+    //       }
+    //     }
+    //   });
+    // })   
+
+    try {
+      var notAdmin = true;
+              console.log(this.administradoresDB);
+      
+        if (firebase.auth().currentUser) {
+
+          for (var adminKey in this.administradoresDB) {
+
+            if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
               this.$router.replace('validacionHoras');
+              notAdmin = false;
               break;
-          } else {
-            store.dispatch("recuperarState", {email: user.email})
+            }
+          }
+
+          if (notAdmin) {
+            store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
             this.tarjetaProfesor = this.profesor;
           }
+
         }
-      } else {
-        this.profesorPrueba = null;
-      }
-    });    
+    } catch (error) {
+      console.log(error);
+    }
   },
 }
 </script>
