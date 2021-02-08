@@ -90,42 +90,35 @@ export default {
             return profeHoras;
         }
     },
-    async created() {
+    async mounted() {
         try {
-            let admins = await store.dispatch("getAdmins");
-            this.administradoresDB = admins;
+            if (firebase.auth().currentUser) {
+                let admins = await store.dispatch("getAdmins");
+                this.administradoresDB = admins;
+
+                for (var adminKey in admins) {
+
+                    if (firebase.auth().currentUser.email == admins[adminKey].email){
+                        store.dispatch("getData");
+                        this.$router.replace("validacionHoras");
+                        break;
+                    }
+                }
+            }
+            console.log(this.administradoresDB);
         } catch (error) {
             console.log(error);
         }
     },
-    mounted() {
-
-    //     firebase.auth().onAuthStateChanged(user => {
-    //   store.dispatch("getAdmins")
-    //   .then(() => {
-    //     if (user) {
-    //       for (var adminKey in this.administradoresDB) {
-    //         if (user.email == this.administradoresDB[adminKey].email){
-                
-    //             store.dispatch("getData")
-    //             this.$router.replace('validacionHoras');
-    //             break;
-    //         } else {
-    //           store.dispatch("recuperarState", {email: user.email});
-    //           this.$router.replace('home');
-    //           this.tarjetaProfesor = this.profesor;
-    //         }
-    //       }
-    //     }
-    //   });
-    // })
-
+    async created() {
+        try {
         var notAdmin = true;
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
+        
+            if (firebase.auth().currentUser) {
                 for (var adminKey in this.administradoresDB) {
-                    if (user.email == this.administradoresDB[adminKey].email){
-                        store.dispatch("recuperarStateAdmin", {email: user.email, router: this.$router});
+
+                    if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
+                        store.dispatch("recuperarStateAdmin", {email: firebase.auth().currentUser.email});
                         notAdmin = false;
                         break;
                     }
@@ -133,36 +126,13 @@ export default {
 
                 if (notAdmin) {
                     this.$router.replace('home');
+                    this.tarjetaProfesor = this.profesor;
                 }
 
-            }          
-        });
-
-        store.dispatch("getData");
-        store.dispatch("getAdmins");
-
-        // try {
-        // var notAdmin = true;
-        
-        //     if (firebase.auth().currentUser) {
-        //         for (var adminKey in this.administradoresDB) {
-
-        //             if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
-        //                 store.dispatch("recuperarStateAdmin", {email: firebase.auth().currentUser.email, router: this.$router});
-        //                 notAdmin = false;
-        //                 break;
-        //             }
-        //         }
-
-        //         if (notAdmin) {
-        //             this.$router.replace('home');
-        //             this.tarjetaProfesor = this.profesor;
-        //         }
-
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        // }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     },
     methods: {
         validar(profesor){

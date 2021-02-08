@@ -67,7 +67,7 @@ export default {
     ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
     ...mapActions(["getData", "recuperarState", "getAdmins"]),
   },
-  async created() {
+  async mounted() {
     try {
       let admins = await store.dispatch("getAdmins");
       this.administradoresDB = admins;
@@ -75,30 +75,7 @@ export default {
       console.log(error);
     }
   },
-  async mounted() {
-    // var notAdmin = true;
-    // firebase.auth().onAuthStateChanged(user => {
-    //   console.log(this.profesoresDB);
-    //   store.dispatch("getAdmins")
-    //   .then(() => {
-    //     if (user) {
-    //       for (var adminKey in this.administradoresDB) {
-    //         if (user.email == this.administradoresDB[adminKey].email){
-    //           this.$router.replace('validacionHoras');
-    //           notAdmin = false;
-    //           break;
-    //         }
-    //       }
-
-    //       if (notAdmin) {
-    //         store.dispatch("recuperarState", {email: user.email});
-    //         this.tarjetaProfesor = this.profesor;
-    //       }
-
-    //     }
-    //   });
-    // })
-
+  async created() {
     try {
       var notAdmin = true;
       

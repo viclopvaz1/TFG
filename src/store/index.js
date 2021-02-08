@@ -136,7 +136,6 @@ export default new Vuex.Store({
           administradores.push(administradorData);
         })
         commit('SET_ADMINISTRADORESDB', administradores);
-        console.log(administradores);
         return administradores;
         
         
