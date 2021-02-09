@@ -8,6 +8,7 @@ import PaginaPrincipal from '../views/PaginaPrincipal.vue'
 import MiPerfil from '../views/MiPerfil.vue'
 import Valoracion from '../views/Valoracion.vue'
 import ValidacionHoras from '../views/ValidacionHoras.vue'
+import Busqueda from '../views/Busqueda.vue'
 import firebase from 'firebase';
 
 Vue.use(VueRouter)
@@ -35,6 +36,11 @@ const routes = [
     path: '/paginaPrincipal',
     name: 'PaginaPrincipal',
     component: PaginaPrincipal
+  },
+  {
+    path: '/busqueda',
+    name: 'Busqueda',
+    component: Busqueda
   },
   {
     path: '/miPerfil',

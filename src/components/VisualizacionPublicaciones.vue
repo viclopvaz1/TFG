@@ -3,10 +3,10 @@
         <b-card class="overflow-auto" style="height: 600px; display: block">
             <b-card v-for="(publicacion, key) in profesor.publicaciones" :key="key" style="margin-bottom: 5px">
                 <b-row no-gutters>
-                    {{publicacion.descripcion}}
+                    {{publicacion.titulo}}
                 </b-row>
                 <b-row no-gutters>
-                    {{publicacion.titulo}}
+                    {{publicacion.descripcion}}
                 </b-row>
             </b-card>
         </b-card>

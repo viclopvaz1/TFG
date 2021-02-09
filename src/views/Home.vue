@@ -46,7 +46,6 @@ export default {
     try {
       let admins = await store.dispatch("getAdmins");
       this.administradoresDB = admins;
-      console.log(this.administradoresDB);
 
     } catch (error) {
       console.log(error);

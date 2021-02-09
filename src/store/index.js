@@ -90,7 +90,17 @@ export default new Vuex.Store({
       email: '',
       contrasena: ''
     },
-    administradoresDB: []
+    administradoresDB: [],
+    profesoresBusqueda: [],
+    publicacionesBusqueda: [],
+    profesorPublicaciones: {
+      nombre: '',
+      apellidos: '',
+      email: '',
+      foto: '',
+      publicacionesDocentes: [],
+      publicaciones: []
+    }
     
   },
   getters: {
