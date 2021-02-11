@@ -1,12 +1,14 @@
 <template>
   <div>
+      <!-- <pre> {{publicacionesBusqueda}} </pre> -->
         <b-card v-for="(profesor, key) in publicacionesBusqueda" :key="key" style="margin-bottom: 5px">
             <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                 <b-avatar
                     :src="profesor.foto"
                     alt="Foto profesor"
                     size="3rem"
-                    style="margin-right: 20px">
+                    style="margin-right: 20px"
+                    button @click="onClick(profesor)">
                 </b-avatar>
                 {{profesor.nombre}} {{profesor.apellidos}} {{profesor.email}}
             </b-row>
@@ -40,8 +42,14 @@ import {
 export default {
     name: "BusquedaPublicaciones",
     computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado", "publicacionesBusqueda"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "publicacionesBusqueda", "tarjetaProfesor"]),
+  },
+  methods: {
+      onClick(profesor) {
+        this.tarjetaProfesor = profesor;
+        localStorage.setItem('profesorBuscado', profesor.email);
+        this.$router.replace('perfilBuscado');
+      }
   }
-
 }
 </script>

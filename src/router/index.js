@@ -9,6 +9,7 @@ import MiPerfil from '../views/MiPerfil.vue'
 import Valoracion from '../views/Valoracion.vue'
 import ValidacionHoras from '../views/ValidacionHoras.vue'
 import Busqueda from '../views/Busqueda.vue'
+import PerfilBuscado from '../views/PerfilBuscado.vue'
 import firebase from 'firebase';
 
 Vue.use(VueRouter)
@@ -41,6 +42,11 @@ const routes = [
     path: '/busqueda',
     name: 'Busqueda',
     component: Busqueda
+  },
+  {
+    path: '/perfilBuscado',
+    name: 'PerfilBuscado',
+    component: PerfilBuscado
   },
   {
     path: '/miPerfil',

@@ -10,6 +10,7 @@
         :src="profesorB.foto"
         alt="Foto profesorB"
         size="10rem"
+        button @click="onClick(profesorB)"
         ></b-avatar>
     </b-col>
     <b-col md="10">
@@ -108,7 +109,14 @@ import {
 export default {
     name: "BusquedaProfesores",
     computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado", "profesoresBusqueda"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "profesoresBusqueda", "tarjetaProfesor"]),
+  },
+  methods: {
+      onClick(profesorB) {
+        this.tarjetaProfesor = profesorB;
+        localStorage.setItem('profesorBuscado', profesorB.email);
+        this.$router.replace('perfilBuscado');
+      }
   }
 
 }

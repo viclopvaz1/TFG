@@ -99,6 +99,5 @@ export default {
       console.log(error);
     }
   },
-  methods: {},
 };
 </script>

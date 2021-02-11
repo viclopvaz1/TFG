@@ -45,7 +45,7 @@ export default {
       profesoresNombre: [],
       profesoresApellidos: [],
       publicaciones: [],
-      publicacionesDocentes: []
+      publicacionesDocentes: [],
     }
   },
   created () {
@@ -57,9 +57,25 @@ export default {
     busquedaProfesoresPublicaciones() {
       this.profesoresNombre = [];
       this.profesoresApellidos = [];
-      this.publicaciones = [];
-      this.publicacionesDocentes = [];
+      let profesorPublicaciones = {
+        nombre: '',
+        apellidos: '',
+        email: '',
+        foto: '',
+        publicacionesDocentes: [],
+        publicaciones: []
+      }
+      const publicaciones = [];
+      const publicacionesDocentes = [];
       for (let prof in this.profesoresDB) {
+        profesorPublicaciones = {
+            nombre: '',
+            apellidos: '',
+            email: '',
+            foto: '',
+            publicacionesDocentes: [],
+            publicaciones: []
+          };
         if (this.profesoresDB[prof].nombre.toLowerCase().includes(this.busqueda.toLowerCase())) {
           this.profesoresNombre.push(this.profesoresDB[prof]);
         }
@@ -69,22 +85,32 @@ export default {
         for (let publ in this.profesoresDB[prof].publicaciones){
           try {
             if (this.profesoresDB[prof].publicaciones[publ].titulo.toLowerCase().includes(this.busqueda.toLowerCase())) {
-              this.publicaciones.push(this.profesoresDB[prof]);
+              profesorPublicaciones.publicaciones.push(this.profesoresDB[prof].publicaciones[publ]);
+              
             }
-          } catch (error) {
-            
-          }
+          } catch (error) {}
+        }
+        if (profesorPublicaciones.publicaciones.length > 0){
+          profesorPublicaciones.nombre = this.profesoresDB[prof].nombre;
+          profesorPublicaciones.apellidos = this.profesoresDB[prof].apellidos;
+          profesorPublicaciones.email = this.profesoresDB[prof].email;
+          profesorPublicaciones.foto = this.profesoresDB[prof].foto;
+          publicaciones.push(profesorPublicaciones);
         }
         for (let publ in this.profesoresDB[prof].publicacionesDocentes) {
           try {
-            console.log(this.profesoresDB[prof].publicacionesDocentes[publ].titulo)
             if (this.profesoresDB[prof].publicacionesDocentes[publ].titulo.toLowerCase().includes(this.busqueda.toLowerCase())) {
-              this.publicacionesDocentes.push(this.profesoresDB[prof]);
+              profesorPublicaciones.publicacionesDocentes.push(this.profesoresDB[prof].publicacionesDocentes[publ]);
+
             }
-          } catch (error) {
-            
-          }
-          
+          } catch (error) {}
+        }
+        if (profesorPublicaciones.publicacionesDocentes.length > 0){
+          profesorPublicaciones.nombre = this.profesoresDB[prof].nombre;
+          profesorPublicaciones.apellidos = this.profesoresDB[prof].apellidos;
+          profesorPublicaciones.email = this.profesoresDB[prof].email;
+          profesorPublicaciones.foto = this.profesoresDB[prof].foto;
+          publicacionesDocentes.push(profesorPublicaciones);
         }
       }
       this.profesoresBusqueda = [];
@@ -97,22 +123,19 @@ export default {
       this.profesoresBusqueda = this.profesoresBusqueda.filter(this.onlyUnique);
 
       this.publicacionesBusqueda = [];
-      for (let publ in this.publicaciones) {
-        this.publicacionesBusqueda.push(this.publicaciones[publ])
+      for (let publ in publicaciones) {
+        this.publicacionesBusqueda.push(publicaciones[publ])
       }
-      for (let publ in this.publicacionesDocentes) {
-        this.publicacionesBusqueda.push(this.publicacionesDocentes[publ])
+      for (let publ in publicacionesDocentes) {
+        this.publicacionesBusqueda.push(publicacionesDocentes[publ])
       }
-
       this.profesoresBusqueda = this.profesoresBusqueda.filter(this.onlyUnique);
-
       this.publicacionesBusqueda = this.publicacionesBusqueda.filter(this.onlyUnique);
 
       this.$router.replace('busqueda');
-
     },
     onlyUnique(value, index, self) { 
-    return self.indexOf(value) === index;
+      return self.indexOf(value) === index;
     },
   }
 };

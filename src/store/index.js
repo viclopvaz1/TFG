@@ -100,8 +100,7 @@ export default new Vuex.Store({
       foto: '',
       publicacionesDocentes: [],
       publicaciones: []
-    }
-    
+    },
   },
   getters: {
     getField
@@ -128,8 +127,7 @@ export default new Vuex.Store({
           profesorData.id = doc.id;
           profesores.push(profesorData);
         })
-        commit('SET_PROFESORESDB', profesores);
-        
+        commit('SET_PROFESORESDB', profesores);        
       } catch (error) {
         console.log(error);
       }
@@ -187,6 +185,25 @@ export default new Vuex.Store({
         researchGate: this.state.profesor.researchGate,
         seleccionPublica: this.state.profesor.seleccionPublica,
         seleccionPrivada: this.state.profesor.seleccionPrivada
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
+    async updateBotones() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update( {
+        seleccionPublica: this.state.tarjetaProfesor.seleccionPublica,
+        seleccionPrivada: this.state.tarjetaProfesor.seleccionPrivada
       })
       .then(function() {
         console.log("Document changed");
@@ -295,12 +312,6 @@ export default new Vuex.Store({
         console.log(error);
       }
       this.state.registrado = true;
-      // if (this.state.profesor.email != '') {
-      //   this.state.registrado = true;
-      //   firebase
-      //     .auth()
-      //     .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
-      // }
     }
   },
   modules: {

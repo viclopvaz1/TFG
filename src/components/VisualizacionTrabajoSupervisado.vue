@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card class="overflow-auto" style="height: 600px; display: block">
-            <b-card v-for="(trabajoSupervisado, key) in profesor.trabajosSupervisados" :key="key" style="margin-bottom: 5px">
+            <b-card v-for="(trabajoSupervisado, key) in tarjetaProfesor.trabajosSupervisados" :key="key" style="margin-bottom: 5px">
                 <b-row no-gutters>
                     {{trabajoSupervisado.titulo}}
                 </b-row>

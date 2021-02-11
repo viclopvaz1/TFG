@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card class="overflow-auto" style="height: 600px; display: block">
-            <b-card v-for="(estancia, key) in profesor.estancias" :key="key" style="margin-bottom: 5px">
+            <b-card v-for="(estancia, key) in tarjetaProfesor.estancias" :key="key" style="margin-bottom: 5px">
                 <b-row no-gutters>
                     {{estancia.lugar}}
                 </b-row>

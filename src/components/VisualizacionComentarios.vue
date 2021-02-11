@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card class="overflow-auto" style="height: 600px; display: block">
-            <b-card v-for="(comentario, key) in profesor.comentarios" :key="key" style="margin-bottom: 5px">
+            <b-card v-for="(comentario, key) in tarjetaProfesor.comentarios" :key="key" style="margin-bottom: 5px">
                 <b-row no-gutters>
                     {{comentario.texto}}
                 </b-row>

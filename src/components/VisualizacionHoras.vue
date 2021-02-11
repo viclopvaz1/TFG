@@ -25,9 +25,9 @@ export default {
         ...mapActions(['getData', 'recuperarState']),
         profe() {
             var profeHoras = [];
-            for (let index in this.profesor.horas) {
-                if (this.profesor.horas[index].validada){
-                    profeHoras.push(this.profesor.horas[index]);
+            for (let index in this.tarjetaProfesor.horas) {
+                if (this.tarjetaProfesor.horas[index].validada){
+                    profeHoras.push(this.tarjetaProfesor.horas[index]);
                 }
             }
             return profeHoras;

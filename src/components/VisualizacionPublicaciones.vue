@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card class="overflow-auto" style="height: 600px; display: block">
-            <b-card v-for="(publicacion, key) in profesor.publicaciones" :key="key" style="margin-bottom: 5px">
+            <b-card v-for="(publicacion, key) in tarjetaProfesor.publicaciones" :key="key" style="margin-bottom: 5px">
                 <b-row no-gutters>
                     {{publicacion.titulo}}
                 </b-row>
