@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar type="dark" variant="info">
-      <b-link to="/home">Logo</b-link>
+      <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px" @click="redirect"></b-img>
 
       <b-collapse is-nav>
         <b-navbar-nav class="ml-auto mr-auto">
@@ -54,6 +54,9 @@ export default {
     store.dispatch('getData');
   },
   methods: {
+    redirect(){
+      this.$router.replace('home');
+    },
     busquedaProfesoresPublicaciones() {
       this.profesoresNombre = [];
       this.profesoresApellidos = [];

@@ -1,9 +1,13 @@
 <template>
     <div>
     <b-navbar type="dark" variant="info">
-        <b-nav-text>Logo</b-nav-text>
+        <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px"></b-img>
 
-        <b-button variant="primary" @click="logout">Logout</b-button>
+        <b-collapse is-nav style="justify-content: flex-end">
+            <b-navbar-nav>
+                <b-button variant="primary" @click="logout">Logout</b-button>
+            </b-navbar-nav>
+        </b-collapse>
     </b-navbar>
     </div>
 </template>
