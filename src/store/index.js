@@ -127,7 +127,8 @@ export default new Vuex.Store({
           profesorData.id = doc.id;
           profesores.push(profesorData);
         })
-        commit('SET_PROFESORESDB', profesores);        
+        commit('SET_PROFESORESDB', profesores); 
+        return profesores;       
       } catch (error) {
         console.log(error);
       }

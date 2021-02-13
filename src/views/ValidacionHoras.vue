@@ -2,55 +2,53 @@
     <div>
         <BarraAdmin/>
 
-        <b-card class="overflow-auto" style="height: 600px; display: block">
-            <b-card v-for="(profesor, key) in profesores" :key="key" style="margin-bottom: 5px">
-                <b-row no-gutters style="align-items: center; margin-bottom: 15px">
-                    <b-avatar
-                        :src="profesor.foto"
-                        alt="Foto profesor"
-                        size="3rem"
-                        style="margin-right: 20px">
-                    </b-avatar>
-                    {{profesor.nombre}} {{profesor.apellidos}} {{profesor.email}}
-                </b-row>
+        <b-card v-for="(profesor, key) in profesores" :key="key" style="margin-bottom: 5px">
+            <b-row no-gutters style="align-items: center; margin-bottom: 15px">
+                <b-avatar
+                    :src="profesor.foto"
+                    alt="Foto profesor"
+                    size="3rem"
+                    style="margin-right: 20px">
+                </b-avatar>
+                {{profesor.nombre}} {{profesor.apellidos}} {{profesor.email}}
+            </b-row>
 
-                <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora">
-                    <b-row no-gutters>
-                        {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}}
-                    </b-row>
-                    <b-row no-gutters>
-                        {{hora.horas}} horas
-                    </b-row>
-                </b-card>
-
-                <b-row no-gutters style="margin-top: 15px; margin-bottom: 15px">
-                    URL al archivo: {{profesor.urlArchivoHoras}}
-                </b-row>
-
+            <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora">
                 <b-row no-gutters>
-                    <b-col style="max-width: fit-content; margin-right: 100px">
-                        <b-button @click="validar(profesor)" variant="primary" type="submit">Validar</b-button>
-                    </b-col>
-                    
-                    <b-col style="max-width: fit-content; margin-right: 15px">
-                        <form @submit.prevent="noValidar(profesor)">
-                            <b-button type="submit" variant="primary">No validar</b-button>
-                        </form>
-                    </b-col>
-
-                    <b-col>
-                        <b-form-textarea  v-model="profesor.justificacionHoras" type="text" placeholder="Justificación" :maxlength="300"></b-form-textarea>
-                    </b-col>
-                    
+                    {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}}
                 </b-row>
-
                 <b-row no-gutters>
-                    <b-alert :show="!profesor.tieneJustificacion" variant="warning" class="mt-3">
-                        Se debe de proporcionar una justificacion al no validar
-                    </b-alert>
+                    {{hora.horas}} horas
                 </b-row>
-                
             </b-card>
+
+            <b-row no-gutters style="margin-top: 15px; margin-bottom: 15px">
+                URL al archivo: {{profesor.urlArchivoHoras}}
+            </b-row>
+
+            <b-row no-gutters>
+                <b-col style="max-width: fit-content; margin-right: 100px">
+                    <b-button @click="validar(profesor)" variant="primary" type="submit">Validar</b-button>
+                </b-col>
+                
+                <b-col style="max-width: fit-content; margin-right: 15px">
+                    <form @submit.prevent="noValidar(profesor)">
+                        <b-button type="submit" variant="primary">No validar</b-button>
+                    </form>
+                </b-col>
+
+                <b-col>
+                    <b-form-textarea  v-model="profesor.justificacionHoras" type="text" placeholder="Justificación" :maxlength="300"></b-form-textarea>
+                </b-col>
+                
+            </b-row>
+
+            <b-row no-gutters>
+                <b-alert :show="!profesor.tieneJustificacion" variant="warning" class="mt-3">
+                    Se debe de proporcionar una justificacion al no validar
+                </b-alert>
+            </b-row>
+            
         </b-card>
     </div>
 </template>

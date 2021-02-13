@@ -21,7 +21,7 @@
                 </b-row>
             </b-card>
 
-            <h5 v-if="profesor.publicacionesDocentes.length > 0">Publicaciones Docentes</h5>
+            <h5 v-if="profesorB.publicacionesDocentes.length > 0">Publicaciones Docentes</h5>
             <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesorB.publicacionesDocentes" :key="keyPublicacionDocente">
                 <b-row no-gutters>
                     {{publicacionDocente.titulo}}
