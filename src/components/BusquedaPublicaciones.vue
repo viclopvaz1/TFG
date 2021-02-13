@@ -38,6 +38,8 @@
 import {
   mapFields
 } from 'vuex-map-fields'
+import firebase from 'firebase';
+
 export default {
     name: "BusquedaPublicaciones",
     computed: {
@@ -52,7 +54,11 @@ export default {
       onClick(profesorB) {
         this.tarjetaProfesor = this.profesoresDB.find(element => element.email === profesorB.email);
         localStorage.setItem('profesorBuscado', profesorB.email);
-        this.$router.replace('perfilBuscado');
+        if (firebase.auth().currentUser != null && firebase.auth().currentUser.email == profesorB.email){
+            this.$router.replace('paginaPrincipal');
+        } else {
+            this.$router.replace('perfilBuscado');
+        }
       }
   }
 }

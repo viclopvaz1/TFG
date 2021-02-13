@@ -36,6 +36,7 @@ import {
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
 import store from '../store';
+import firebase from 'firebase';
 
 export default {
     name: "MejoresProfesores",
@@ -74,7 +75,11 @@ export default {
       onClick(profesorB) {
         this.tarjetaProfesor = profesorB;
         localStorage.setItem('profesorBuscado', profesorB.email);
-        this.$router.replace('perfilBuscado');
+        if (firebase.auth().currentUser != null && firebase.auth().currentUser.email == profesorB.email){
+            this.$router.replace('paginaPrincipal');
+        } else {
+            this.$router.replace('perfilBuscado');
+        }
       },
       obtenerMejoresProfesores () {
           for (let prof in this.profesoresDB) {
