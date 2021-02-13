@@ -1,19 +1,18 @@
 <template>
   <div>
-      <!-- <pre> {{publicacionesBusqueda}} </pre> -->
-        <b-card v-for="(profesor, key) in publicacionesBusqueda" :key="key" style="margin-bottom: 5px">
+        <b-card v-for="(profesorB, key) in publicacionesBusqueda" :key="key" style="margin-bottom: 5px">
             <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                 <b-avatar
-                    :src="profesor.foto"
+                    :src="profesorB.foto"
                     alt="Foto profesor"
                     size="3rem"
                     style="margin-right: 20px"
-                    button @click="onClick(profesor)">
+                    button @click="onClick(profesorB)">
                 </b-avatar>
-                {{profesor.nombre}} {{profesor.apellidos}} {{profesor.email}}
+                {{profesorB.nombre}} {{profesorB.apellidos}} {{profesorB.email}}
             </b-row>
-            <h5 v-if="profesor.publicaciones.length > 0">Publicaciones</h5>
-            <b-card v-for="(publicacion, keyPublicacion) in profesor.publicaciones" :key="keyPublicacion">
+            <h5 v-if="profesorB.publicaciones.length > 0">Publicaciones</h5>
+            <b-card v-for="(publicacion, keyPublicacion) in profesorB.publicaciones" :key="keyPublicacion">
                 <b-row no-gutters>
                     {{publicacion.titulo}}
                 </b-row>
@@ -23,7 +22,7 @@
             </b-card>
 
             <h5 v-if="profesor.publicacionesDocentes.length > 0">Publicaciones Docentes</h5>
-            <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesor.publicacionesDocentes" :key="keyPublicacionDocente">
+            <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesorB.publicacionesDocentes" :key="keyPublicacionDocente">
                 <b-row no-gutters>
                     {{publicacionDocente.titulo}}
                 </b-row>
@@ -44,10 +43,15 @@ export default {
     computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "publicacionesBusqueda", "tarjetaProfesor"]),
   },
+  mounted () {
+    //Para que se actualice la lista profesoresDB con todos los profesores en la base
+    //de datos
+    store.dispatch('getData');
+  },
   methods: {
-      onClick(profesor) {
-        this.tarjetaProfesor = profesor;
-        localStorage.setItem('profesorBuscado', profesor.email);
+      onClick(profesorB) {
+        this.tarjetaProfesor = this.profesoresDB.find(element => element.email === profesorB.email);
+        localStorage.setItem('profesorBuscado', profesorB.email);
         this.$router.replace('perfilBuscado');
       }
   }
