@@ -3,7 +3,7 @@
     <BarraSinRegistrar/>
 
     <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
-      <b-card>
+      <b-card style="border-color: #17a2b8">
         <h2>Registro</h2>
         <form @submit.prevent="registrarse">
           <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2">

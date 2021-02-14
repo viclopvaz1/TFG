@@ -2,8 +2,8 @@
   <div>
     <BarraSinRegistrar/>
 
-    <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
-      <b-card>
+    <div :style="{ backgroundImage: 'url(' + require('@/assets/despacho1.jpg') + ')'}" style="background-size: 100% 100%; position: fixed; height: 100%; width: 100%">
+      <b-card style="border-color: #17a2b8" class="mt-5 mb-5 col-md-4 text-center mx-auto">
         <h2>Login</h2>
         <form @submit.prevent="login">
           <b-form-group

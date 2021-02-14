@@ -1,9 +1,9 @@
 <template>
   <div id="chart">
-    <b-card v-if="profesor.horas.length > 0">
+    <b-card v-if="profesor.horas.length > 0" style="border-color: #17a2b8">
       <apexchart type="bar" height="350" :options="chartOptionsBar" :series="seriesBar"></apexchart>
     </b-card>
-    <b-card class="mt-3" style="max-width: fit-content" v-if="profesor.publicacionesDocentes.length > 0 || profesor.publicaciones.length > 0">
+    <b-card class="mt-3" style="max-width: fit-content; border-color: #17a2b8" v-if="profesor.publicacionesDocentes.length > 0 || profesor.publicaciones.length > 0">
       <apexchart type="pie" width="380" :options="pie.chartOptions" :series="seriesPie"></apexchart>
     </b-card>
   </div>

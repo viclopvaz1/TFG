@@ -2,8 +2,7 @@
     <div>
         <b-card
       class="overflow: hidden"
-      border-variant="secondary"
-      style="margin: 20px"
+      style="margin: 20px; border-color: #17a2b8"
     >
       <b-row no-gutters>
         <b-col md="2">

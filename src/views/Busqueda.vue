@@ -2,10 +2,10 @@
   <div>
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
-    <b-nav tabs align="center">
-    <b-nav-item :active="mostrarProfesores" @click="cambiar()">Profesores</b-nav-item>
-    <b-nav-item :active="mostrarPublicaciones" @click="cambiar()">Publicaciones</b-nav-item>
-  </b-nav>
+    <b-nav tabs align="center" style="border-color: #17a2b8">
+      <b-nav-item :active="mostrarProfesores" @click="cambiar()">Profesores</b-nav-item>
+      <b-nav-item :active="mostrarPublicaciones" @click="cambiar()">Publicaciones</b-nav-item>
+    </b-nav>
     <BusquedaProfesores v-if="mostrarProfesores"/>
     <BusquedaPublicaciones v-if="mostrarPublicaciones"/>
   </div>

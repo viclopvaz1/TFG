@@ -1,7 +1,7 @@
 <template>
     <div style="text-align: -webkit-center;">
         <b-card v-for="(profesor, key) in mejoresProfesores" :key="key"
-            class="overflow: hidden" border-variant="secondary" style="margin: 20px; width: 50%;">
+            class="overflow: hidden" style="margin: 20px; width: 50%; border-color: #17a2b8">
             <b-row no-gutters>
                 <b-col md="2">
                     <b-avatar :src="profesor.foto" alt="Foto profesorB" size="3rem" button @click="onClick(profesor)"></b-avatar>
