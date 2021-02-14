@@ -19,6 +19,7 @@
           <VisualizacionTrabajoSupervisado :style="tarjetaProfesor.seleccionPublica[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionEstancias :style="tarjetaProfesor.seleccionPublica[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionComentarios :style="tarjetaProfesor.seleccionPublica[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <Resumenes :style="tarjetaProfesor.seleccionPublica[8] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
     </b-container>
@@ -41,6 +42,7 @@ import VisualizacionProyectoDocente from "@/components/VisualizacionProyectoDoce
 import VisualizacionCursoDocente from "@/components/VisualizacionCursoDocente.vue";
 import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSupervisado.vue";
 import VisualizacionEstancias from "@/components/VisualizacionEstancias.vue";
+import Resumenes from "@/components/Resumenes";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
 import firebase from 'firebase';
@@ -61,7 +63,8 @@ export default {
     VisualizacionProyectoDocente,
     VisualizacionCursoDocente,
     VisualizacionTrabajoSupervisado,
-    VisualizacionEstancias
+    VisualizacionEstancias,
+    Resumenes
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administradoresDB"]),

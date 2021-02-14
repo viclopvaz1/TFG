@@ -35,11 +35,15 @@
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="publica(8)" variant="primary" :pressed.sync="tarjetaProfesor.seleccionPublica[8]">Seguidos</b-button>
+                <b-button @click="publica(8)" variant="primary" :pressed.sync="tarjetaProfesor.seleccionPublica[8]">Resumenes</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="publica(9)" variant="primary" :pressed.sync="tarjetaProfesor.seleccionPublica[9]">Seguidores</b-button>
+                <b-button @click="publica(9)" variant="primary" :pressed.sync="tarjetaProfesor.seleccionPublica[9]">Seguidos</b-button>
+            </b-row>
+
+            <b-row style="margin-bottom: 5px">
+                <b-button @click="publica(10)" variant="primary" :pressed.sync="tarjetaProfesor.seleccionPublica[10]">Seguidores</b-button>
             </b-row>
         </b-col>
     </div>

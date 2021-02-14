@@ -133,7 +133,7 @@ export default {
                 twitter: '',
                 paginaPersonal: '',
                 researchGate: '',
-                seleccionPublica: [false, false, false, false, false, false, false, false, false, false],
+                seleccionPublica: [false, false, false, false, false, false, false, false, false, false, false],
                 seleccionPrivada: [false, false, false, false, false, false, false, false, false, false, false]
               })
             } catch (error) {
