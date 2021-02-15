@@ -23,7 +23,7 @@
             <b-form-input v-model="contrasenaUsuario" type="password" required></b-form-input>
             <p v-if="validarLogin">El email o la contraseña son incorrectos</p>
           </b-form-group> 
-          <b-button type="submit"> Acceder </b-button>
+          <b-button type="submit" variant="primary"> Acceder </b-button>
         </form>
 
         <div>

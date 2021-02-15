@@ -7,19 +7,15 @@
         <b-navbar-nav class="ml-auto mr-auto">
           <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="busqueda"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="busquedaProfesoresPublicaciones">Search</b-button>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="primary" @click="busquedaProfesoresPublicaciones">Search</b-button>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
 
       <b-collapse is-nav style="max-width: fit-content">
         <b-navbar-nav>
-          <div style="width: 105px">
-            <b-link to="/login">Iniciar Sesion</b-link>
-          </div>
-          <div>
-            <b-link to="/registro">Regístrate</b-link>
-          </div>
+          <b-button variant="primary" @click="login">Login</b-button>
+          <b-button variant="primary" style="margin-left: 15px" @click="registro">Regístrate</b-button>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -54,6 +50,12 @@ export default {
     store.dispatch('getData');
   },
   methods: {
+    registro() {
+      this.$router.replace('registro');
+    },
+    login() {
+      this.$router.replace('login');
+    },
     redirect(){
       this.$router.replace('home');
     },
