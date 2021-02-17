@@ -26,7 +26,7 @@ export default {
         profe() {
             var profeHoras = [];
             for (let index in this.tarjetaProfesor.horas) {
-                if (this.tarjetaProfesor.horas[index].validada){
+                if (this.tarjetaProfesor.horas[index].validada == 1){
                     profeHoras.push(this.tarjetaProfesor.horas[index]);
                 }
             }

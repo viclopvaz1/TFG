@@ -56,7 +56,7 @@ export default {
             idioma: '',
             horas: 0,
             ano: '',
-            validada: false,
+            validada: 0,
             justificacionHora: ""
         },
         horasSubidas: false,
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
       subirHoras() {
-            var hora = this.profesor.horas.find(element => element.asignatura == this.hora.asignatura && element.ano == this.hora.ano && element.horas == this.hora.horas && element.idioma == this.hora.idioma && element.institucion == this.hora.institucion);
+            var hora = this.profesor.horas.find(element => element.asignatura == this.hora.asignatura && element.ano == this.hora.ano && element.horas == this.hora.horas && element.idioma == this.hora.idioma && element.institucion == this.hora.institucion && (element.validada == 0 || element.validada == 1));
             if (hora == undefined) {
                 this.profesor.horas.push(this.hora);
                 this.horasSubidas = true;
