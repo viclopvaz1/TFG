@@ -14,6 +14,9 @@
                 <b-row no-gutters>
                     {{estancia.idioma}}
                 </b-row>
+                <b-row no-gutters>
+                    {{estancia.tipo}}
+                </b-row>
             </b-card>
         </b-card>
         

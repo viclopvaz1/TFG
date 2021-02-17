@@ -37,7 +37,6 @@ export default new Vuex.Store({
       publicaciones: [],
       horas: [],
       urlArchivoHoras: '',
-      justificacionHoras: '',
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -70,8 +69,6 @@ export default new Vuex.Store({
       publicaciones: [],
       horas: [],
       urlArchivoHoras: '',
-      justificacionHoras: '',
-      tieneJustificacion: false,
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -174,7 +171,6 @@ export default new Vuex.Store({
         publicaciones: this.state.profesor.publicaciones,
         horas: this.state.profesor.horas,
         urlArchivoHoras: this.state.profesor.urlArchivoHoras,
-        justificacionHoras: this.state.profesor.justificacionHoras,
         cursosDocentes: this.state.profesor.cursosDocentes,
         trabajosSupervisados: this.state.profesor.trabajosSupervisados,
         estancias: this.state.profesor.estancias,
@@ -223,7 +219,6 @@ export default new Vuex.Store({
 
       p.update( {
         horas: this.state.profesor.horas,
-        tieneJustificacion: this.state.profesor.tieneJustificacion
       })
       .then(function() {
         console.log("Document changed");
@@ -235,25 +230,25 @@ export default new Vuex.Store({
         
       }
     },
-    async updateJustificacion() {
-      try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
-        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+    // async updateJustificacion() {
+    //   try {
+    //     const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
+    //     var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
 
-      p.update({
-        justificacionHoras: this.state.profesor.justificacionHoras,
-        tieneJustificacion: this.state.profesor.tieneJustificacion
-      })
-      .then(function() {
-        console.log("Document changed");
-      })
-      .catch(function(error) {
-        console.log("Error: " + error);
-      })
-      } catch (error) {
+    //   p.update({
+    //     justificacionHoras: this.state.profesor.justificacionHoras,
+    //     tieneJustificacion: this.state.profesor.tieneJustificacion
+    //   })
+    //   .then(function() {
+    //     console.log("Document changed");
+    //   })
+    //   .catch(function(error) {
+    //     console.log("Error: " + error);
+    //   })
+    //   } catch (error) {
         
-      }
-    },
+    //   }
+    // },
     initialLogout() {
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },

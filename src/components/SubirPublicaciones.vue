@@ -1,0 +1,71 @@
+<template>
+    <div>
+        <b-card style="border-color: #17a2b8">
+            <form @submit.prevent="subirPublicaciones">
+
+                <b-form-group label="Titulo:" label-for="input-titulo" class="mt-2" label-cols-md="2">
+                    <b-form-input id="input-titulo" v-model="publicacion.titulo" type="text" required></b-form-input>
+                </b-form-group>
+
+                <b-form-group label="Descripción:" label-for="input-descripcion" class="mt-2" label-cols-md="2">
+                    <b-form-input id="input-descripcion" v-model="publicacion.descripcion" type="text" required></b-form-input>
+                </b-form-group>
+
+                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                    Esta Publicación ya se encuentra subido en su perfil.
+                </b-alert>
+
+                <b-button type="submit" variant="primary">Subir Publicaciones</b-button>
+            </form>
+        </b-card>
+    </div>
+</template>
+
+<script>
+import {
+  mapFields
+} from 'vuex-map-fields'
+import { mapActions} from 'vuex';
+import store from '../store';
+
+export default {
+  name: "SubirPublicaciones",
+  data() {
+    return {
+        publicacion: {
+            titulo: '',
+            descripcion: '',
+        },
+        errorSubida: false,
+    }
+  },
+  computed: {
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
+    ...mapActions(["getData", "updateFields"])
+  },
+  methods: {
+      subirPublicaciones() {
+            var publicacion = this.profesor.publicaciones.find(element => element.titulo == this.publicacion.titulo && element.descripcion == this.publicacion.descripcion);
+            if (publicacion == undefined) {
+                this.profesor.publicaciones.push(this.publicacion);
+                this.update();
+                this.publicacion = {
+                    titulo: '',
+                    descripcion: ''
+                }
+
+            } else {
+                this.errorSubida = true
+            }
+          
+      },
+      async update(){
+        try {
+            store.dispatch('updateFields');
+        } catch (error) {
+            console.log(error)
+        }
+    }
+  }
+}
+</script>

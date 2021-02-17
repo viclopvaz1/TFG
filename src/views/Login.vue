@@ -88,7 +88,6 @@ export default {
       }
 
       if (admin) {
-        console.log("entra If");
         this.administrador.email = this.emailUsuario;
         this.administrador.contrasena = this.contrasenaUsuario;
 
@@ -99,7 +98,6 @@ export default {
           (error) => {console.error(error); this.validarLogin = true});
 
       } else {
-        console.log("entra Else");
         this.profesor.email = this.emailUsuario;
         this.profesor.contrasena = this.contrasenaUsuario;
         try {

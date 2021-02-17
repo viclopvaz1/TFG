@@ -85,9 +85,7 @@ export default {
     },
     async update(){
       try {
-        
         store.dispatch('updateFields');
-        //this.updateFields(profesoresRef);
       } catch (error) {
         console.log(error)
       }
