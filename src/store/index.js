@@ -36,6 +36,8 @@ export default new Vuex.Store({
       publicacionesDocentes: [],
       publicaciones: [],
       horas: [],
+      urlArchivoHoras: '',
+      justificacionHoras: '',
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -67,6 +69,9 @@ export default new Vuex.Store({
       publicacionesDocentes: [],
       publicaciones: [],
       horas: [],
+      urlArchivoHoras: '',
+      justificacionHoras: '',
+      tieneJustificacion: false,
       cursosDocentes: [],
       trabajosSupervisados: [],
       estancias: [],
@@ -80,8 +85,22 @@ export default new Vuex.Store({
       researchGate: '',
       seleccionPublica: [],
       seleccionPrivada: []
-    }
-    
+    },
+    administrador: {
+      email: '',
+      contrasena: ''
+    },
+    administradoresDB: [],
+    profesoresBusqueda: [],
+    publicacionesBusqueda: [],
+    profesorPublicaciones: {
+      nombre: '',
+      apellidos: '',
+      email: '',
+      foto: '',
+      publicacionesDocentes: [],
+      publicaciones: []
+    },
   },
   getters: {
     getField
@@ -90,6 +109,9 @@ export default new Vuex.Store({
     updateField,
     SET_PROFESORESDB(state, profesores) {
       state.profesoresDB = profesores;
+    },
+    SET_ADMINISTRADORESDB(state, administradores) {
+      state.administradoresDB = administradores;
     }
   },
   actions: {
@@ -105,11 +127,33 @@ export default new Vuex.Store({
           profesorData.id = doc.id;
           profesores.push(profesorData);
         })
-        commit('SET_PROFESORESDB', profesores);
+        commit('SET_PROFESORESDB', profesores); 
+        return profesores;       
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getAdmins({commit}) {
+      try {
+        const listaAdmins = await db.collection('administradores').get();
+        const administradores = [];
+  
+        listaAdmins.forEach(doc => {
+          //console.log(doc.data());
+          let administradorData = doc.data();
+          administradorData.id = doc.id;
+          administradores.push(administradorData);
+        })
+        commit('SET_ADMINISTRADORESDB', administradores);
+        return administradores;
+        
         
       } catch (error) {
         console.log(error);
       }
+    },
+    setAdmins({commit}){
+      commit('SET_ADMINISTRADORESDB', administradores);
     },
     async updateFields() {
       try {
@@ -128,6 +172,9 @@ export default new Vuex.Store({
         proyectosDocentes: this.state.profesor.proyectosDocentes,
         publicacionesDocentes: this.state.profesor.publicacionesDocentes,
         publicaciones: this.state.profesor.publicaciones,
+        horas: this.state.profesor.horas,
+        urlArchivoHoras: this.state.profesor.urlArchivoHoras,
+        justificacionHoras: this.state.profesor.justificacionHoras,
         cursosDocentes: this.state.profesor.cursosDocentes,
         trabajosSupervisados: this.state.profesor.trabajosSupervisados,
         estancias: this.state.profesor.estancias,
@@ -150,12 +197,84 @@ export default new Vuex.Store({
         
       }
     },
+    async updateBotones() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update( {
+        seleccionPublica: this.state.tarjetaProfesor.seleccionPublica,
+        seleccionPrivada: this.state.tarjetaProfesor.seleccionPrivada
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
+    async updateHoras() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update( {
+        horas: this.state.profesor.horas,
+        tieneJustificacion: this.state.profesor.tieneJustificacion
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
+    async updateJustificacion() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update({
+        justificacionHoras: this.state.profesor.justificacionHoras,
+        tieneJustificacion: this.state.profesor.tieneJustificacion
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
     initialLogout() {
       firebase.auth().signOut().then(() => this.$router.replace('login'));
     },
-    async recuperarState() {
+    async recuperarStateAdmin({ commit }, payload) {
       try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', localStorage.getItem('userEmail')).get();
+        const administradoresRef = await db.collection('administradores').where('email', '==', payload.email).get();
+        
+        administradoresRef.forEach(doc => {
+        let data = doc.data();
+        this.state.administrador.email = data.email;
+        this.state.administrador.contrasena = data.contrasena;          
+        });
+        
+      } catch (error) {
+          console.log(error);
+      }
+    },
+    async recuperarState({ commit }, payload) {
+      console.log(payload.email)
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', payload.email).get();
         console.log(profesoresRef.docs[0]);
 
         profesoresRef.forEach(doc => {
@@ -174,6 +293,7 @@ export default new Vuex.Store({
         this.state.profesor.publicacionesDocentes = data.publicacionesDocentes;
         this.state.profesor.publicaciones = data.publicaciones;
         this.state.profesor.horas = data.horas;
+        this.state.profesor.urlArchivoHoras = data.urlArchivoHoras;
         this.state.profesor.cursosDocentes = data.cursosDocentes;
         this.state.profesor.trabajosSupervisados = data.trabajosSupervisados;
         this.state.profesor.estancias = data.estancias;
@@ -192,12 +312,7 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
-      if (this.state.profesor.email != '') {
-        this.state.registrado = true;
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(this.state.profesor.email, this.state.profesor.contrasena)
-      }
+      this.state.registrado = true;
     }
   },
   modules: {

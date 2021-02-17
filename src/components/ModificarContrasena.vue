@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card>
+    <b-card style="border-color: #17a2b8">
       <form @submit.prevent="cambiarContrasena">
         <b-form-group label="Contraseña:" label-for="input-contrasena" class="mt-2" label-cols-md="2">
           <b-form-input id="input-contrasena" v-model="contrasena" type="text" required></b-form-input>
@@ -56,6 +56,7 @@ export default {
           console.log('Update successful.');
           this.profesor.contrasena = this.contrasena;
           store.dispatch('updateFields');
+          this.$router.replace('home');
         }).catch(function(error) {
           // An error happened.
           console.log(error)

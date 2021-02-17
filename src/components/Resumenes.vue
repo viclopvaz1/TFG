@@ -1,9 +1,9 @@
 <template>
   <div id="chart">
-    <b-card v-if="profesor.horas.length > 0">
+    <b-card v-if="tarjetaProfesor.horas.length > 0" style="border-color: #17a2b8">
       <apexchart type="bar" height="350" :options="chartOptionsBar" :series="seriesBar"></apexchart>
     </b-card>
-    <b-card class="mt-3" style="max-width: fit-content" v-if="profesor.publicacionesDocentes.length > 0 || profesor.publicaciones.length > 0">
+    <b-card class="mt-3" style="max-width: fit-content; border-color: #17a2b8" v-if="tarjetaProfesor.publicacionesDocentes.length > 0 || tarjetaProfesor.publicaciones.length > 0">
       <apexchart type="pie" width="380" :options="pie.chartOptions" :series="seriesPie"></apexchart>
     </b-card>
   </div>
@@ -40,12 +40,15 @@ export default {
       },
     };
   },
+  mounted() {
+      this.tarjetaProfesor = this.profesor;
+  },
   computed: {
-    ...mapFields(["profesor", "profesoresDB"]),
+    ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
     seriesPie: function () {
       return [
-        this.profesor.publicacionesDocentes.length,
-        this.profesor.publicaciones.length,
+        this.tarjetaProfesor.publicacionesDocentes.length,
+        this.tarjetaProfesor.publicaciones.length,
       ];
     },
     seriesBar: function () {
@@ -132,22 +135,22 @@ export default {
   methods: {
     getHoras() {
       var horas = [];
-    for (let i = 0; i < this.profesor.horas.length; i++) {
-        horas.push(this.profesor.horas[i].horas);
+    for (let i = 0; i < this.tarjetaProfesor.horas.length; i++) {
+        horas.push(this.tarjetaProfesor.horas[i].horas);
     }
       return horas;
     },
     getAsignaturas() {
       var asignaturas = [];
-      for (let i = 0; i < this.profesor.horas.length; i++) {
-        asignaturas.push(this.profesor.horas[i].asignatura);
+      for (let i = 0; i < this.tarjetaProfesor.horas.length; i++) {
+        asignaturas.push(this.tarjetaProfesor.horas[i].asignatura);
     }
       return asignaturas;
     },
     getHorasTotal() {
       var horas = 0;
-    for (let i = 0; i < this.profesor.horas.length; i++) {
-        horas = this.profesor.horas[i].horas + horas;
+    for (let i = 0; i < this.tarjetaProfesor.horas.length; i++) {
+        horas = this.tarjetaProfesor.horas[i].horas + horas;
     }
       return horas;
     }

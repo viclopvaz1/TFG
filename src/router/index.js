@@ -7,8 +7,10 @@ import Registro from '../views/Registro.vue'
 import PaginaPrincipal from '../views/PaginaPrincipal.vue'
 import MiPerfil from '../views/MiPerfil.vue'
 import Valoracion from '../views/Valoracion.vue'
+import ValidacionHoras from '../views/ValidacionHoras.vue'
+import Busqueda from '../views/Busqueda.vue'
+import PerfilBuscado from '../views/PerfilBuscado.vue'
 import firebase from 'firebase';
-import store from '../store';
 
 Vue.use(VueRouter)
 
@@ -37,6 +39,16 @@ const routes = [
     component: PaginaPrincipal
   },
   {
+    path: '/busqueda',
+    name: 'Busqueda',
+    component: Busqueda
+  },
+  {
+    path: '/perfilBuscado',
+    name: 'PerfilBuscado',
+    component: PerfilBuscado
+  },
+  {
     path: '/miPerfil',
     name: 'MiPerfil',
     component: MiPerfil,
@@ -56,6 +68,14 @@ const routes = [
     path: '/valoracion',
     name: 'Valoracion',
     component: Valoracion,
+  },
+  {
+    path: '/validacionHoras',
+    name: 'ValidacionHoras',
+    component: ValidacionHoras,
+    meta: {
+      autentificado: true
+    }
   }
   
 ]
@@ -66,25 +86,16 @@ const router = new VueRouter({
 
 export default router
 
-// && !usuario && !store.state.registrado
-
 router.beforeEach((to, from, next) => {
-  let usuario = firebase.auth().currentUser;
-  let autorizacion = to.matched.some(record => record.meta.autentificado);
+  const requiresAuth = to.matched.some(record => record.meta.autentificado);
+  const isAuthenticated = firebase.auth().currentUser;
+  console.log("isauthenticated", isAuthenticated);
+  console.log(to.name)
+  if (requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    console.log(to);
+    next();
+  }
+});
 
-  let userEmail = localStorage.getItem('userEmail');
-  
-    // Si intentas ir a un sitio que requiere autorización pero no estás logueado
-    if (autorizacion && userEmail == '') {
-      firebase.auth().signOut().then(next('login'));
-      // Para evitar que vayas al login o al registro si estas autenticado
-    } else if((to.path == '/login' || to.path == '/registro') && userEmail != ''){
-      next('home');
-    } else {
-      next();
-    }
-
-  //A donde vas cuando no estas logeado e intentas ir a una página con autorización
-  
-
-})

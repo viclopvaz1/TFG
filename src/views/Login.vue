@@ -2,8 +2,8 @@
   <div>
     <BarraSinRegistrar/>
 
-    <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
-      <b-card>
+    <div :style="{ backgroundImage: 'url(' + require('@/assets/despacho1.jpg') + ')'}" style="background-size: 100% 100%; position: fixed; height: 100%; width: 100%">
+      <b-card style="border-color: #17a2b8" class="mt-5 mb-5 col-md-4 text-center mx-auto">
         <h2>Login</h2>
         <form @submit.prevent="login">
           <b-form-group
@@ -12,7 +12,7 @@
             label-for="input-1"
             class="mt-5"
           >
-            <b-form-input v-model="profesor.email" type="email" required></b-form-input>
+            <b-form-input v-model="emailUsuario" type="email" required></b-form-input>
           </b-form-group> 
 
           <b-form-group
@@ -20,10 +20,10 @@
             label="Contraseña"
             label-for="input-2"
           >
-            <b-form-input v-model="profesor.contrasena" type="password" required></b-form-input>
+            <b-form-input v-model="contrasenaUsuario" type="password" required></b-form-input>
             <p v-if="validarLogin">El email o la contraseña son incorrectos</p>
           </b-form-group> 
-          <b-button type="submit"> Acceder </b-button>
+          <b-button type="submit" variant="primary"> Acceder </b-button>
         </form>
 
         <div>
@@ -55,67 +55,102 @@ export default {
   data() {
     return {
       validarLogin: false,
+      emailUsuario: '',
+      contrasenaUsuario: ''
     }
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(['getData']),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administrador", "administradoresDB"]),
+    ...mapActions(['getData', 'getAdmins']),
     
   },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$router.replace('home');
+      } 
+    })
+
+  },
   mounted() {
-    console.log(firebase.auth().currentUser);
+    store.dispatch('getAdmins');
     store.dispatch('getData');
   },
   methods: {
     async login() {
-      try {
-        const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
-        console.log(profesoresRef.docs[0]);
-        
-        profesoresRef.forEach(doc => {
-        let data = doc.data();
-        this.profesor.nombre = data.nombre;
-        this.profesor.apellidos = data.apellidos;
-        this.profesor.confirmarContrasena = data.confirmarContrasena;
-        this.profesor.foto = data.foto;
-        this.profesor.puntuacion = data.puntuacion;
-        this.profesor.centro = data.centro;
-        this.profesor.departamento = data.departamento;
-        this.profesor.despacho = data.despacho;
-        this.profesor.proyectosDocentes = data.proyectosDocentes;
-        this.profesor.publicacionesDocentes = data.publicacionesDocentes;
-        this.profesor.publicaciones = data.publicaciones;
-        this.profesor.horas = data.horas;
-        this.profesor.cursosDocentes = data.cursosDocentes;
-        this.profesor.trabajosSupervisados = data.trabajosSupervisados;
-        this.profesor.estancias = data.estancias;
-        this.profesor.correoAlumnos = data.correoAlumnos;
-        this.profesor.descripcion = data.descripcion;
-        this.profesor.seguidos = data.seguidos;
-        this.profesor.seguidores = data.seguidores;
-        this.profesor.comentarios = data.comentarios;
-        this.profesor.twitter = data.twitter;
-        this.profesor.paginaPersonal = data.paginaPersonal;
-        this.profesor.researchGate = data.researchGate;
-        this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false];
-        this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false];
+      var admin = false;
+      console.log(this.administradoresDB);
+      for (var adminKey in this.administradoresDB) {
+        if (this.emailUsuario == this.administradoresDB[adminKey].email && this.contrasenaUsuario == this.administradoresDB[adminKey].contrasena){
+          admin = true;
+          break;
+        }
+      }
+
+      if (admin) {
+        console.log("entra If");
+        this.administrador.email = this.emailUsuario;
+        this.administrador.contrasena = this.contrasenaUsuario;
+
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.administrador.email, this.administrador.contrasena)
+          .then((user) => {this.$router.replace('validacionHoras'); this.registrado = true;},
+          (error) => {console.error(error); this.validarLogin = true});
+
+      } else {
+        console.log("entra Else");
+        this.profesor.email = this.emailUsuario;
+        this.profesor.contrasena = this.contrasenaUsuario;
+        try {
+          const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
+          console.log(profesoresRef.docs[0]);
+          
+          profesoresRef.forEach(doc => {
+          let data = doc.data();
+          this.profesor.nombre = data.nombre;
+          this.profesor.apellidos = data.apellidos;
+          this.profesor.confirmarContrasena = data.confirmarContrasena;
+          this.profesor.foto = data.foto;
+          this.profesor.puntuacion = data.puntuacion;
+          this.profesor.centro = data.centro;
+          this.profesor.departamento = data.departamento;
+          this.profesor.despacho = data.despacho;
+          this.profesor.proyectosDocentes = data.proyectosDocentes;
+          this.profesor.publicacionesDocentes = data.publicacionesDocentes;
+          this.profesor.publicaciones = data.publicaciones;
+          this.profesor.horas = data.horas;
+          this.profesor.cursosDocentes = data.cursosDocentes;
+          this.profesor.trabajosSupervisados = data.trabajosSupervisados;
+          this.profesor.estancias = data.estancias;
+          this.profesor.correoAlumnos = data.correoAlumnos;
+          this.profesor.descripcion = data.descripcion;
+          this.profesor.seguidos = data.seguidos;
+          this.profesor.seguidores = data.seguidores;
+          this.profesor.comentarios = data.comentarios;
+          this.profesor.twitter = data.twitter;
+          this.profesor.paginaPersonal = data.paginaPersonal;
+          this.profesor.researchGate = data.researchGate;
+          this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false, false];
+          this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false];
         
         });
-        store.dispatch('updateFields');
-      } catch (error) {
-        console.log(error);
+          store.dispatch('updateFields');
+        } catch (error) {
+          console.log(error);
+        }
+      
+        this.tarjetaProfesor = this.profesor;
+        
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
+          .then((user) => {this.$router.replace('home'); this.registrado = true;},
+          (error) => {console.error(error); this.validarLogin = true});
       }
-      
-      this.tarjetaProfesor = this.profesor;
-      
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.profesor.email, this.profesor.contrasena)
-        .then((user) => {this.$router.replace('home'); this.registrado = true; localStorage.setItem('userEmail', this.profesor.email)},
-        (error) => {console.error(error); this.validarLogin = true});
     },
-  },
-};
+  }
+}
 </script>
 
 <style></style>

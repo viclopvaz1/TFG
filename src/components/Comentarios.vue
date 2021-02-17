@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card>
+        <b-card style="border-color: #17a2b8">
             <b-card-text>
                 Escribe aquí los correos de tus alumnos,
                 separados por coma, para que te puedan 

@@ -2,8 +2,7 @@
     <div>
         <b-card
       class="overflow: hidden"
-      border-variant="secondary"
-      style="margin: 20px"
+      style="margin: 20px; border-color: #17a2b8"
     >
       <b-row no-gutters>
         <b-col md="2">
@@ -19,8 +18,8 @@
               <b-row>
                 <b-col>
                   <b-card-text>
-                  {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }}  
-                </b-card-text>
+                    {{ tarjetaProfesor.nombre }} {{ tarjetaProfesor.apellidos }} {{ tarjetaProfesor.email }}  
+                  </b-card-text>
                 </b-col>
                 <b-col>
                   <b-card-text>
@@ -113,7 +112,8 @@ export default {
     ...mapActions(['getData', 'recuperarState']),
   },
   created() {
-    this.tarjetaProfesor = this.profesor;
+    console.log("Informacion Profesor: " + this.tarjetaProfesor);
+    // this.tarjetaProfesor = this.profesor;
   }
   
 };

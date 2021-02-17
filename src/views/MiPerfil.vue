@@ -39,29 +39,59 @@ import { mapActions } from "vuex";
 import firebase from 'firebase';
 import store from '../store';
 
-
 export default {
-    name: "MiPerfil",
-    components: {
-        BarraSinRegistrar,
-        BarraRegistrado,
-        InformacionProfesor,
-        BotonesPrivado,
-        ModificarPerfil,
-        ModificarContrasena,
-        Comentarios,
-        Resumenes
+  name: "MiPerfil",
+  components: {
+    BarraSinRegistrar,
+    BarraRegistrado,
+    InformacionProfesor,
+    BotonesPrivado,
+    ModificarPerfil,
+    ModificarContrasena,
+    Comentarios,
+    Resumenes
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(['getData', 'recuperarState']),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administradoresDB"]),
+    ...mapActions(['getData', 'recuperarState', 'getAdmins']),
     
   },
-  created() {
-    this.tarjetaProfesor = this.profesor;
+  data() {
+    return {
+    }
   },
-  mounted() {
-    
+  async mounted() {
+    try {
+      let admins = await store.dispatch("getAdmins");
+      this.administradoresDB = admins;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async created() {
+    try {
+      var notAdmin = true;
+      
+        if (firebase.auth().currentUser) {
+          for (var adminKey in this.administradoresDB) {
+
+            if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
+              this.$router.replace('validacionHoras');
+              notAdmin = false;
+              break;
+            }
+          }
+
+          if (notAdmin) {
+            store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+            this.tarjetaProfesor = this.profesor;
+          }
+
+        }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card>
+    <b-card style="border-color: #17a2b8">
       <form @submit.prevent="guardar">
         <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2" label-cols-md="2">
           <b-form-input id="input-nombre" v-model="profesor.nombre" type="text" required :maxlength="20"></b-form-input>
@@ -49,12 +49,10 @@
 </template>
 
 <script>
-import firebase from 'firebase';
 import {
   mapFields
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
-import {db} from '../main';
 import store from '../store';
 
 export default {

@@ -3,7 +3,7 @@
     <BarraSinRegistrar v-if="!registrado" />
     <BarraRegistrado v-if="registrado"/>
 
-    <div>
+    <div style="margin-left: 150px; margin-right: 150px; margin-top: 15px;">
      <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
        Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
        horas impartidas en los distintos centros en los que has estado, cursos privados 
@@ -11,15 +11,19 @@
        encontrar una vez te registres. ¡Pruebalo!</p>
     </div>
 
+    <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
+
+    <MejoresProfesores/>
+
   </div>
   
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import BarraRegistrado from '@/components/BarraRegistrado.vue'
+import MejoresProfesores from '@/components/MejoresProfesores.vue'
 import {
   mapFields
 } from 'vuex-map-fields'
@@ -31,33 +35,55 @@ export default {
   name: 'Home',
   components: {
     BarraSinRegistrar,
-    BarraRegistrado
+    BarraRegistrado,
+    MejoresProfesores
   },
   data () {
-    return {}
+    return {
+      administradores: []
+    }
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado"]),
-    ...mapActions(['getData', 'recuperarState']),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
+    ...mapActions(['getData', 'recuperarState', 'getAdmins']),
+    
    
   },
-  created () {
-    //Para que se actualice la lista profesoresDB con todos los profesores en la base
-    //de datos
-    store.dispatch('getData');
-    this.compruebaUsuarioRegistrado();
-    
+  async mounted() {
+    store.dispatch("getData");
+    try {
+      let admins = await store.dispatch("getAdmins");
+      this.administradoresDB = admins;
+
+    } catch (error) {
+      console.log(error);
+    }
   },
-  methods: {
-    compruebaUsuarioRegistrado() {
-      if (firebase.auth().currentUser==null){
-        localStorage.setItem('userEmail', '');
-        firebase.auth().signOut();
-    } else if(firebase.auth().currentUser!=null){
-        store.dispatch('recuperarState');
+  async created() {
+    store.dispatch("getData");
+    try {
+      var notAdmin = true;
+        if (firebase.auth().currentUser) {
+
+          for (var adminKey in this.administradoresDB) {
+
+            if (firebase.auth().currentUser.email == this.administradoresDB[adminKey].email){
+              this.$router.replace('validacionHoras');
+              notAdmin = false;
+              break;
+            }
+          }
+
+          if (notAdmin) {
+            store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+            this.tarjetaProfesor = this.profesor;
+          }
+
+        }
+    } catch (error) {
+      console.log(error);
     }
-    }
-  }
+  },
   
 }
 </script>
