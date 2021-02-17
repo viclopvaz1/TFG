@@ -9,15 +9,6 @@ import firebase from 'firebase';
 
 Vue.use(Vuex)
 
-// import firebase from 'firebase';
-// import config from '@/config';
-
-// // Initialize Firebase
-// let app = firebase.initializeApp(config);
-// let db = app.database();
-// let profesoresRef1 = db.ref('profesores')
-// firebase.analytics();
-
 export default new Vuex.Store({
  
   state: {

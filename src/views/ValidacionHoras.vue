@@ -12,9 +12,9 @@
                 </b-avatar>
                 {{profesor.nombre}} {{profesor.apellidos}} {{profesor.email}}
             </b-row>
-            <b-row no-gutters style="margin-top: 15px; margin-bottom: 15px">
+            <b-card-text>
                 URL al archivo: {{profesor.urlArchivoHoras}}
-            </b-row>
+            </b-card-text>
 
             <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora" style="border-color: #17a2b8">
                 <b-row no-gutters>
@@ -24,9 +24,9 @@
                     {{hora.horas}} horas
                 </b-row>
 
-                <b-row no-gutters v-if="!hora.validada">
+                <b-row no-gutters>
                     <b-col style="max-width: fit-content; margin-right: 100px">
-                        <b-button @click="validar(profesor, hora); hora.validada = true" variant="primary" type="submit">Validar</b-button>
+                        <b-button @click="validar(profesor, hora)" variant="primary" type="submit">Validar</b-button>
                     </b-col>
                 
                     <b-col style="max-width: fit-content; margin-right: 15px">
@@ -90,7 +90,7 @@ export default {
                     horas: [],
                 }
                 for (let horaIndex in this.profesoresDB[profIndex].horas) {
-                    if (!this.profesoresDB[profIndex].horas[horaIndex].validada) {
+                    if (this.profesoresDB[profIndex].horas[horaIndex].validada == 0) {
                         profesor.horas.push(this.profesoresDB[profIndex].horas[horaIndex]);
                     }
                 }
@@ -162,14 +162,15 @@ export default {
                 });
                 for (var horaIndex in this.profesor.horas) {
                     var horaDB = this.profesor.horas[horaIndex];
-                    if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == false) {
-                        this.profesor.horas[horaIndex].validada = true;
+                    if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
+                        this.profesor.horas[horaIndex].validada = 1;
                         this.profesor.horas[horaIndex].justificacionHora = "";
+                        hora.validada = 1;
+                        hora.justificacionHora = "";
                         break;
                     }
                 }
                 
-                console.log(this.profesor.horas)
                 store.dispatch("updateHoras");
             } catch (error) {
                 console.log(error);
@@ -179,7 +180,7 @@ export default {
         reload(){
             window.location.reload();
         },
-        noValidar(profesor, hora){
+        async noValidar(profesor, hora){
             // if (profesor.justificacionHoras != "") {
             //     this.profesor.email = profesor.email;
             //     this.profesor.justificacionHoras = profesor.justificacionHoras;
@@ -204,6 +205,30 @@ export default {
             //     this.profesor.horas = profesor.horas;
             //     store.dispatch("updateHoras");
             // }
+            if (hora.justificacionHora != "") {
+                this.profesor.email = profesor.email;
+                try {
+                    const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
+
+                    profesoresRef.forEach(doc => {
+                        let data = doc.data();
+                        this.profesor.horas = data.horas;
+                    });
+                    for (var horaIndex in this.profesor.horas) {
+                        var horaDB = this.profesor.horas[horaIndex];
+                        if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
+                            this.profesor.horas[horaIndex].validada = 2;
+                            this.profesor.horas[horaIndex].justificacionHora = hora.justificacionHora;
+                            hora.validada = 2;
+                            break;
+                        }
+                    }
+                    
+                    store.dispatch("updateHoras");
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         }
     }
 }

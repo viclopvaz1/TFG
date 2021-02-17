@@ -22,37 +22,41 @@
                 <b-button @click="privada(3)" variant="primary" :pressed.sync="profesor.seleccionPrivada[3]">Resumenes</b-button>
             </b-row>
 
+            <b-row style="margin-bottom: 5px">
+                <b-button @click="privada(4)" variant="primary" :pressed.sync="profesor.seleccionPrivada[4]">Horas no validadas</b-button>
+            </b-row>
+
             <b-row style="font-weight: bold; margin-top: 20px">
                 Subir
                 <b-icon icon="arrow-down-short" class="h4 mb-2"></b-icon>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(4)" variant="primary" :pressed.sync="profesor.seleccionPrivada[4]">Publicaciones Docentes</b-button>
+                <b-button @click="privada(5)" variant="primary" :pressed.sync="profesor.seleccionPrivada[5]">Publicaciones Docentes</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(5)" variant="primary" :pressed.sync="profesor.seleccionPrivada[5]">Publicaciones</b-button>
+                <b-button @click="privada(6)" variant="primary" :pressed.sync="profesor.seleccionPrivada[6]">Publicaciones</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(6)" variant="primary" :pressed.sync="profesor.seleccionPrivada[6]">Horas</b-button>
+                <b-button @click="privada(7)" variant="primary" :pressed.sync="profesor.seleccionPrivada[7]">Horas</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(7)" variant="primary" :pressed.sync="profesor.seleccionPrivada[7]">Proyectos Docentes</b-button>
+                <b-button @click="privada(8)" variant="primary" :pressed.sync="profesor.seleccionPrivada[8]">Proyectos Docentes</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(8)" variant="primary" :pressed.sync="profesor.seleccionPrivada[8]">Cursos Recibidos / Dados</b-button>
+                <b-button @click="privada(9)" variant="primary" :pressed.sync="profesor.seleccionPrivada[9]">Cursos Recibidos / Dados</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(9)" variant="primary" :pressed.sync="profesor.seleccionPrivada[9]">Trabajos Supervisados</b-button>
+                <b-button @click="privada(10)" variant="primary" :pressed.sync="profesor.seleccionPrivada[10]">Trabajos Supervisados</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 5px">
-                <b-button @click="privada(10)" variant="primary" :pressed.sync="profesor.seleccionPrivada[10]">Estancias Erasmus / Docentes</b-button>
+                <b-button @click="privada(11)" variant="primary" :pressed.sync="profesor.seleccionPrivada[11]">Estancias Erasmus / Docentes</b-button>
             </b-row>
         </b-col>
     </div>
