@@ -130,7 +130,7 @@ export default {
           this.profesor.paginaPersonal = data.paginaPersonal;
           this.profesor.researchGate = data.researchGate;
           this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false, false];
-          this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false];
+          this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false, false];
         
         });
           store.dispatch('updateFields');

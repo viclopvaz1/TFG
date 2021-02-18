@@ -299,6 +299,7 @@ export default new Vuex.Store({
         console.log(error);
       }
       this.state.registrado = true;
+      return this.state.profesor;
     }
   },
   modules: {

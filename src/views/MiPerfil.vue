@@ -72,7 +72,7 @@ export default {
     SubirEstancias,
     SubirCursosDocentes,
     SubirPublicacionesDocentes,
-    SubirPublicaciones
+    SubirPublicaciones,
     HorasNoValidadas
   },
   computed: {
