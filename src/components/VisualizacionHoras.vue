@@ -8,6 +8,9 @@
                 <b-row no-gutters>
                     {{hora.horas}} horas
                 </b-row>
+                <b-row no-gutters>
+                    Curso {{hora.ano}}
+                </b-row>
             </b-card>
         </b-card>
         

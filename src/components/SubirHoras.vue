@@ -69,6 +69,8 @@ export default {
   },
   methods: {
       subirHoras() {
+            this.horasSubidas = false;
+            this.errorSubida = false;
             var hora = this.profesor.horas.find(element => element.asignatura == this.hora.asignatura && element.ano == this.hora.ano && element.horas == this.hora.horas && element.idioma == this.hora.idioma && element.institucion == this.hora.institucion && (element.validada == 0 || element.validada == 1));
             if (hora == undefined) {
                 this.profesor.horas.push(this.hora);

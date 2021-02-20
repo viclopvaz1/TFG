@@ -15,6 +15,10 @@
                     <b-form-input id="input-tipo" v-model="trabajoSupervisado.tipo" type="text" required></b-form-input>
                 </b-form-group>
 
+                <b-alert :show="trabajoSupervisadoSubido" dismissible variant="success" class="mt-3">
+                    Tu Trabajo Supervisado se ha publicado correctamente
+                </b-alert>
+
                 <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Trabajo Supervisado ya se encuentra subido en su perfil.
                 </b-alert>
@@ -41,6 +45,7 @@ export default {
             asignatura: '',
             tipo: ''
         },
+        trabajoSupervisadoSubido: false,
         errorSubida: false,
     }
   },
@@ -50,10 +55,13 @@ export default {
   },
   methods: {
       subirTrabajosSupervisados() {
+            this.trabajoSupervisadoSubido = false;
+            this.errorSubida = false;
             var trabajoSupervisado = this.profesor.trabajosSupervisados.find(element => element.titulo == this.trabajoSupervisado.titulo && element.descripcion == this.trabajoSupervisado.descripcion && element.tipo == this.trabajoSupervisado.tipo);
             if (trabajoSupervisado == undefined) {
                 this.profesor.trabajosSupervisados.push(this.trabajoSupervisado);
                 this.update();
+                this.trabajoSupervisadoSubido = true;
                 this.trabajoSupervisado = {
                     titulo: '',
                     asignatura: '',

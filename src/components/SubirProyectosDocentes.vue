@@ -15,6 +15,10 @@
                     <b-form-input id="input-url" v-model="proyectoDocente.url" type="text" required></b-form-input>
                 </b-form-group>
 
+                <b-alert :show="proyectoDocenteSubido" dismissible variant="success" class="mt-3">
+                    Tu Proyecto Docente se ha publicado correctamente
+                </b-alert>
+
                 <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Proyecto Docente ya se encuentra subido en su perfil.
                 </b-alert>
@@ -41,6 +45,7 @@ export default {
             descripcion: '',
             url: ''
         },
+        proyectoDocenteSubido: false,
         errorSubida: false,
     }
   },
@@ -50,10 +55,13 @@ export default {
   },
   methods: {
       subirProyectosDocentes() {
+            this.proyectoDocenteSubido = false;
+            this.errorSubida = false;
             var proyectoDocente = this.profesor.proyectosDocentes.find(element => element.titulo == this.proyectoDocente.titulo && element.descripcion == this.proyectoDocente.descripcion && element.url == this.proyectoDocente.url);
             if (proyectoDocente == undefined) {
                 this.profesor.proyectosDocentes.push(this.proyectoDocente);
                 this.update();
+                this.proyectoDocenteSubido = true;
                 this.proyectoDocente = {
                     titulo: '',
                     descripcion: '',

@@ -23,6 +23,10 @@
                     <b-form-select v-model="estancia.tipo" :options="tipo"></b-form-select>
                 </b-form-group>
 
+                <b-alert :show="estanciaSubida" dismissible variant="success" class="mt-3">
+                    Tu Estancia se ha publicado correctamente
+                </b-alert>
+
                 <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Proyecto Docente ya se encuentra subido en su perfil.
                 </b-alert>
@@ -55,6 +59,7 @@ export default {
                 { value: 'Erasmus', text: 'Erasmus' },
                 { value: 'Docente', text: 'Docente' }
             ],
+        estanciaSubida: false,
         errorSubida: false,
     }
   },
@@ -64,10 +69,13 @@ export default {
   },
   methods: {
       subirEstancias() {
+            this.estanciaSubida = false;
+            this.errorSubida = false;
             var estancia = this.profesor.estancias.find(element => element.asignatura == this.estancia.asignatura && element.duracion == this.estancia.duracion && element.idioma == this.estancia.idioma && element.lugar == this.estancia.lugar && element.tipo == this.estancia.tipo);
             if (estancia == undefined) {
                 this.profesor.estancias.push(this.estancia);
                 this.update();
+                this.estanciaSubida = true;
                 this.estancia = {
                     asignatura: '',
                     duracion: '',

@@ -11,6 +11,10 @@
                     <b-form-input id="input-descripcion" v-model="publicacion.descripcion" type="text" required></b-form-input>
                 </b-form-group>
 
+                <b-alert :show="publicacionSubida" dismissible variant="success" class="mt-3">
+                    Tu Publicación se ha publicado correctamente
+                </b-alert>
+
                 <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
                     Esta Publicación ya se encuentra subido en su perfil.
                 </b-alert>
@@ -36,6 +40,7 @@ export default {
             titulo: '',
             descripcion: '',
         },
+        publicacionSubida: false,
         errorSubida: false,
     }
   },
@@ -45,10 +50,13 @@ export default {
   },
   methods: {
       subirPublicaciones() {
+            this.publicacionSubida = false;
+            this.errorSubida = false;
             var publicacion = this.profesor.publicaciones.find(element => element.titulo == this.publicacion.titulo && element.descripcion == this.publicacion.descripcion);
             if (publicacion == undefined) {
                 this.profesor.publicaciones.push(this.publicacion);
                 this.update();
+                this.publicacionSubida = true;
                 this.publicacion = {
                     titulo: '',
                     descripcion: ''

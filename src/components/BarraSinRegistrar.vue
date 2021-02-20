@@ -14,7 +14,7 @@
 
       <b-collapse is-nav style="max-width: fit-content">
         <b-navbar-nav>
-          <b-button variant="primary" @click="login">Login</b-button>
+          <b-button variant="primary" @click="login">Iniciar Sesion</b-button>
           <b-button variant="primary" style="margin-left: 15px" @click="registro">Regístrate</b-button>
         </b-navbar-nav>
       </b-collapse>

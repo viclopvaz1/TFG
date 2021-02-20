@@ -19,8 +19,12 @@
                     <b-form-select v-model="cursoDocente.tipo" :options="tipo"></b-form-select>
                 </b-form-group>
 
+                <b-alert :show="cursoSubido" dismissible variant="success" class="mt-3">
+                    Tu Curso se ha publicado correctamente
+                </b-alert>
+
                 <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
-                    Este Proyecto Docente ya se encuentra subido en su perfil.
+                    Este Curso ya se encuentra subido en su perfil.
                 </b-alert>
 
                 <b-button type="submit" variant="primary">Subir Cursos Docentes</b-button>
@@ -50,6 +54,7 @@ export default {
                 { value: 'Dado', text: 'Dado' },
                 { value: 'Recibido', text: 'Recibido' }
             ],
+        cursoSubido: false,
         errorSubida: false,
     }
   },
@@ -59,10 +64,13 @@ export default {
   },
   methods: {
       subirCursosDocentes() {
-            var cursoDocente = this.profesor.estancias.find(element => element.descripcion == this.cursoDocente.descripcion && element.duracion == this.cursoDocente.duracion && element.lugar == this.cursoDocente.lugar && element.tipo == this.cursoDocente.tipo);
+            this.cursoSubido = false;
+            this.errorSubida = false;
+            var cursoDocente = this.profesor.cursosDocentes.find(element => element.descripcion == this.cursoDocente.descripcion && element.duracion == this.cursoDocente.duracion && element.lugar == this.cursoDocente.lugar && element.tipo == this.cursoDocente.tipo);
             if (cursoDocente == undefined) {
                 this.profesor.cursosDocentes.push(this.cursoDocente);
                 this.update();
+                this.cursoSubido = true;
                 this.cursoDocente = {
                     descripcion: '',
                     duracion: '',
