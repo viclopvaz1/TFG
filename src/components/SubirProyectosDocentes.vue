@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(["getData", "updateFields"])
+    ...mapActions(["getData", "updateFields", 'recuperarState'])
   },
   methods: {
       subirProyectosDocentes() {
@@ -60,13 +60,17 @@ export default {
             var proyectoDocente = this.profesor.proyectosDocentes.find(element => element.titulo == this.proyectoDocente.titulo && element.descripcion == this.proyectoDocente.descripcion && element.url == this.proyectoDocente.url);
             if (proyectoDocente == undefined) {
                 this.profesor.proyectosDocentes.push(this.proyectoDocente);
-                this.update();
                 this.proyectoDocenteSubido = true;
                 this.proyectoDocente = {
                     titulo: '',
                     descripcion: '',
                     url: ''
                 }
+                if (this.profesor.proyectosDocentes.length == 3) {
+                    this.profesor.puntuacion += 1;
+                    this.proyectosDocentes = 0;
+                } 
+                this.update();
 
             } else {
                 this.errorSubida = true

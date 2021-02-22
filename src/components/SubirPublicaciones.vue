@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(["getData", "updateFields"])
+    ...mapActions(["getData", "updateFields", 'recuperarState'])
   },
   methods: {
       subirPublicaciones() {
@@ -55,13 +55,17 @@ export default {
             var publicacion = this.profesor.publicaciones.find(element => element.titulo == this.publicacion.titulo && element.descripcion == this.publicacion.descripcion);
             if (publicacion == undefined) {
                 this.profesor.publicaciones.push(this.publicacion);
-                this.update();
                 this.publicacionSubida = true;
                 this.publicacion = {
                     titulo: '',
                     descripcion: ''
                 }
 
+                if (this.profesor.publicaciones.length == 3) {
+                        this.profesor.puntuacion += 1;
+                        this.publicaciones = 0;
+                    } 
+                this.update();
             } else {
                 this.errorSubida = true
             }

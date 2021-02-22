@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(["getData", "updateFields"])
+    ...mapActions(["getData", "updateFields", 'recuperarState'])
   },
   methods: {
       subirPublicacionesDocentes() {
@@ -62,6 +62,11 @@ export default {
                     descripcion: ''
                 }
 
+                if (this.profesor.publicacionesDocentes.length == 3) {
+                    this.profesor.puntuacion += 1;
+                    this.publicacionesDocentes = 0;
+                } 
+                this.update();
             } else {
                 this.errorSubida = true
             }

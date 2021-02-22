@@ -172,7 +172,8 @@ export default new Vuex.Store({
         paginaPersonal: this.state.profesor.paginaPersonal,
         researchGate: this.state.profesor.researchGate,
         seleccionPublica: this.state.profesor.seleccionPublica,
-        seleccionPrivada: this.state.profesor.seleccionPrivada
+        seleccionPrivada: this.state.profesor.seleccionPrivada,
+        puntuacion: this.state.profesor.puntuacion
       })
       .then(function() {
         console.log("Document changed");
@@ -210,6 +211,7 @@ export default new Vuex.Store({
 
       p.update( {
         horas: this.state.profesor.horas,
+        puntuacion: this.state.profesor.puntuacion,
       })
       .then(function() {
         console.log("Document changed");

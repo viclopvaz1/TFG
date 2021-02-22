@@ -39,6 +39,7 @@ import {
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
 import store from '../store';
+import firebase from 'firebase';
 
 export default {
   name: "SubirEstancias",
@@ -56,11 +57,22 @@ export default {
             ],
         cursoSubido: false,
         errorSubida: false,
+        cursosDocentesDados: 3,
+        cursosDocentesRecibidos: 3
     }
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(["getData", "updateFields"])
+    ...mapActions(["getData", "updateFields", 'recuperarState'])
+  },
+  async mounted() {
+      this.profesor = await store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+      if (this.profesor.cursosDocentes.filter(element => element.tipo == "Dado").length >= 3) {
+          this.cursosDocentesDados = 0;
+      }
+      if (this.profesor.cursosDocentes.filter(element => element.tipo == "Recibido").length >= 3) {
+          this.cursosDocentesRecibidos = 0;
+      }
   },
   methods: {
       subirCursosDocentes() {
@@ -69,7 +81,7 @@ export default {
             var cursoDocente = this.profesor.cursosDocentes.find(element => element.descripcion == this.cursoDocente.descripcion && element.duracion == this.cursoDocente.duracion && element.lugar == this.cursoDocente.lugar && element.tipo == this.cursoDocente.tipo);
             if (cursoDocente == undefined) {
                 this.profesor.cursosDocentes.push(this.cursoDocente);
-                this.update();
+                
                 this.cursoSubido = true;
                 this.cursoDocente = {
                     descripcion: '',
@@ -77,7 +89,17 @@ export default {
                     lugar: '',
                     tipo: ''
                 }
+                if (this.profesor.cursosDocentes.filter(element => element.tipo == "Dado").length == this.cursosDocentesDados) {
+                    this.profesor.puntuacion += 0.5;
+                    this.cursosDocentesDados = 0;
+                } 
 
+                if (this.profesor.cursosDocentes.filter(element => element.tipo == "Recibido").length == this.cursosDocentesRecibidos) {
+                    this.profesor.puntuacion += 0.5;
+                    this.cursosDocentesRecibidos = 0;
+                } 
+
+                this.update();
             } else {
                 this.errorSubida = true
             }

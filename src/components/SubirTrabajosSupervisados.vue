@@ -42,7 +42,7 @@ export default {
     return {
         trabajoSupervisado: {
             titulo: '',
-            asignatura: '',
+            descripcion: '',
             tipo: ''
         },
         trabajoSupervisadoSubido: false,
@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor"]),
-    ...mapActions(["getData", "updateFields"])
+    ...mapActions(["getData", "updateFields", 'recuperarState'])
   },
   methods: {
       subirTrabajosSupervisados() {
@@ -60,13 +60,18 @@ export default {
             var trabajoSupervisado = this.profesor.trabajosSupervisados.find(element => element.titulo == this.trabajoSupervisado.titulo && element.descripcion == this.trabajoSupervisado.descripcion && element.tipo == this.trabajoSupervisado.tipo);
             if (trabajoSupervisado == undefined) {
                 this.profesor.trabajosSupervisados.push(this.trabajoSupervisado);
-                this.update();
                 this.trabajoSupervisadoSubido = true;
                 this.trabajoSupervisado = {
                     titulo: '',
-                    asignatura: '',
+                    descripcion: '',
                     tipo: ''
                 }
+
+                if (this.profesor.trabajosSupervisados.length == 3) {
+                    this.profesor.puntuacion += 1;
+                    this.trabajosSupervisados = 0;
+                } 
+                this.update();
 
             } else {
                 this.errorSubida = true
