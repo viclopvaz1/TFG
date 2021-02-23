@@ -112,6 +112,7 @@ export default {
                 confirmarContrasena: this.profesor.confirmarContrasena,
                 foto: '',
                 puntuacion: 0.0,
+                puntuacionComentario: 0.0,
                 centro: '',
                 departamento: '',
                 despacho: '',

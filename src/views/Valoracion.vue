@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: -webkit-center">
-    <b-card class="overflow: hidden" border-variant="secondary" style="margin: 20px; width: 60%">
+    <b-card class="overflow: hidden" style="margin: 20px; width: 60%; border-color: #17a2b8">
       <form @submit.prevent="enviarComentario">
         <b-form-group label="Correo profesor:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" >
           <b-form-input id="input-correoProfesor" v-model="correoProfesor" type="email" 
@@ -41,7 +41,6 @@
 <script>
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
-import firebase from "firebase";
 import BarraSinRegistrar from "@/components/BarraSinRegistrar.vue";
 import BarraRegistrado from "@/components/BarraRegistrado.vue";
 import {db} from '../main';
@@ -65,6 +64,7 @@ export default {
       profesorComentario: {
           nombre: '',
           puntuacion: 0,
+          puntuacionComentario: 0.0,
           correoAlumnos: [],
           comentarios: []
       }
@@ -79,6 +79,7 @@ export default {
         try {
             this.profesorComentario.nombre = '';
             this.profesorComentario.puntuacion = 0.0;
+            this.profesorComentario.puntuacionComentario = 0.0;
             this.profesorComentario.correoAlumnos = [];
             this.profesorComentario.comentarios = [];
             await this.getProfesor();
@@ -89,9 +90,23 @@ export default {
         } else {
             this.errorCorreoProfesor = false;
             if (this.profesorComentario.correoAlumnos.includes(this.correoAlumno)) {
-                this.profesorComentario.puntuacion = this.profesorComentario.puntuacion + this.comentario.valoracion;
                 this.profesorComentario.correoAlumnos.splice(this.profesorComentario.correoAlumnos.indexOf(this.correoAlumno));
-                this.profesorComentario.comentarios.push(this.comentario);
+                this.profesorComentario.comentarios.push(this.comentario);    
+
+                this.profesorComentario.puntuacion -= this.profesorComentario.puntuacionComentario;
+
+                if (this.profesorComentario.comentarios.length >= 10) {
+                  var valoracionMaxima = this.profesorComentario.comentarios.length * 5;
+
+                  var valoracionReal = this.profesorComentario.comentarios.filter(element => element.valoracion == 5.0).length * 5 + this.profesorComentario.comentarios.filter(element => element.valoracion == 4.0).length * 4
+                  + this.profesorComentario.comentarios.filter(element => element.valoracion == 3.0).length * 3 + this.profesorComentario.comentarios.filter(element => element.valoracion == 2.0).length * 2
+                  + this.profesorComentario.comentarios.filter(element => element.valoracion == 1.0).length;
+
+                  this.profesorComentario.puntuacionComentario = Math.round(((valoracionReal * 2) / valoracionMaxima) * 100) / 100;
+                }
+
+                this.profesorComentario.puntuacion += this.profesorComentario.puntuacionComentario;
+
                 await this.updateProfesor();
                 this.$router.replace('home');
             } else {
@@ -108,7 +123,8 @@ export default {
             profesor.forEach(doc => {
                 let data = doc.data();
                 this.profesorComentario.nombre = data.nombre;
-                this.profesorComentario.puntuacion = data.puntuacion;
+                this.profesorComentario.puntuacion = data.puntuacionComentario;
+                this.profesorComentario.puntuacionComentario = data.puntuacion;
                 this.profesorComentario.correoAlumnos = data.correoAlumnos;
                 this.profesorComentario.comentarios = data.comentarios;
             });
@@ -123,6 +139,7 @@ export default {
 
             p.update( {
                 puntuacion: this.profesorComentario.puntuacion,
+                puntuacionComentario: this.profesorComentario.puntuacionComentario,
                 correoAlumnos: this.profesorComentario.correoAlumnos,
                 comentarios: this.profesorComentario.comentarios
             })

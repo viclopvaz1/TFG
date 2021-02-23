@@ -111,6 +111,7 @@ export default {
           this.profesor.confirmarContrasena = data.confirmarContrasena;
           this.profesor.foto = data.foto;
           this.profesor.puntuacion = data.puntuacion;
+          this.profesor.puntuacionComentario = data.puntuacionComentario;
           this.profesor.centro = data.centro;
           this.profesor.departamento = data.departamento;
           this.profesor.despacho = data.despacho;

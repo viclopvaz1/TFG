@@ -20,6 +20,7 @@ export default new Vuex.Store({
       confirmarContrasena: '',
       foto: '',
       puntuacion: 0.0,
+      puntuacionComentario: 0.0,
       centro: '',
       departamento: '',
       despacho: '',
@@ -52,6 +53,7 @@ export default new Vuex.Store({
       confirmarContrasena: '',
       foto: '',
       puntuacion: 0.0,
+      puntuacionComentario: 0.0,
       centro: '',
       departamento: '',
       despacho: '',
@@ -173,7 +175,8 @@ export default new Vuex.Store({
         researchGate: this.state.profesor.researchGate,
         seleccionPublica: this.state.profesor.seleccionPublica,
         seleccionPrivada: this.state.profesor.seleccionPrivada,
-        puntuacion: this.state.profesor.puntuacion
+        puntuacion: this.state.profesor.puntuacion,
+        puntuacionComentario: this.state.profesor.puntuacionComentario
       })
       .then(function() {
         console.log("Document changed");
@@ -274,6 +277,7 @@ export default new Vuex.Store({
         this.state.profesor.confirmarContrasena = data.confirmarContrasena;
         this.state.profesor.foto = data.foto;
         this.state.profesor.puntuacion = data.puntuacion;
+        this.state.profesor.puntuacionComentario = data.puntuacionComentario;
         this.state.profesor.centro = data.centro;
         this.state.profesor.departamento = data.departamento;
         this.state.profesor.despacho = data.despacho;
