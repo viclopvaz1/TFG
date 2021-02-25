@@ -20,6 +20,8 @@
           <VisualizacionEstancias :style="tarjetaProfesor.seleccionPublica[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionComentarios :style="tarjetaProfesor.seleccionPublica[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <Resumenes :style="tarjetaProfesor.seleccionPublica[8] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionSeguidos :style="tarjetaProfesor.seleccionPublica[9] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionSeguidores :style="tarjetaProfesor.seleccionPublica[10] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
     </b-container>
@@ -42,6 +44,8 @@ import VisualizacionProyectoDocente from "@/components/VisualizacionProyectoDoce
 import VisualizacionCursoDocente from "@/components/VisualizacionCursoDocente.vue";
 import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSupervisado.vue";
 import VisualizacionEstancias from "@/components/VisualizacionEstancias.vue";
+import VisualizacionSeguidos from "@/components/VisualizacionSeguidos.vue";
+import VisualizacionSeguidores from "@/components/VisualizacionSeguidores.vue";
 import Resumenes from "@/components/Resumenes";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
@@ -64,7 +68,9 @@ export default {
     VisualizacionCursoDocente,
     VisualizacionTrabajoSupervisado,
     VisualizacionEstancias,
-    Resumenes
+    Resumenes,
+    VisualizacionSeguidos,
+    VisualizacionSeguidores
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administradoresDB"]),
