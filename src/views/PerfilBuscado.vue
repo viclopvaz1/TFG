@@ -105,7 +105,8 @@ export default {
             }
 
             if (notAdmin) {
-              store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+              this.profesor = await store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+              console.log(this.profesor);
             }
 
           }

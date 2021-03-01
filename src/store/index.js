@@ -226,6 +226,26 @@ export default new Vuex.Store({
         
       }
     },
+    async updateSeguidores() {
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.email).get();
+        var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+      p.update( {
+        seguidores: this.state.tarjetaProfesor.seguidores,
+        puntuacion: this.state.tarjetaProfesor.puntuacion,
+        puntuacionSeguidores: this.state.tarjetaProfesor.puntuacionSeguidores
+      })
+      .then(function() {
+        console.log("Document changed");
+      })
+      .catch(function(error) {
+        console.log("Error: " + error);
+      })
+      } catch (error) {
+        
+      }
+    },
     // async updateJustificacion() {
     //   try {
     //     const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
