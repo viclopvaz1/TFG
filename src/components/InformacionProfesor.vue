@@ -131,6 +131,8 @@ export default {
     compruebaSiguiendo() {
       var result = false;
       var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
+      console.log(this.profesor.seguidos);  
+      console.log(profesor);
       if (this.tarjetaProfesor.email != this.profesor.email && profesor != undefined) {
         result = true;
       }

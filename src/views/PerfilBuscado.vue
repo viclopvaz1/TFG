@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administradoresDB"]),
-    ...mapActions(['getData', 'recuperarState', 'getAdmins']),
+    ...mapActions(['getData', 'recuperarState', 'getAdmins', 'updateListaSeguidores', 'updateListaSeguidos']),
     
   },
   data() {
@@ -105,8 +105,13 @@ export default {
             }
 
             if (notAdmin) {
-              this.profesor = await store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
-              console.log(this.profesor);
+              store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+              // console.log(this.profesor);
+              // this.tarjetaProfesor = this.profesor;
+              const profesorBuscado = await db.collection('profesores').where('email', '==', localStorage.getItem('profesorBuscado')).get();
+              this.tarjetaProfesor = profesorBuscado.docs[0].data();
+              store.dispatch("updateListaSeguidores");
+              store.dispatch("updateListaSeguidos");
             }
 
           }

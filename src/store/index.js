@@ -246,6 +246,74 @@ export default new Vuex.Store({
         
       }
     },
+    async updateListaSeguidores() {
+      try {
+        console.log(this.state.tarjetaProfesor.seguidores);
+        for (let seguidor in this.state.tarjetaProfesor.seguidores) {
+          const profesoresRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.seguidores[seguidor].email.toLowerCase()).get();
+
+          profesoresRef.forEach(doc => {
+          let data = doc.data();
+          // console.log(data);
+          // console.log(this.state.tarjetaProfesor);
+          // console.log(this.state.tarjetaProfesor.seguidores);
+          // console.log(this.state.tarjetaProfesor.seguidores[seguidor]);
+          this.state.tarjetaProfesor.seguidores[seguidor].nombre = data.nombre;
+          this.state.tarjetaProfesor.seguidores[seguidor].apellidos = data.apellidos;
+          this.state.tarjetaProfesor.seguidores[seguidor].foto = data.foto;
+          this.state.tarjetaProfesor.seguidores[seguidor].puntuacion = data.puntuacion;
+          this.state.tarjetaProfesor.seguidores[seguidor].email = data.email;
+          });
+        }
+        const tarjetaProfesorRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.email.toLowerCase()).get();
+
+        var p = await db.collection('profesores').doc(tarjetaProfesorRef.docs[0].id);
+
+        p.update({
+          seguidores: this.state.tarjetaProfesor.seguidores
+          })
+          .then(function() {
+              console.log("Document changed");
+          })
+          .catch(function(error) {
+              console.log("Error: " + error);
+          })
+      } catch (error) {
+        console.log(error);
+      }
+      
+    },
+    async updateListaSeguidos() {
+      try {
+        for (let seguido in this.state.tarjetaProfesor.seguidos) {
+          const profesoresRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.seguidos[seguido].email.toLowerCase()).get();
+
+          profesoresRef.forEach(doc => {
+            let data = doc.data();
+            this.state.tarjetaProfesor.seguidos[seguido].nombre = data.nombre;
+            this.state.tarjetaProfesor.seguidos[seguido].apellidos = data.apellidos;
+            this.state.tarjetaProfesor.seguidos[seguido].foto = data.foto;
+            this.state.tarjetaProfesor.seguidos[seguido].puntuacion = data.puntuacion;
+            this.state.tarjetaProfesor.seguidos[seguido].email = data.email;
+          });  
+        }
+        const tarjetaProfesorRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.email.toLowerCase()).get();
+
+        var p = await db.collection('profesores').doc(tarjetaProfesorRef.docs[0].id);
+
+        p.update({
+            seguidos: this.state.tarjetaProfesor.seguidos
+          })
+          .then(function() {
+              console.log("Document changed");
+          })
+          .catch(function(error) {
+              console.log("Error: " + error);
+          })
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // async updateJustificacion() {
     //   try {
     //     const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.email).get();
