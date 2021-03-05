@@ -33,6 +33,7 @@ import {
   mapFields
 } from 'vuex-map-fields'
 import firebase from 'firebase';
+import store from '../store';
 
 export default {
     name: "BusquedaPublicaciones",

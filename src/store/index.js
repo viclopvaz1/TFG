@@ -10,7 +10,7 @@ import firebase from 'firebase';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
- 
+
   state: {
     profesor: {
       nombre: '',
@@ -27,6 +27,7 @@ export default new Vuex.Store({
       proyectosDocentes: [],
       publicacionesDocentes: [],
       publicaciones: [],
+      publicacionesSeguidos: [],
       horas: [],
       urlArchivoHoras: '',
       cursosDocentes: [],
@@ -60,6 +61,7 @@ export default new Vuex.Store({
       proyectosDocentes: [],
       publicacionesDocentes: [],
       publicaciones: [],
+      publicacionesSeguidos: [],
       horas: [],
       urlArchivoHoras: '',
       cursosDocentes: [],
@@ -102,6 +104,9 @@ export default new Vuex.Store({
     },
     SET_ADMINISTRADORESDB(state, administradores) {
       state.administradoresDB = administradores;
+    },
+    CLEAN_PUBLICACIONESSEGUIDOS(state) {
+      state.profesor.publicacionesSeguidos = [];
     }
   },
   actions: {
@@ -110,15 +115,15 @@ export default new Vuex.Store({
       try {
         const listaProfesores = await db.collection('profesores').get();
         const profesores = [];
-  
+
         listaProfesores.forEach(doc => {
           //console.log(doc.data());
           let profesorData = doc.data();
           profesorData.id = doc.id;
           profesores.push(profesorData);
         })
-        commit('SET_PROFESORESDB', profesores); 
-        return profesores;       
+        commit('SET_PROFESORESDB', profesores);
+        return profesores;
       } catch (error) {
         console.log(error);
       }
@@ -127,7 +132,7 @@ export default new Vuex.Store({
       try {
         const listaAdmins = await db.collection('administradores').get();
         const administradores = [];
-  
+
         listaAdmins.forEach(doc => {
           //console.log(doc.data());
           let administradorData = doc.data();
@@ -136,8 +141,8 @@ export default new Vuex.Store({
         })
         commit('SET_ADMINISTRADORESDB', administradores);
         return administradores;
-        
-        
+
+
       } catch (error) {
         console.log(error);
       }
@@ -185,7 +190,7 @@ export default new Vuex.Store({
         console.log("Error: " + error);
       })
       } catch (error) {
-        
+
       }
     },
     async updateBotones() {
@@ -204,7 +209,7 @@ export default new Vuex.Store({
         console.log("Error: " + error);
       })
       } catch (error) {
-        
+
       }
     },
     async updateHoras() {
@@ -223,7 +228,7 @@ export default new Vuex.Store({
         console.log("Error: " + error);
       })
       } catch (error) {
-        
+
       }
     },
     async updateSeguidores() {
@@ -243,7 +248,7 @@ export default new Vuex.Store({
         console.log("Error: " + error);
       })
       } catch (error) {
-        
+
       }
     },
     async updateListaSeguidores() {
@@ -281,7 +286,7 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
-      
+
     },
     async updateListaSeguidos() {
       try {
@@ -295,7 +300,7 @@ export default new Vuex.Store({
             this.state.tarjetaProfesor.seguidos[seguido].foto = data.foto;
             this.state.tarjetaProfesor.seguidos[seguido].puntuacion = data.puntuacion;
             this.state.tarjetaProfesor.seguidos[seguido].email = data.email;
-          });  
+          });
         }
         const tarjetaProfesorRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.email.toLowerCase()).get();
 
@@ -303,6 +308,100 @@ export default new Vuex.Store({
 
         p.update({
             seguidos: this.state.tarjetaProfesor.seguidos
+          })
+          .then(function() {
+              console.log("Document changed");
+          })
+          .catch(function(error) {
+              console.log("Error: " + error);
+          })
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updatePublicacionesSeguidos({commit}) {
+      try {
+        // this.state.profesor.publicacionesSeguidos = [];
+        // commit('CLEAN_PUBLICACIONESSEGUIDOS');
+        var publicaciones = [];
+        console.log(this.state.profesor.nombre);
+        console.log(this.state.profesor.publicacionesSeguidos);
+        for (let seguido in this.state.profesor.seguidos) {
+          const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.seguidos[seguido].email.toLowerCase()).get();
+
+          console.log(this.state.profesor.nombre);
+          console.log(this.state.profesor.publicacionesSeguidos);
+
+          var profesorPublicacionesSeguidos = {
+            nombre: '',
+            apellidos: '',
+            foto: '',
+            email: '',
+            publicacion: []
+          };
+
+          var profesorPublicacionesDocenteSeguidos = {
+            nombre: '',
+            apellidos: '',
+            foto: '',
+            email: '',
+            publicacion: []
+          };
+
+          console.log(this.state.profesor.publicacionesSeguidos);
+
+          profesoresRef.forEach(doc => {
+            let data = doc.data();
+            profesorPublicacionesSeguidos.publicacion = data.publicaciones;
+            profesorPublicacionesSeguidos.nombre = data.nombre;
+            profesorPublicacionesSeguidos.apellidos = data.apellidos;
+            profesorPublicacionesSeguidos.foto = data.foto;
+            profesorPublicacionesSeguidos.email = data.email;
+            profesorPublicacionesDocenteSeguidos.publicacion = data.publicacionesDocentes;
+            profesorPublicacionesDocenteSeguidos.nombre = data.nombre;
+            profesorPublicacionesDocenteSeguidos.apellidos = data.apellidos;
+            profesorPublicacionesDocenteSeguidos.foto = data.foto;
+            profesorPublicacionesDocenteSeguidos.email = data.email;
+          });
+
+          // publicacionesProfesor.sort(function (a, b) {
+          //   if (a.horaSubida > b.horaSubida) {
+          //     return 1;
+          //   }
+          //   if (a.horaSubida < b.horaSubida) {
+          //     return -1;
+          //   }
+          //   return 0;
+          // });
+          console.log(this.state.profesor.publicacionesSeguidos);
+          console.log(profesorPublicacionesSeguidos);
+          console.log(profesorPublicacionesDocenteSeguidos);
+          if (profesorPublicacionesSeguidos.publicacion.length > 0) {
+            profesorPublicacionesSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
+            profesorPublicacionesSeguidos.publicacion = profesorPublicacionesSeguidos.publicacion[0];
+            console.log(this.state.profesor.publicacionesSeguidos);
+            // this.state.profesor.publicacionesSeguidos.push(profesorPublicacionesSeguidos);
+            publicaciones.push(profesorPublicacionesSeguidos);
+            console.log(this.state.profesor.publicacionesSeguidos);
+          }
+          if (profesorPublicacionesDocenteSeguidos.publicacion.length > 0){
+            profesorPublicacionesDocenteSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
+            profesorPublicacionesDocenteSeguidos.publicacion = profesorPublicacionesDocenteSeguidos.publicacion[0];
+            // this.state.profesor.publicacionesSeguidos.push(profesorPublicacionesDocenteSeguidos);
+            publicaciones.push(profesorPublicacionesDocenteSeguidos);
+          }
+          console.log(this.state.profesor.publicacionesSeguidos);
+        }
+        const profesorRef = await db.collection('profesores').where('email', '==', this.state.profesor.email.toLowerCase()).get();
+
+        var p = await db.collection('profesores').doc(profesorRef.docs[0].id);
+
+        // this.state.profesor.publicacionesSeguidos.sort((a, b) => (a.publicacion.horaSubida > b.publicacion.horaSubida) ? 1 : -1);
+        publicaciones.sort((a, b) => (a.publicacion.horaSubida < b.publicacion.horaSubida) ? 1 : -1);
+        this.state.profesor.publicacionesSeguidos = publicaciones;
+
+        p.update({
+          publicacionesSeguidos: this.state.profesor.publicacionesSeguidos
           })
           .then(function() {
               console.log("Document changed");
@@ -330,7 +429,7 @@ export default new Vuex.Store({
     //     console.log("Error: " + error);
     //   })
     //   } catch (error) {
-        
+
     //   }
     // },
     initialLogout() {
@@ -339,13 +438,13 @@ export default new Vuex.Store({
     async recuperarStateAdmin({ commit }, payload) {
       try {
         const administradoresRef = await db.collection('administradores').where('email', '==', payload.email).get();
-        
+
         administradoresRef.forEach(doc => {
         let data = doc.data();
         this.state.administrador.email = data.email;
-        this.state.administrador.contrasena = data.contrasena;          
+        this.state.administrador.contrasena = data.contrasena;
         });
-        
+
       } catch (error) {
           console.log(error);
       }
@@ -372,6 +471,7 @@ export default new Vuex.Store({
         this.state.profesor.proyectosDocentes = data.proyectosDocentes;
         this.state.profesor.publicacionesDocentes = data.publicacionesDocentes;
         this.state.profesor.publicaciones = data.publicaciones;
+        this.state.profesor.publicacionesSeguidos = data.publicacionesSeguidos;
         this.state.profesor.horas = data.horas;
         this.state.profesor.urlArchivoHoras = data.urlArchivoHoras;
         this.state.profesor.cursosDocentes = data.cursosDocentes;
@@ -387,7 +487,7 @@ export default new Vuex.Store({
         this.state.profesor.researchGate = data.researchGate;
         this.state.profesor.seleccionPublica = data.seleccionPublica;
         this.state.profesor.seleccionPrivada = data.seleccionPrivada;
-        
+
         });
       } catch (error) {
         console.log(error);

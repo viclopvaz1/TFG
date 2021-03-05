@@ -39,6 +39,7 @@ export default {
         publicacion: {
             titulo: '',
             descripcion: '',
+            horaSubida: ''
         },
         publicacionSubida: false,
         errorSubida: false,
@@ -54,6 +55,11 @@ export default {
             this.errorSubida = false;
             var publicacion = this.profesor.publicaciones.find(element => element.titulo == this.publicacion.titulo && element.descripcion == this.publicacion.descripcion);
             if (publicacion == undefined) {
+                var horaSubida = new Date();
+
+                const options = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'}
+
+                this.publicacion.horaSubida = horaSubida.toLocaleDateString('es-ES',options);
                 this.profesor.publicaciones.push(this.publicacion);
                 this.publicacionSubida = true;
                 this.publicacion = {
