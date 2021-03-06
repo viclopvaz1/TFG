@@ -135,7 +135,7 @@ export default {
     async updateProfesor() {
         try {
             const profesoresRef = await db.collection('profesores').where('email', '==', this.correoProfesor).get();
-            var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+            var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
 
             p.update( {
                 puntuacion: this.profesorComentario.puntuacion,

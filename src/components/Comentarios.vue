@@ -39,12 +39,12 @@ export default {
             const emailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,63}){1,3})$/;
             var correos = this.correos.split(',');
             this.profesor.correoAlumnos = [];
-            for (let i = 0; i < correos.length; i++) {
-                this.validacionCorreo = emailRegex.test(correos[i].trim());
+            for (let correo in correos) {
+                this.validacionCorreo = emailRegex.test(correos[correo].trim());
                 if (this.validacionCorreo) {
-                    this.profesor.correoAlumnos.push(correos[i]);
+                    this.profesor.correoAlumnos.push(correos[correo]);
                 } else {
-                    this.correoErroneo = correos[i];
+                    this.correoErroneo = correos[correo];
                     break;
                 }
             }

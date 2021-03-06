@@ -106,8 +106,6 @@ export default {
 
             if (notAdmin) {
               store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
-              // console.log(this.profesor);
-              // this.tarjetaProfesor = this.profesor;
               const profesorBuscado = await db.collection('profesores').where('email', '==', localStorage.getItem('profesorBuscado')).get();
               this.tarjetaProfesor = profesorBuscado.docs[0].data();
               store.dispatch("updateListaSeguidores");

@@ -50,26 +50,11 @@ export default {
     ...mapActions(['getData', 'recuperarState', 'getAdmins']),
     
   },
-  async created() {
-        try {
-            let profes = await store.dispatch("getData");
-            this.profesoresDB = profes;
-            this.profesoresDB = this.mejoresProfesoresprofesoresOrdenadosPorPuntuacion();
-            this.obtenerMejoresProfesores();
-        } catch (error) {
-            console.log(error);
-        }
-      
+    created() {
+        this.inicializarMejoresProfesores();
   },
-  async mounted() {
-        try {
-            let profes = await store.dispatch("getData");
-            this.profesoresDB = profes;
-            this.profesoresDB = this.mejoresProfesoresprofesoresOrdenadosPorPuntuacion();
-            this.obtenerMejoresProfesores();
-        } catch (error) {
-            console.log(error);
-        }
+    mounted() {
+        this.inicializarMejoresProfesores();
   },
   methods: {
       onClick(profesorB) {
@@ -81,6 +66,16 @@ export default {
             this.$router.replace('perfilBuscado');
         }
       },
+      async inicializarMejoresProfesores() {
+          try {
+            let profes = await store.dispatch("getData");
+            this.profesoresDB = profes;
+            this.profesoresDB = this.mejoresProfesoresOrdenadosPorPuntuacion();
+            this.obtenerMejoresProfesores();
+        } catch (error) {
+            console.log(error);
+        }
+      },
       obtenerMejoresProfesores () {
           for (let prof in this.profesoresDB) {
             let profesor = this.profesoresDB[prof];
@@ -89,7 +84,7 @@ export default {
             }
           }
       },
-      mejoresProfesoresprofesoresOrdenadosPorPuntuacion() {
+      mejoresProfesoresOrdenadosPorPuntuacion() {
       function compare(a, b) {
         if (a.puntuacion > b.puntuacion)
           return -1;

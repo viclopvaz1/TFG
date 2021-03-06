@@ -117,7 +117,6 @@ export default {
   },
   created() {
     console.log("Informacion Profesor: " + this.tarjetaProfesor);
-    // this.tarjetaProfesor = this.profesor;
   },
   methods: {
     compruebaNoSiguiendo() {

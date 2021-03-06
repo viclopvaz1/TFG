@@ -74,13 +74,7 @@ export default {
         ...mapActions(['getData', 'recuperarState', 'updateHoras', 'updateJustificacion', 'recuperarStateAdmin', 'getAdmins']),
         profesores() {
             var profeHoras = [];
-            let profesor = {
-                foto: '',
-                nombre: '',
-                apellidos: '',
-                email: '',
-                horas: [],
-            };
+            let profesor = {};
             for (let profIndex in this.profesoresDB) {
                 profesor = {
                     foto: '',
@@ -209,30 +203,6 @@ export default {
             window.location.reload();
         },
         async noValidar(profesor, hora){
-            // if (profesor.justificacionHoras != "") {
-            //     this.profesor.email = profesor.email;
-            //     this.profesor.justificacionHoras = profesor.justificacionHoras;
-            //     profesor.tieneJustificacion = true;
-            //     this.profesor.tieneJustificacion = profesor.tieneJustificacion;
-            //     store.dispatch("updateJustificacion");
-            // } else {
-            //     profesor.tieneJustificacion = false;
-            // }
-
-
-
-
-            // if (hora.justificacionHora != "") {
-            //     for (var horaIndex in profesor.horas) {
-            //         var horaDB = profesor.horas[horaIndex];
-            //         if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == false) {
-            //             profesor.horas.splice(horaIndex, 1);
-            //             break;
-            //         }
-            //     }
-            //     this.profesor.horas = profesor.horas;
-            //     store.dispatch("updateHoras");
-            // }
             if (hora.justificacionHora != "") {
                 this.profesor.email = profesor.email;
                 try {

@@ -20,9 +20,7 @@
 <script>
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
-import store from "../store";
 import firebase from 'firebase';
-import {db} from '../main';
 
 export default {
     

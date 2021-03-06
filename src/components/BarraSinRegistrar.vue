@@ -62,14 +62,7 @@ export default {
     busquedaProfesoresPublicaciones() {
       this.profesoresNombre = [];
       this.profesoresApellidos = [];
-      let profesorPublicaciones = {
-        nombre: '',
-        apellidos: '',
-        email: '',
-        foto: '',
-        publicacionesDocentes: [],
-        publicaciones: []
-      }
+      let profesorPublicaciones = {}
       const publicaciones = [];
       const publicacionesDocentes = [];
       for (let prof in this.profesoresDB) {
@@ -145,5 +138,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
