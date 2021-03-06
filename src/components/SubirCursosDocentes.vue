@@ -8,7 +8,7 @@
                 </b-form-group>
 
                 <b-form-group label="Duración:" label-for="input-duracion" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-duracion" v-model="cursoDocente.duracion" type="number" min="0" required></b-form-input>
+                    <b-form-input id="input-duracion" v-model="cursoDocente.duracion" type="number" min="1" required></b-form-input>
                 </b-form-group>
 
                 <b-form-group label="Lugar:" label-for="input-lugar" class="mt-2" label-cols-md="2">
@@ -107,7 +107,7 @@ export default {
       },
       async update(){
         try {
-            store.dispatch('updateFields');
+            await store.dispatch('updateFields');
         } catch (error) {
             console.log(error)
         }
