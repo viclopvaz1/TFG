@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB", "tarjetaProfesor"]),
-    ...mapActions(["getData", "recuperarState", "getAdmins"]),
+    ...mapActions(["getData", "recuperarState", "getAdmins", 'updateListaSeguidores', 'updateListaSeguidos']),
   },
   async mounted() {
     try {
@@ -101,6 +101,8 @@ export default {
           if (notAdmin) {
             store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
             this.tarjetaProfesor = this.profesor;
+            store.dispatch("updateListaSeguidores");
+            store.dispatch("updateListaSeguidos");
           }
 
         }

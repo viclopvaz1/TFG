@@ -27,6 +27,9 @@
                   </b-card-text>
                 </b-col>
                 <b-col style="max-width: fit-content">
+                  <b-button v-if="compruebaNoSiguiendo()" variant="primary" @click="seguir()">Seguir</b-button>
+                  <b-button v-if="compruebaSiguiendo()" variant="primary" @click="dejarSeguir()">Dejar de Seguir</b-button>
+
                   <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''">
                     <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
                   </a>
@@ -104,16 +107,73 @@
 <script>
 import { mapFields } from "vuex-map-fields";
 import { mapActions} from 'vuex';
+import store from '../store';
 
 export default {
   name: "InformacionProfesor",
   computed: {
     ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
-    ...mapActions(['getData', 'recuperarState']),
+    ...mapActions(['getData', 'recuperarState', 'updateFields','updateSeguidores']),
   },
   created() {
     console.log("Informacion Profesor: " + this.tarjetaProfesor);
     // this.tarjetaProfesor = this.profesor;
+  },
+  methods: {
+    compruebaNoSiguiendo() {
+      var result = false;
+      var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
+      if (this.tarjetaProfesor.email != this.profesor.email && profesor == undefined) {
+        result = true;
+      }
+      return result;
+    },
+    compruebaSiguiendo() {
+      var result = false;
+      var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
+      console.log(this.profesor.seguidos);  
+      console.log(profesor);
+      if (this.tarjetaProfesor.email != this.profesor.email && profesor != undefined) {
+        result = true;
+      }
+      return result;
+    },
+    seguir() {
+      var profesor = {
+        nombre: this.tarjetaProfesor.nombre,
+        apellidos: this.tarjetaProfesor.apellidos,
+        puntuacion: this.tarjetaProfesor.puntuacion,
+        email: this.tarjetaProfesor.email,
+        foto: this.tarjetaProfesor.foto
+      };
+      this.profesor.seguidos.push(profesor);
+      store.dispatch("updateFields");
+
+      var seguidor = {
+        nombre: this.profesor.nombre,
+        apellidos: this.profesor.apellidos,
+        puntuacion: this.profesor.puntuacion,
+        email: this.profesor.email,
+        foto: this.profesor.foto
+      };
+      this.tarjetaProfesor.seguidores.push(seguidor);
+      if (this.tarjetaProfesor.seguidores.length >= 2 && !this.tarjetaProfesor.puntuacionSeguidores) {
+        this.tarjetaProfesor.puntuacion += 1;
+        this.tarjetaProfesor.puntuacionSeguidores = true;
+      }
+      store.dispatch("updateSeguidores");
+    },
+    dejarSeguir() {
+      this.profesor.seguidos.splice(this.profesor.seguidos.findIndex(element => element.email == this.tarjetaProfesor.email), 1);
+      store.dispatch("updateFields");
+
+      this.tarjetaProfesor.seguidores.splice(this.tarjetaProfesor.seguidores.findIndex(element => element.email == this.profesor.email), 1);
+      if (this.tarjetaProfesor.seguidores.length < 2 && this.tarjetaProfesor.puntuacionSeguidores) {
+        this.tarjetaProfesor.puntuacion -= 1;
+        this.tarjetaProfesor.puntuacionSeguidores = false;
+      }
+      store.dispatch("updateSeguidores");
+    }
   }
   
 };

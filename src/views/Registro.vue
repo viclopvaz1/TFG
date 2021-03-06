@@ -119,6 +119,7 @@ export default {
                 proyectosDocentes: this.profesor.proyectosDocentes,
                 publicacionesDocentes: [],
                 publicaciones: [],
+                publicacionesSeguidos: [],
                 horas: [],
                 justificacionHoras: '',
                 tieneJustificacion: false,
