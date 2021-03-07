@@ -8,7 +8,7 @@
        Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
        horas impartidas en los distintos centros en los que has estado, cursos privados 
        en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
-       encontrar una vez te registres. ¡Pruebalo!</p>
+       encontrar una vez te registres. ¡Pruébalo!</p>
     </div>
 
     <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
