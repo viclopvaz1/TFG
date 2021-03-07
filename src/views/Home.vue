@@ -20,7 +20,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import BarraRegistrado from '@/components/BarraRegistrado.vue'
 import MejoresProfesores from '@/components/MejoresProfesores.vue'

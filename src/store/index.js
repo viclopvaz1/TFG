@@ -251,7 +251,6 @@ export default new Vuex.Store({
     },
     async updateListaSeguidores() {
       try {
-        console.log(this.state.tarjetaProfesor.seguidores);
         for (let seguidor in this.state.tarjetaProfesor.seguidores) {
           const profesoresRef = await db.collection('profesores').where('email', '==', this.state.tarjetaProfesor.seguidores[seguidor].email.toLowerCase()).get();
 
@@ -316,13 +315,8 @@ export default new Vuex.Store({
     async updatePublicacionesSeguidos({commit}) {
       try {
         var publicaciones = [];
-        console.log(this.state.profesor.nombre);
-        console.log(this.state.profesor.publicacionesSeguidos);
         for (let seguido in this.state.profesor.seguidos) {
           const profesoresRef = await db.collection('profesores').where('email', '==', this.state.profesor.seguidos[seguido].email.toLowerCase()).get();
-
-          console.log(this.state.profesor.nombre);
-          console.log(this.state.profesor.publicacionesSeguidos);
 
           var profesorPublicacionesSeguidos = {
             nombre: '',
@@ -340,7 +334,6 @@ export default new Vuex.Store({
             publicacion: []
           };
 
-          console.log(this.state.profesor.publicacionesSeguidos);
 
           profesoresRef.forEach(doc => {
             let data = doc.data();
@@ -356,22 +349,16 @@ export default new Vuex.Store({
             profesorPublicacionesDocenteSeguidos.email = data.email;
           });
 
-          console.log(this.state.profesor.publicacionesSeguidos);
-          console.log(profesorPublicacionesSeguidos);
-          console.log(profesorPublicacionesDocenteSeguidos);
           if (profesorPublicacionesSeguidos.publicacion.length > 0) {
             profesorPublicacionesSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
             profesorPublicacionesSeguidos.publicacion = profesorPublicacionesSeguidos.publicacion[0];
-            console.log(this.state.profesor.publicacionesSeguidos);
             publicaciones.push(profesorPublicacionesSeguidos);
-            console.log(this.state.profesor.publicacionesSeguidos);
           }
           if (profesorPublicacionesDocenteSeguidos.publicacion.length > 0){
             profesorPublicacionesDocenteSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
             profesorPublicacionesDocenteSeguidos.publicacion = profesorPublicacionesDocenteSeguidos.publicacion[0];
             publicaciones.push(profesorPublicacionesDocenteSeguidos);
           }
-          console.log(this.state.profesor.publicacionesSeguidos);
         }
         const profesorRef = await db.collection('profesores').where('email', '==', this.state.profesor.email.toLowerCase()).get();
 
@@ -411,10 +398,8 @@ export default new Vuex.Store({
       }
     },
     async recuperarState({ commit }, payload) {
-      console.log(payload.email)
       try {
         const profesoresRef = await db.collection('profesores').where('email', '==', payload.email).get();
-        console.log(profesoresRef.docs[0]);
 
         profesoresRef.forEach(doc => {
         let data = doc.data();

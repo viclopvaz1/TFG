@@ -57,7 +57,6 @@ export default {
           store.dispatch('updateFields');
           this.$router.replace('home');
         }).catch(function(error) {
-          // An error happened.
           console.log(error)
         });
 

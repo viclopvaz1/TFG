@@ -115,7 +115,6 @@ export default {
                     }
                 }
             }
-            console.log(this.administradoresDB);
         } catch (error) {
             console.log(error);
         }

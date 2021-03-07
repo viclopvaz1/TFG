@@ -45,8 +45,6 @@ export default {
       busqueda: "",
       profesoresNombre: [],
       profesoresApellidos: [],
-      // publicaciones: [],
-      // publicacionesDocentes: [],
     }
   },
   mounted () {
