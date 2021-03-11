@@ -156,18 +156,15 @@ export default {
                 });
                 for (var horaIndex in this.profesor.horas) {
                     var horaDB = this.profesor.horas[horaIndex];
-                    if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
-                        
+                    if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && 
+                        horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
                         var sumaHoras = 0;
-
                         var superaHoras = false;
-
                         var nHorasValidada = this.profesor.horas.filter(element => element.validada == 1);
 
                         for (let horaValidada in nHorasValidada) {
                             sumaHoras += nHorasValidada[horaValidada].horas;
                         }
-
                         if (sumaHoras >= 200) {
                             superaHoras = true;
                         }
@@ -176,9 +173,7 @@ export default {
                         this.profesor.horas[horaIndex].justificacionHora = "";
                         hora.validada = 1;
                         hora.justificacionHora = "";
-
                         sumaHoras = 0;
-
                         nHorasValidada = this.profesor.horas.filter(element => element.validada == 1);
 
                         for (let horaValidada in nHorasValidada) {
@@ -213,7 +208,8 @@ export default {
                     });
                     for (var horaIndex in this.profesor.horas) {
                         var horaDB = this.profesor.horas[horaIndex];
-                        if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
+                        if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && 
+                            horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
                             this.profesor.horas[horaIndex].validada = 2;
                             this.profesor.horas[horaIndex].justificacionHora = hora.justificacionHora;
                             hora.validada = 2;
