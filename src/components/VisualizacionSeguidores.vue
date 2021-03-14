@@ -49,7 +49,7 @@ export default {
         compruebaNoSiguiendo(profesor) {
             var result = false;
             var profesorLogueado = this.profesor.seguidos.find(element => element.email == profesor.email);
-            if (profesor.email != this.profesor.email && profesorLogueado == undefined) {
+            if (profesor.email != this.profesor.email && profesorLogueado == undefined && firebase.auth().currentUser != null) {
                 result = true;
             }
             return result;
@@ -57,7 +57,7 @@ export default {
         compruebaSiguiendo(profesor) {
             var result = false;
             var profesorLogueado = this.profesor.seguidos.find(element => element.email == profesor.email);
-            if (profesor.email != this.profesor.email && profesorLogueado != undefined) {
+            if (profesor.email != this.profesor.email && profesorLogueado != undefined && firebase.auth().currentUser != null) {
                 result = true;
             }
             return result;

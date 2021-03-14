@@ -26,10 +26,11 @@
                     {{ tarjetaProfesor.despacho }} {{tarjetaProfesor.departamento}} {{tarjetaProfesor.centro}}
                   </b-card-text>
                 </b-col>
-                <b-col style="max-width: fit-content">
+                <b-col style="max-width: fit-content; margin-top: -5px;">
                   <b-button v-if="compruebaNoSiguiendo()" variant="primary" @click="seguir()">Seguir</b-button>
                   <b-button v-if="compruebaSiguiendo()" variant="primary" @click="dejarSeguir()">Dejar de Seguir</b-button>
-
+                </b-col>
+                <b-col style="max-width: fit-content">
                   <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''">
                     <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
                   </a>
@@ -108,6 +109,7 @@
 import { mapFields } from "vuex-map-fields";
 import { mapActions} from 'vuex';
 import store from '../store';
+import firebase from 'firebase';
 
 export default {
   name: "InformacionProfesor",
@@ -119,7 +121,7 @@ export default {
     compruebaNoSiguiendo() {
       var result = false;
       var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
-      if (this.tarjetaProfesor.email != this.profesor.email && profesor == undefined) {
+      if (this.tarjetaProfesor.email != this.profesor.email && profesor == undefined && firebase.auth().currentUser != null) {
         result = true;
       }
       return result;
@@ -127,7 +129,7 @@ export default {
     compruebaSiguiendo() {
       var result = false;
       var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
-      if (this.tarjetaProfesor.email != this.profesor.email && profesor != undefined) {
+      if (this.tarjetaProfesor.email != this.profesor.email && profesor != undefined && firebase.auth().currentUser != null) {
         result = true;
       }
       return result;

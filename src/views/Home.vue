@@ -10,6 +10,10 @@
        en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
        encontrar una vez te registres. ¡Pruébalo!</p>
     </div>
+    <div style="text-align: center">
+      <b-img :src="require('@/assets/logo_tfg_grande.png')"></b-img>
+    </div>
+    
 
     <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
 
