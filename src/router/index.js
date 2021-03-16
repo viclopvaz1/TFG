@@ -60,9 +60,6 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    // meta: {
-    //   autentificado: true
-    // }
   },
   {
     path: '/valoracion',
@@ -87,14 +84,12 @@ const router = new VueRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
+  document.title = "TeachingHub"
   const requiresAuth = to.matched.some(record => record.meta.autentificado);
   const isAuthenticated = firebase.auth().currentUser;
-  console.log("isauthenticated", isAuthenticated);
-  console.log(to.name)
   if (requiresAuth && !isAuthenticated) {
     next("/login");
   } else {
-    console.log(to);
     next();
   }
 });

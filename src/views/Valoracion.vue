@@ -98,8 +98,10 @@ export default {
                 if (this.profesorComentario.comentarios.length >= 10) {
                   var valoracionMaxima = this.profesorComentario.comentarios.length * 5;
 
-                  var valoracionReal = this.profesorComentario.comentarios.filter(element => element.valoracion == 5.0).length * 5 + this.profesorComentario.comentarios.filter(element => element.valoracion == 4.0).length * 4
-                  + this.profesorComentario.comentarios.filter(element => element.valoracion == 3.0).length * 3 + this.profesorComentario.comentarios.filter(element => element.valoracion == 2.0).length * 2
+                  var valoracionReal = this.profesorComentario.comentarios.filter(element => element.valoracion == 5.0).length * 5 
+                  + this.profesorComentario.comentarios.filter(element => element.valoracion == 4.0).length * 4
+                  + this.profesorComentario.comentarios.filter(element => element.valoracion == 3.0).length * 3 
+                  + this.profesorComentario.comentarios.filter(element => element.valoracion == 2.0).length * 2
                   + this.profesorComentario.comentarios.filter(element => element.valoracion == 1.0).length;
 
                   this.profesorComentario.puntuacionComentario = Math.round(((valoracionReal * 2) / valoracionMaxima) * 100) / 100;
@@ -135,7 +137,7 @@ export default {
     async updateProfesor() {
         try {
             const profesoresRef = await db.collection('profesores').where('email', '==', this.correoProfesor).get();
-            var p = await db.collection('profesores').doc(profesoresRef.docs[0].id);
+            var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
 
             p.update( {
                 puntuacion: this.profesorComentario.puntuacion,

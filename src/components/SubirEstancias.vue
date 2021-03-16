@@ -113,7 +113,7 @@ export default {
       },
       async update(){
         try {
-            store.dispatch('updateFields');
+            await store.dispatch('updateFields');
         } catch (error) {
             console.log(error)
         }

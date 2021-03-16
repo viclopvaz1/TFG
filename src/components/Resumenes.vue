@@ -135,22 +135,22 @@ export default {
   methods: {
     getHoras() {
       var horas = [];
-    for (let i = 0; i < this.tarjetaProfesor.horas.length; i++) {
-        horas.push(this.tarjetaProfesor.horas[i].horas);
+    for (let hora in this.tarjetaProfesor.horas) {
+        horas.push(this.tarjetaProfesor.horas[hora].horas);
     }
       return horas;
     },
     getAsignaturas() {
       var asignaturas = [];
-      for (let i = 0; i < this.tarjetaProfesor.horas.length; i++) {
-        asignaturas.push(this.tarjetaProfesor.horas[i].asignatura);
+      for (let hora in this.tarjetaProfesor.horas) {
+        asignaturas.push(this.tarjetaProfesor.horas[hora].asignatura);
     }
       return asignaturas;
     },
     getHorasTotal() {
       var horas = 0;
-    for (let i = 0; i < this.tarjetaProfesor.horas.length; i++) {
-        horas = this.tarjetaProfesor.horas[i].horas + horas;
+    for (let hora in this.tarjetaProfesor.horas) {
+        horas = this.tarjetaProfesor.horas[hora].horas + horas;
     }
       return horas;
     }

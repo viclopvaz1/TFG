@@ -24,6 +24,10 @@
                                     {{ profesorB.despacho }} {{profesorB.departamento}} {{profesorB.centro}}
                                 </b-card-text>
                             </b-col>
+                            <b-col style="max-width: fit-content; margin-top: -5px;">
+                                <b-button v-if="compruebaNoSiguiendo(profesorB)" variant="primary" @click="seguir(profesorB)">Seguir</b-button>
+                                <b-button v-if="compruebaSiguiendo(profesorB)" variant="primary" @click="dejarSeguir(profesorB)">Dejar de Seguir</b-button>
+                            </b-col>
                             <b-col style="max-width: fit-content">
                                 <a :href="profesorB.paginaPersonal" target="_blank" v-if="profesorB.paginaPersonal != ''">
                                     <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
@@ -98,6 +102,8 @@ import {
   mapFields
 } from 'vuex-map-fields'
 import firebase from 'firebase';
+import store from '../store';
+import {db} from '../main';
 
 export default {
     name: "BusquedaProfesores",
@@ -105,7 +111,95 @@ export default {
     ...mapFields(["profesor", "profesoresDB", "registrado", "profesoresBusqueda", "tarjetaProfesor"]),
   },
   methods: {
-      onClick(profesorB) {
+    compruebaNoSiguiendo(profesorBuscado) {
+      var result = false;
+      var profesor = this.profesor.seguidos.find(element => element.email == profesorBuscado.email);
+      if (profesorBuscado.email != this.profesor.email && profesor == undefined && firebase.auth().currentUser != null) {
+        result = true;
+      }
+      return result;
+    },
+    compruebaSiguiendo(profesorBuscado) {
+      var result = false;
+      var profesor = this.profesor.seguidos.find(element => element.email == profesorBuscado.email);
+      if (profesorBuscado.email != this.profesor.email && profesor != undefined && firebase.auth().currentUser != null) {
+        result = true;
+      }
+      return result;
+    },
+    async seguir(profesorBuscado) {
+      var profesor = {
+        nombre: profesorBuscado.nombre,
+        apellidos: profesorBuscado.apellidos,
+        puntuacion: profesorBuscado.puntuacion,
+        email: profesorBuscado.email,
+        foto: profesorBuscado.foto
+      };
+      this.profesor.seguidos.push(profesor);
+      store.dispatch("updateFields");
+
+      var seguidor = {
+        nombre: this.profesor.nombre,
+        apellidos: this.profesor.apellidos,
+        puntuacion: this.profesor.puntuacion,
+        email: this.profesor.email,
+        foto: this.profesor.foto
+      };
+      profesorBuscado.seguidores.push(seguidor);
+      if (profesorBuscado.seguidores.length >= 2 && !profesorBuscado.puntuacionSeguidores) {
+        profesorBuscado.puntuacion += 1;
+        profesorBuscado.puntuacionSeguidores = true;
+      }
+
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', profesorBuscado.email.toLowerCase()).get();
+        var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+        p.update( {
+            seguidores: profesorBuscado.seguidores,
+            puntuacion: profesorBuscado.puntuacion,
+            puntuacionSeguidores: profesorBuscado.puntuacionSeguidores
+        })
+        .then(function() {
+            console.log("Document changed");
+        })
+        .catch(function(error) {
+            console.log("Error: " + error);
+        })
+      } catch (error) {
+          console.log(error);
+      }
+    },
+    async dejarSeguir(profesorBuscado) {
+      this.profesor.seguidos.splice(this.profesor.seguidos.findIndex(element => element.email == profesorBuscado.email), 1);
+      store.dispatch("updateFields");
+
+      profesorBuscado.seguidores.splice(profesorBuscado.seguidores.findIndex(element => element.email == this.profesor.email), 1);
+      if (profesorBuscado.seguidores.length < 2 && profesorBuscado.puntuacionSeguidores) {
+        profesorBuscado.puntuacion -= 1;
+        profesorBuscado.puntuacionSeguidores = false;
+      }
+
+      try {
+        const profesoresRef = await db.collection('profesores').where('email', '==', profesorBuscado.email.toLowerCase()).get();
+        var p = db.collection('profesores').doc(profesoresRef.docs[0].id);
+
+        p.update( {
+            seguidores: profesorBuscado.seguidores,
+            puntuacion: profesorBuscado.puntuacion,
+            puntuacionSeguidores: profesorBuscado.puntuacionSeguidores
+        })
+        .then(function() {
+            console.log("Document changed");
+        })
+        .catch(function(error) {
+            console.log("Error: " + error);
+        })
+      } catch (error) {
+          console.log(error);
+      }
+    },
+    onClick(profesorB) {
         this.tarjetaProfesor = profesorB;
         localStorage.setItem('profesorBuscado', profesorB.email);
         if (firebase.auth().currentUser != null && firebase.auth().currentUser.email == profesorB.email){

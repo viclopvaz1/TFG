@@ -64,9 +64,7 @@ export default {
       publica(value) {
             for (let i = 0; i < this.tarjetaProfesor.seleccionPublica.length; i++) {
                 if(i == value) {
-                    console.log('entra');
                     this.tarjetaProfesor.seleccionPublica[value] = true;
-                    console.log(this.tarjetaProfesor.seleccionPublica[value])
                 } else {
                     this.tarjetaProfesor.seleccionPublica[i] = false;
                 }

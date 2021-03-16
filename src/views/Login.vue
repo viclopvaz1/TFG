@@ -79,7 +79,6 @@ export default {
   methods: {
     async login() {
       var admin = false;
-      console.log(this.administradoresDB);
       for (var adminKey in this.administradoresDB) {
         if (this.emailUsuario == this.administradoresDB[adminKey].email && this.contrasenaUsuario == this.administradoresDB[adminKey].contrasena){
           admin = true;
@@ -102,7 +101,6 @@ export default {
         this.profesor.contrasena = this.contrasenaUsuario;
         try {
           const profesoresRef = await db.collection('profesores').where('email', '==', this.profesor.email).get();
-          console.log(profesoresRef.docs[0]);
           
           profesoresRef.forEach(doc => {
           let data = doc.data();
@@ -131,7 +129,7 @@ export default {
           this.profesor.paginaPersonal = data.paginaPersonal;
           this.profesor.researchGate = data.researchGate;
           this.profesor.seleccionPublica = [true, false, false, false, false, false, false, false, false, false, false];
-          this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false, false];
+          this.profesor.seleccionPrivada = [true, false, false, false, false, false, false, false, false, false, false, false, false];
         
         });
           store.dispatch('updateFields');
@@ -151,5 +149,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

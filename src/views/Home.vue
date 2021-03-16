@@ -8,8 +8,12 @@
        Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
        horas impartidas en los distintos centros en los que has estado, cursos privados 
        en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
-       encontrar una vez te registres. ¡Pruebalo!</p>
+       encontrar una vez te registres. ¡Pruébalo!</p>
     </div>
+    <div style="text-align: center">
+      <b-img :src="require('@/assets/logo_tfg_grande.png')"></b-img>
+    </div>
+    
 
     <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
 
@@ -20,7 +24,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import BarraRegistrado from '@/components/BarraRegistrado.vue'
 import MejoresProfesores from '@/components/MejoresProfesores.vue'

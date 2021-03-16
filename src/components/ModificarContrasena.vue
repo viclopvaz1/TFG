@@ -24,7 +24,6 @@ import {
   mapFields
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
-import {db} from '../main';
 import store from '../store';
 
 export default {
@@ -58,7 +57,6 @@ export default {
           store.dispatch('updateFields');
           this.$router.replace('home');
         }).catch(function(error) {
-          // An error happened.
           console.log(error)
         });
 

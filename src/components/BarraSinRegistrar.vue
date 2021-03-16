@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar type="dark" variant="info">
-      <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px" @click="redirect"></b-img>
+      <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px; padding: 0" class="btn" @click="redirect"></b-img>
 
       <b-collapse is-nav>
         <b-navbar-nav class="ml-auto mr-auto">
@@ -62,14 +62,7 @@ export default {
     busquedaProfesoresPublicaciones() {
       this.profesoresNombre = [];
       this.profesoresApellidos = [];
-      let profesorPublicaciones = {
-        nombre: '',
-        apellidos: '',
-        email: '',
-        foto: '',
-        publicacionesDocentes: [],
-        publicaciones: []
-      }
+      let profesorPublicaciones = {}
       const publicaciones = [];
       const publicacionesDocentes = [];
       for (let prof in this.profesoresDB) {
@@ -145,5 +138,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
