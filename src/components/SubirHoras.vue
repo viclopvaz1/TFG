@@ -26,10 +26,10 @@
                 <b-form-group label="Horas:" label-for="input-horas" class="mt-2" label-cols-md="2">
                     <b-form-input id="input-horas" v-model="hora.horas" type="number" min="0" required></b-form-input>
                 </b-form-group>
-                <b-alert :show="horasSubidas" dismissible variant="success" class="mt-3">
+                <b-alert v-model="horasSubidas" dismissible variant="success" class="mt-3">
                     Tus horas se han subido y un adminstrador las validará pronto
                 </b-alert>
-                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Estas horas ya han sido validadas previamente o están pendientes de validación
                 </b-alert>
 

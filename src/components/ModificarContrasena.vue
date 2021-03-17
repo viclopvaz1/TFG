@@ -10,7 +10,7 @@
           <b-form-input id="input-confirmarContrasena" v-model="confirmarContrasena" type="text" required></b-form-input>
         </b-form-group>
         <b-button type="submit" variant="primary">Cambiar Contraseña</b-button>
-        <b-alert :show="validarContrasena" dismissible variant="warning" class="mt-3">
+        <b-alert v-model="validarContrasena" dismissible variant="danger" class="mt-3">
           Las contraseñas no coinciden
         </b-alert>
       </form>

@@ -23,11 +23,11 @@
                     <b-form-select v-model="estancia.tipo" :options="tipo"></b-form-select>
                 </b-form-group>
 
-                <b-alert :show="estanciaSubida" dismissible variant="success" class="mt-3">
+                <b-alert v-model="estanciaSubida" dismissible variant="success" class="mt-3">
                     Tu Estancia se ha publicado correctamente
                 </b-alert>
 
-                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Proyecto Docente ya se encuentra subido en su perfil.
                 </b-alert>
 

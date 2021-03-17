@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="height: 600px; display: block; border-color: #17a2b8">
+        <b-card class="overflow-auto" style="height: 640px; display: block; border-color: #17a2b8">
             <b-card v-for="(pd, key) in tarjetaProfesor.publicacionesDocentes" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
                 <b-row no-gutters>
                     {{pd.titulo}}

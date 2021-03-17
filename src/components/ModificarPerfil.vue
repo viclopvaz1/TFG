@@ -42,6 +42,10 @@
           <b-form-input id="input-twitter" v-model="twitter" type="url"></b-form-input>
         </b-form-group>
 
+        <b-alert v-model="perfilModificado" dismissible variant="success" class="mt-3">
+            Cambios guardados
+        </b-alert>
+
         <b-button type="submit" variant="primary">Guardar cambios</b-button>
       </form>
     </b-card>
@@ -69,7 +73,8 @@ export default {
       centro: '',
       paginaPersonal: '',
       researchGate: '',
-      twitter: ''
+      twitter: '',
+      perfilModificado: false,
     }
   },
   computed: {
@@ -113,6 +118,8 @@ export default {
       this.tarjetaProfesor.twitter = this.profesor.twitter;
       this.tarjetaProfesor.paginaPersonal = this.profesor.paginaPersonal;
       this.tarjetaProfesor.researchGate = this.profesor.researchGate;
+
+      this.perfilModificado = true;
 
       this.update();
       

@@ -84,7 +84,6 @@ const router = new VueRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-  document.title = "TeachingHub"
   const requiresAuth = to.matched.some(record => record.meta.autentificado);
   const isAuthenticated = firebase.auth().currentUser;
   if (requiresAuth && !isAuthenticated) {
