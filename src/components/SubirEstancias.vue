@@ -8,7 +8,7 @@
                 </b-form-group>
 
                 <b-form-group label="Duración:" label-for="input-duracion" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-duracion" v-model="estancia.duracion" type="number" min="0" required></b-form-input>
+                    <b-form-input id="input-duracion" v-model.number="estancia.duracion" type="number" min="0" required></b-form-input>
                 </b-form-group>
 
                 <b-form-group label="Idioma:" label-for="input-idioma" class="mt-2" label-cols-md="2">

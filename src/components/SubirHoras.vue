@@ -24,7 +24,7 @@
                 </b-form-group>
 
                 <b-form-group label="Horas:" label-for="input-horas" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-horas" v-model="hora.horas" type="number" min="0" required></b-form-input>
+                    <b-form-input id="input-horas" v-model.number="hora.horas" type="number" min="0" required></b-form-input>
                 </b-form-group>
                 <b-alert v-model="horasSubidas" dismissible variant="success" class="mt-3">
                     Tus horas se han subido y un adminstrador las validará pronto
@@ -72,9 +72,21 @@ export default {
             this.horasSubidas = false;
             this.errorSubida = false;
             var hora = this.profesor.horas.find(element => element.asignatura == this.hora.asignatura && element.ano == this.hora.ano && element.horas == this.hora.horas && element.idioma == this.hora.idioma && element.institucion == this.hora.institucion && (element.validada == 0 || element.validada == 1));
+            console.log(hora);
+            console.log(this.hora.asignatura);
+            console.log(this.profesor.horas);
             if (hora == undefined) {
                 this.profesor.horas.push(this.hora);
                 this.horasSubidas = true;
+                this.hora = {
+                    institucion: '',
+                    asignatura: '',
+                    idioma: '',
+                    horas: 0,
+                    ano: '',
+                    validada: 0,
+                    justificacionHora: ""
+                }
                 this.update();
             } else {
                 this.errorSubida = true

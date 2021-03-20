@@ -16,7 +16,7 @@
           <b-form-textarea id="input-comentario" v-model="comentario.texto" type="text" :maxlength="300" required></b-form-textarea>
         </b-form-group>
 
-        <b-form-rating id="rating-lg" style="width: 60%" v-model="comentario.valoracion" no-border size="lg"></b-form-rating>
+        <b-form-rating id="rating-lg" style="width: 60%" v-model.number="comentario.valoracion" no-border size="lg"></b-form-rating>
 
         <b-button type="submit" variant="primary">Enviar Comentario</b-button>
 
