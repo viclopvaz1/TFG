@@ -15,11 +15,11 @@
                     <b-form-input id="input-tipo" v-model="trabajoSupervisado.tipo" type="text" required></b-form-input>
                 </b-form-group>
 
-                <b-alert :show="trabajoSupervisadoSubido" dismissible variant="success" class="mt-3">
+                <b-alert v-model="trabajoSupervisadoSubido" dismissible variant="success" class="mt-3">
                     Tu Trabajo Supervisado se ha publicado correctamente
                 </b-alert>
 
-                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Trabajo Supervisado ya se encuentra subido en su perfil.
                 </b-alert>
 

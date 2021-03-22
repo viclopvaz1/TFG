@@ -8,7 +8,7 @@
                 </b-form-group>
 
                 <b-form-group label="Duración:" label-for="input-duracion" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-duracion" v-model="cursoDocente.duracion" type="number" min="1" required></b-form-input>
+                    <b-form-input id="input-duracion" v-model.number="cursoDocente.duracion" type="number" min="1" required></b-form-input>
                 </b-form-group>
 
                 <b-form-group label="Lugar:" label-for="input-lugar" class="mt-2" label-cols-md="2">
@@ -19,11 +19,11 @@
                     <b-form-select v-model="cursoDocente.tipo" :options="tipo"></b-form-select>
                 </b-form-group>
 
-                <b-alert :show="cursoSubido" dismissible variant="success" class="mt-3">
+                <b-alert v-model="cursoSubido" dismissible variant="success" class="mt-3">
                     Tu Curso se ha publicado correctamente
                 </b-alert>
 
-                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Curso ya se encuentra subido en su perfil.
                 </b-alert>
 

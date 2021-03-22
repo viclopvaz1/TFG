@@ -11,11 +11,11 @@
                     <b-form-input id="input-descripcion" v-model="publicacion.descripcion" type="text" required></b-form-input>
                 </b-form-group>
 
-                <b-alert :show="publicacionSubida" dismissible variant="success" class="mt-3">
+                <b-alert v-model="publicacionSubida" dismissible variant="success" class="mt-3">
                     Tu Publicación se ha publicado correctamente
                 </b-alert>
 
-                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Esta Publicación ya se encuentra subido en su perfil.
                 </b-alert>
 

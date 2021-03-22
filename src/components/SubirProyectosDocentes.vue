@@ -15,11 +15,11 @@
                     <b-form-input id="input-url" v-model="proyectoDocente.url" type="text" required></b-form-input>
                 </b-form-group>
 
-                <b-alert :show="proyectoDocenteSubido" dismissible variant="success" class="mt-3">
+                <b-alert v-model="proyectoDocenteSubido" dismissible variant="success" class="mt-3">
                     Tu Proyecto Docente se ha publicado correctamente
                 </b-alert>
 
-                <b-alert :show="errorSubida" dismissible variant="danger" class="mt-3">
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Proyecto Docente ya se encuentra subido en su perfil.
                 </b-alert>
 

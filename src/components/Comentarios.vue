@@ -7,7 +7,10 @@
                 dejar un comentario y una valoración.
             </b-card-text>
             <b-form-textarea id="textarea" v-model="correos" placeholder="Añade el correo de tus alumnos aquí"></b-form-textarea>
-            <b-card-text v-if="!validacionCorreo">El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios</b-card-text>
+            <b-alert v-model="validacion" dismissible variant="danger" class="mt-3">
+                El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios
+            </b-alert>
+            <!-- <b-card-text v-if="!validacionCorreo">El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios</b-card-text> -->
             <b-button variant="primary" style="margin-top: 15px" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
 
         </b-card>
@@ -27,6 +30,7 @@ export default {
         return {
             correos: '',
             validacionCorreo: true,
+            validacion: false,
             correoErroneo: ''
         }
     },
@@ -45,6 +49,7 @@ export default {
                     this.profesor.correoAlumnos.push(correos[correo]);
                 } else {
                     this.correoErroneo = correos[correo];
+                    this.validacion = !this.validacionCorreo;
                     break;
                 }
             }
