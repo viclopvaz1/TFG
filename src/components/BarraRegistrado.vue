@@ -1,30 +1,41 @@
 <template>
   <div>
-    <b-navbar type="dark" variant="info">
+    <b-navbar type="dark" style="background-color: #372d31">
       <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px; padding: 0" class="btn" @click="redirect"></b-img>
 
       <b-collapse is-nav>
         <b-navbar-nav class="ml-auto mr-auto">
           <b-nav-form>
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="busqueda"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="primary" @click="busquedaProfesoresPublicaciones">Search</b-button>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="busquedaProfesoresPublicaciones">Search</b-button>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
 
-      <b-dropdown right variant="primary">
+      <b-dropdown right class="my-dropdown">
         <template #button-content>
             <b-icon icon="gear-fill" aria-hidden="true"></b-icon> {{profesor.nombre}}
         </template>
-        <b-dropdown-item to="/paginaPrincipal" variant="primary">Pagina Principal</b-dropdown-item>
-        <b-dropdown-item to="/miPerfil" variant="primary">Mi Perfil</b-dropdown-item>
-        <b-dropdown-item-button @click="logout" variant="primary">
+        <b-dropdown-item to="/paginaPrincipal">Pagina Principal</b-dropdown-item>
+        <b-dropdown-item to="/miPerfil">Mi Perfil</b-dropdown-item>
+        <b-dropdown-item-button @click="logout">
           Logout
         </b-dropdown-item-button>
       </b-dropdown>
+      
     </b-navbar>
   </div>
 </template>
+
+<style>
+  .my-dropdown .dropdown-menu { background-color: #f7f5f6; border-color: #f7f5f6; padding: 0 }
+  .my-dropdown .dropdown-menu .dropdown-item { background-color: #f7f5f6; border-color: #f7f5f6; color: #c7b591 }
+  .my-dropdown > button { background-color: #c7b591; border-color: #c7b591; border-radius: 20px }
+  .btn-secondary.dropdown-toggle {
+    background-color: #c7b591 !important; border-color: #c7b591 !important
+  }
+  .dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:hover{background-color: #372d31 !important;}
+</style>
 
 <script>
 import firebase from 'firebase';

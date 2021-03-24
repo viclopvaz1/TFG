@@ -1,11 +1,11 @@
 <template>
     <div>
-    <b-navbar type="dark" variant="info">
+    <b-navbar type="dark" style="background-color: #372d31">
         <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px"></b-img>
 
         <b-collapse is-nav style="justify-content: flex-end">
             <b-navbar-nav>
-                <b-button variant="primary" @click="logout">Logout</b-button>
+                <b-button style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="logout">Logout</b-button>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
