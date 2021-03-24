@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <div style="background-color: #dddcdc; min-height: 100vh; padding-bottom: 20px">
         <BarraAdmin/>
-
-        <b-card v-for="(profesor, key) in profesores" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
+            <b-card v-for="(profesor, key) in profesores" :key="key" style="margin: 20px; border-color: #17a2b8">
             <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                 <b-avatar
                     :src="profesor.foto"
@@ -48,6 +47,7 @@
                 </b-row>
             </b-card>
         </b-card>
+        
     </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="background-color: #dddcdc; padding-bottom: 20px;">
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
-    <b-nav tabs align="center" style="border-color: #17a2b8">
+    <b-nav tabs align="center" style="border-color: #372d31">
       <b-nav-item :active="mostrarProfesores" @click="cambiar()">Profesores</b-nav-item>
       <b-nav-item :active="mostrarPublicaciones" @click="cambiar()">Publicaciones</b-nav-item>
     </b-nav>
@@ -10,6 +10,18 @@
     <BusquedaPublicaciones v-if="mostrarPublicaciones"/>
   </div>
 </template>
+
+<style>
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    background-color: #c7b591; border-color: #372d31; border-bottom-color: #c7b591; color: #fff
+  }
+  .nav-tabs .nav-link {
+    color: #372d31
+  }
+  .nav-tabs .nav-link:hover {
+    border-color: #372d31
+  }
+</style>
 
 <script>
 import {

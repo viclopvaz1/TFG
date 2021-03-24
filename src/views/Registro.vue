@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="background-color: #dddcdc">
     <BarraSinRegistrar/>
 
-    <div class="mt-5 mb-5 col-md-4 text-center mx-auto">
+    <div class="mt-5 col-md-4 text-center mx-auto" style="padding-bottom: 48px">
       <b-card style="border-color: #17a2b8">
         <h2>Registro</h2>
         <form @submit.prevent="registrarse">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: #dddcdc;     padding-bottom: 20px;">
     <BarraSinRegistrar v-if="!registrado" />
     <BarraRegistrado v-if="registrado"/>
 

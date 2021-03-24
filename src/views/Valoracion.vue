@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: -webkit-center">
+  <div style="text-align: -webkit-center; background-color: #dddcdc; padding-top: 20px; height: 100vh">
     <b-card class="overflow: hidden" style="margin: 20px; width: 60%; border-color: #17a2b8">
       <form @submit.prevent="enviarComentario">
         <b-form-group label="Correo profesor:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" >
