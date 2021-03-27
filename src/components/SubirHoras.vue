@@ -1,31 +1,32 @@
 <template>
     <div>
-        <b-card style="border-color: #17a2b8">
+        <b-card style="background-color: #f7f5f6; border-radius: 10px">
             <form @submit.prevent="subirHoras">
 
-                <b-form-group label="URL del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-url" v-model="profesor.urlArchivoHoras" type="text" required></b-form-input>
+                <b-form-group label="URL del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-url" v-model="profesor.urlArchivoHoras" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Institución:" label-for="input-institucion" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-institucion" v-model="hora.institucion" type="text" required></b-form-input>
+                <b-form-group label="Institución:" label-for="input-institucion" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-institucion" v-model="hora.institucion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Asignatura:" label-for="input-asignatura" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-asignatura" v-model="hora.asignatura" type="text" required></b-form-input>
+                <b-form-group label="Asignatura:" label-for="input-asignatura" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-asignatura" v-model="hora.asignatura" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Idioma:" label-for="input-idioma" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-idioma" v-model="hora.idioma" type="text" required></b-form-input>
+                <b-form-group label="Idioma:" label-for="input-idioma" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-idioma" v-model="hora.idioma" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Año:" label-for="input-ano" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-ano" v-model="hora.ano" type="text" required></b-form-input>
+                <b-form-group label="Año:" label-for="input-ano" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-ano" v-model="hora.ano" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Horas:" label-for="input-horas" class="mt-2" label-cols-md="2">
-                    <b-form-input id="input-horas" v-model.number="hora.horas" type="number" min="0" required></b-form-input>
+                <b-form-group label="Horas:" label-for="input-horas" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-horas" v-model.number="hora.horas" type="number" min="0" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
+
                 <b-alert v-model="horasSubidas" dismissible variant="success" class="mt-3">
                     Tus horas se han subido y un adminstrador las validará pronto
                 </b-alert>
@@ -33,7 +34,10 @@
                     Estas horas ya han sido validadas previamente o están pendientes de validación
                 </b-alert>
 
-                <b-button type="submit" variant="primary">Subir horas</b-button>
+                <div style="text-align: center">
+                    <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir horas</b-button>
+                </div>
+                
             </form>
         </b-card>
     </div>

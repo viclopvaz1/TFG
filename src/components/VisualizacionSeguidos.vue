@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="height: 640px; display: block; border-color: #17a2b8">
-            <b-card v-for="(profesor, key) in seguidos" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
+        <b-card class="overflow-auto" style="height: 640px; display: block; background-color: #f7f5f6; border-radius: 10px">
+            <b-card v-for="(profesor, key) in seguidos" :key="key" style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                     <b-col>
                         <b-avatar
@@ -14,8 +14,8 @@
                     {{profesor.nombre}} {{profesor.apellidos}} Puntuación: {{profesor.puntuacion}}
                     </b-col>
                     <b-col style="text-align: right">
-                        <b-button v-if="compruebaNoSiguiendo(profesor)" variant="primary" @click="seguir(profesor)">Seguir</b-button>
-                        <b-button v-if="compruebaSiguiendo(profesor)" variant="primary" @click="dejarSeguir(profesor)">Dejar de Seguir</b-button>
+                        <b-button v-if="compruebaNoSiguiendo(profesor)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="seguir(profesor)">Seguir</b-button>
+                        <b-button v-if="compruebaSiguiendo(profesor)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="dejarSeguir(profesor)">Dejar de Seguir</b-button>
                     </b-col>
                         
                     

@@ -13,13 +13,13 @@
 
 <style>
   .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-    background-color: #c7b591; border-color: #372d31; border-bottom-color: #c7b591; color: #fff
+    background-color: #c7b591 !important; border-color: #372d31 !important; border-bottom-color: #c7b591 !important; color: #fff !important
   }
   .nav-tabs .nav-link {
-    color: #372d31
+    color: #372d31 !important
   }
   .nav-tabs .nav-link:hover {
-    border-color: #372d31
+    border-color: #372d31 !important
   }
 </style>
 

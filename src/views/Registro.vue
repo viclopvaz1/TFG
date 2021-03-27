@@ -3,41 +3,45 @@
     <BarraSinRegistrar/>
 
     <div class="mt-5 col-md-4 text-center mx-auto" style="padding-bottom: 48px">
-      <b-card style="border-color: #17a2b8">
+      <b-card style="background-color: #f7f5f6; border-radius: 10px">
         <h2>Registro</h2>
         <form @submit.prevent="registrarse">
-          <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2">
-            <b-form-input id="input-nombre" v-model="profesor.nombre" type="text" required></b-form-input>
+          <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2" style="color: #858081">
+            <b-form-input id="input-nombre" v-model="profesor.nombre" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Apellidos:" label-for="input-apellidos" class="mt-2">
-            <b-form-input id="input-apellidos" v-model="profesor.apellidos" type="text" required></b-form-input>
+          <b-form-group label="Apellidos:" label-for="input-apellidos" class="mt-2" style="color: #858081">
+            <b-form-input id="input-apellidos" v-model="profesor.apellidos" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Email:" label-for="input-email" class="mt-2">
-            <b-form-input id="input-email" v-model="emailUsuario" type="email" required></b-form-input>
+          <b-form-group label="Email:" label-for="input-email" class="mt-2" style="color: #858081">
+            <b-form-input id="input-email" v-model="emailUsuario" type="email" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
             <p v-if="validarCorreo">Este correo ya está registrado</p>
           </b-form-group>
 
-          <b-form-group label="Contraseña:" label-for="input-contraseña" class="mt-2">
-            <b-form-input id="input-contraseña" v-model="contrasenaUsuario" type="password" required></b-form-input>
-            <p v-if="validarContrasena">Las contraseñas no coinciden o miden menos de 6 caracteres</p>
+          <b-form-group label="Contraseña:" label-for="input-contraseña" class="mt-2" style="color: #858081">
+            <b-form-input id="input-contraseña" v-model="contrasenaUsuario" type="password" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+            <b-alert v-model="validarContrasena" dismissible variant="danger" class="mt-3">
+              Las contraseñas no coinciden o miden menos de 6 caracteres
+            </b-alert>
           </b-form-group>
 
-          <b-form-group label="Confirmar Contraseña:" label-for="input-confirmar-contraseña" class="mt-2">
-            <b-form-input id="input-confirmar-contraseña" v-model="profesor.confirmarContrasena" type="password" required></b-form-input>
+          <b-form-group label="Confirmar Contraseña:" label-for="input-confirmar-contraseña" class="mt-2" style="color: #858081">
+            <b-form-input id="input-confirmar-contraseña" v-model="profesor.confirmarContrasena" type="password" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Título proyecto docente:" label-for="input-título-proyecto" class="mt-2">
-            <b-form-input id="input-título-proyecto" v-model="proyectoDocente.titulo" type="text" required></b-form-input>
+          <b-form-group label="Título proyecto docente:" label-for="input-título-proyecto" class="mt-2" style="color: #858081">
+            <b-form-input id="input-título-proyecto" v-model="proyectoDocente.titulo" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Descripción:" label-for="input-descripción" class="mt-2">
-            <b-form-input id="input-descripción" v-model="proyectoDocente.descripcion" type="text" required></b-form-input>
+          <b-form-group label="Descripción:" label-for="input-descripción" class="mt-2" style="color: #858081">
+            <b-form-input id="input-descripción" v-model="proyectoDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="URL al archivo:" label-for="input-url" description="Introduce una URL desde la que podamos descargar el archivo con el proyecto docente." class="mt-2">
-            <b-form-input id="input-url" v-model="proyectoDocente.url" type="text" required></b-form-input>
+          <b-form-group label="URL al archivo:" label-for="input-url" 
+          description="Introduce una URL desde la que podamos descargar el archivo con el proyecto docente." class="mt-2"
+          style="color: #858081">
+            <b-form-input id="input-url" v-model="proyectoDocente.url" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
           <b-button type="submit" variant="primary">Registrarse</b-button>
@@ -45,7 +49,7 @@
 
         <div>
           <p style="margin-bottom: 0; margin-top: 10px">¿Ya tienes cuenta?</p>
-          <router-link to="/login">Iniciar Sesion</router-link>
+          <router-link to="/login" style="color:  #c7b591">Iniciar Sesión</router-link>
         </div>
 
       </b-card>

@@ -3,32 +3,24 @@
     <BarraSinRegistrar/>
 
     <div :style="{ backgroundImage: 'url(' + require('@/assets/despacho1.jpg') + ')'}" style="background-size: 100% 100%; position: fixed; height: 100%; width: 100%">
-      <b-card style="border-color: #17a2b8" class="mt-5 mb-5 col-md-4 text-center mx-auto">
+      <b-card style="background-color: #f7f5f6; border-radius: 10px" class="mt-5 mb-5 col-md-4 text-center mx-auto">
         <h2>Login</h2>
         <form @submit.prevent="login">
-          <b-form-group
-            id="input-group-1"
-            label="Correo Electronico"
-            label-for="input-1"
-            class="mt-5"
-          >
-            <b-form-input v-model="emailUsuario" type="email" required></b-form-input>
+          <b-form-group id="input-group-1" label="Correo Electronico" label-for="input-1" class="mt-5" style="color: #858081">
+            <b-form-input v-model="emailUsuario" type="email" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group> 
 
-          <b-form-group
-            id="input-group-2"
-            label="Contraseña"
-            label-for="input-2"
-          >
-            <b-form-input v-model="contrasenaUsuario" type="password" required></b-form-input>
+          <b-form-group id="input-group-2" label="Contraseña" label-for="input-2" style="color: #858081">
+            <b-form-input v-model="contrasenaUsuario" type="password" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
             <p v-if="validarLogin">El email o la contraseña son incorrectos</p>
           </b-form-group> 
+
           <b-button type="submit" variant="primary"> Acceder </b-button>
         </form>
 
         <div>
             <p style="margin-bottom: 0; margin-top: 10px">¿No tienes cuenta?</p>
-            <router-link to="/registro">Regístrate</router-link>
+            <router-link to="/registro" style="color:  #c7b591">Regístrate</router-link>
         </div>
       </b-card>
     </div>

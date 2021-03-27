@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="height: 640px; display: block; border-color: #17a2b8">
-            <b-card v-for="(comentario, key) in tarjetaProfesor.comentarios" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
+        <b-card class="overflow-auto" style="height: 640px; display: block; background-color: #f7f5f6; border-radius: 10px">
+            <b-card v-for="(comentario, key) in tarjetaProfesor.comentarios" :key="key" style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
                     {{comentario.texto}}
                 </b-row>

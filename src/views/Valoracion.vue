@@ -1,24 +1,27 @@
 <template>
   <div style="text-align: -webkit-center; background-color: #dddcdc; padding-top: 20px; height: 100vh">
-    <b-card class="overflow: hidden" style="margin: 20px; width: 60%; border-color: #17a2b8">
+    <b-card class="overflow: hidden" style="margin: 20px; width: 60%; background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="enviarComentario">
-        <b-form-group label="Correo profesor:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" >
+        <b-form-group label="Correo profesor:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-correoProfesor" v-model="correoProfesor" type="email" 
-          placeholder="Introduce el correo del profesor al que quieres hacer el comentario" required></b-form-input>
+          placeholder="Introduce el correo del profesor al que quieres hacer el comentario" required
+          style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Tu correo:" label-for="input-tuCorreo" class="mt-2" label-cols-md="2">
+        <b-form-group label="Tu correo:" label-for="input-tuCorreo" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-tuCorreo" v-model="correoAlumno" type="email" 
-          placeholder="Introduce tu correo electrónico" required></b-form-input>
+          placeholder="Introduce tu correo electrónico" required
+          style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Comentario:" label-for="input-comentario" class="mt-2" label-cols-md="2">
-          <b-form-textarea id="input-comentario" v-model="comentario.texto" type="text" :maxlength="300" required></b-form-textarea>
+        <b-form-group label="Comentario:" label-for="input-comentario" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-textarea id="input-comentario" v-model="comentario.texto" type="text" :maxlength="300" required
+          style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
         </b-form-group>
 
-        <b-form-rating id="rating-lg" style="width: 60%" v-model.number="comentario.valoracion" no-border size="lg"></b-form-rating>
+        <b-form-rating id="rating-lg" style="width: 60%; background-color: #f7f5f6" v-model.number="comentario.valoracion" no-border size="lg"></b-form-rating>
 
-        <b-button type="submit" variant="primary">Enviar Comentario</b-button>
+        <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Enviar Comentario</b-button>
 
         <b-row class="mt-3" style="justify-content: center">
             <b-alert :show="errorCorreoProfesor" dismissible variant="warning">

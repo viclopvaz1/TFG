@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="height: 640px; display: block; border-color: #17a2b8">
-            <b-card v-for="(profesorB, key) in profesor.publicacionesSeguidos" :key="key" style="margin: 20px; border-color: #17a2b8">
+        <b-card class="overflow-auto" style="height: 640px; display: block; background-color: #f7f5f6; border-radius: 10px">
+            <b-card v-for="(profesorB, key) in profesor.publicacionesSeguidos" :key="key" style="margin: 20px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                     <b-avatar :src="profesorB.foto" alt="Foto profesor" size="3rem" style="margin-right: 20px" button @click="onClick(profesorB)"></b-avatar>
                     {{profesorB.nombre}} {{profesorB.apellidos}} 

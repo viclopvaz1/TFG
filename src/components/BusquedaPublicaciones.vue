@@ -1,12 +1,12 @@
 <template>
   <div>
-        <b-card v-for="(profesorB, key) in publicacionesBusqueda" :key="key" style="margin: 20px; border-color: #17a2b8">
+        <b-card v-for="(profesorB, key) in publicacionesBusqueda" :key="key" style="margin: 20px; background-color: #f7f5f6; border-radius: 10px">
             <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                 <b-avatar :src="profesorB.foto" alt="Foto profesor" size="3rem" style="margin-right: 20px" button @click="onClick(profesorB)"></b-avatar>
                 {{profesorB.nombre}} {{profesorB.apellidos}} {{profesorB.email}}
             </b-row>
             <h5 v-if="profesorB.publicaciones.length > 0">Publicaciones</h5>
-            <b-card v-for="(publicacion, keyPublicacion) in profesorB.publicaciones" :key="keyPublicacion" style="border-color: #17a2b8">
+            <b-card v-for="(publicacion, keyPublicacion) in profesorB.publicaciones" :key="keyPublicacion" style="border-color: #9d9d9d; background-color: #f7f5f6; border-radius: 10px">
                 <b-row no-gutters>
                     {{publicacion.titulo}}
                 </b-row>
@@ -16,7 +16,7 @@
             </b-card>
 
             <h5 v-if="profesorB.publicacionesDocentes.length > 0">Publicaciones Docentes</h5>
-            <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesorB.publicacionesDocentes" :key="keyPublicacionDocente" style="border-color: #17a2b8">
+            <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesorB.publicacionesDocentes" :key="keyPublicacionDocente" style="border-color: #9d9d9d; background-color: #f7f5f6; border-radius: 10px">
                 <b-row no-gutters>
                     {{publicacionDocente.titulo}}
                 </b-row>

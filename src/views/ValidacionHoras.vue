@@ -1,7 +1,7 @@
 <template>
     <div style="background-color: #dddcdc; min-height: 100vh; padding-bottom: 20px">
         <BarraAdmin/>
-            <b-card v-for="(profesor, key) in profesores" :key="key" style="margin: 20px; border-color: #17a2b8">
+            <b-card v-for="(profesor, key) in profesores" :key="key" style="margin: 20px; background-color: #f7f5f6; border-radius: 10px">
             <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                 <b-avatar
                     :src="profesor.foto"
@@ -15,7 +15,7 @@
                 URL al archivo: {{profesor.urlArchivoHoras}}
             </b-card-text>
 
-            <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora" style="border-color: #17a2b8">
+            <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora" style="background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
                     {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}} {{hora.ano}}
                 </b-row>
@@ -35,7 +35,7 @@
                     </b-col>
 
                     <b-col>
-                        <b-form-textarea  v-model="hora.justificacionHora" type="text" placeholder="Justificación" :maxlength="300"></b-form-textarea>
+                        <b-form-textarea  v-model="hora.justificacionHora" type="text" placeholder="Justificación" :maxlength="300" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
                     </b-col>
                 
                 </b-row>
@@ -50,6 +50,13 @@
         
     </div>
 </template>
+
+<style>
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #858081 !important;
+  opacity: 1;
+}
+</style>
 
 <script>
 import { mapFields } from "vuex-map-fields";

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card v-for="(hora, key) in horas" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
+        <b-card v-for="(hora, key) in horas" :key="key" style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px">
             <b-row no-gutters>
                 {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}} {{hora.ano}} {{hora.horas}} horas
             </b-row>
