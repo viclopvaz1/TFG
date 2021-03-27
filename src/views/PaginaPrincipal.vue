@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #dddcdc; padding-bottom: 20px;">
+  <div style="background-color: #dddcdc; padding-bottom: 20px; min-height: 100vh">
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
     
@@ -7,10 +7,10 @@
 
     <b-container style="max-width: initial">
       <b-row>
-        <b-col md="2" style="padding-left: 20px">
+        <b-col md="2" style="padding-left: 50px">
           <BotonesPublico/>
         </b-col>
-        <b-col md="8" style="padding-right: 20px">
+        <b-col md="10" style="padding-right: 50px; padding-left: 35px; height: 600px">
           <VisualizacionPublicacionesDocentes :style="profesor.seleccionPublica[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionPublicaciones :style="profesor.seleccionPublica[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionHoras :style="profesor.seleccionPublica[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>

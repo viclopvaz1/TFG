@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="height: 640px; display: block; background-color: #f7f5f6; border-radius: 10px">
+        <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px">
             <b-card v-for="(profesor, key) in seguidos" :key="key" style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                     <b-col>
