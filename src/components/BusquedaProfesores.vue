@@ -25,17 +25,17 @@
                                 </b-card-text>
                             </b-col>
                             <b-col style="max-width: fit-content; margin-top: -5px;">
-                                <b-button v-if="compruebaNoSiguiendo(profesorB)" variant="primary" @click="seguir(profesorB)">Seguir</b-button>
-                                <b-button v-if="compruebaSiguiendo(profesorB)" variant="primary" @click="dejarSeguir(profesorB)">Dejar de Seguir</b-button>
+                                <b-button v-if="compruebaNoSiguiendo(profesorB)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="seguir(profesorB)">Seguir</b-button>
+                                <b-button v-if="compruebaSiguiendo(profesorB)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="dejarSeguir(profesorB)">Dejar de Seguir</b-button>
                             </b-col>
                             <b-col style="max-width: fit-content">
-                                <a :href="profesorB.paginaPersonal" target="_blank" v-if="profesorB.paginaPersonal != ''">
+                                <a :href="profesorB.paginaPersonal" target="_blank" v-if="profesorB.paginaPersonal != ''" style="color: #c7b591">
                                     <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
                                 </a>
-                                <a :href="profesorB.researchGate" target="_blank" v-if="profesorB.researchGate != ''">
+                                <a :href="profesorB.researchGate" target="_blank" v-if="profesorB.researchGate != ''" style="color: #c7b591">
                                     <b-icon icon="book-fill" class="h4 mb-2" style="margin-left: 15px"></b-icon>
                                 </a>
-                                <a :href="profesorB.twitter" target="_blank" v-if="profesorB.twitter != ''">
+                                <a :href="profesorB.twitter" target="_blank" v-if="profesorB.twitter != ''" style="color: #c7b591">
                                     <b-icon icon="twitter" class="h4 mb-2" style="margin-left: 15px"></b-icon>
                                 </a>
                             </b-col>
@@ -96,6 +96,8 @@
     </b-card>
     </div>
 </template>
+
+
 
 <script>
 import {

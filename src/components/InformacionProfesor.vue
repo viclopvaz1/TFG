@@ -27,17 +27,17 @@
                   </b-card-text>
                 </b-col>
                 <b-col style="max-width: fit-content; margin-top: -5px;">
-                  <b-button v-if="compruebaNoSiguiendo()" variant="primary" @click="seguir()">Seguir</b-button>
-                  <b-button v-if="compruebaSiguiendo()" variant="primary" @click="dejarSeguir()">Dejar de Seguir</b-button>
+                  <b-button v-if="compruebaNoSiguiendo()" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="seguir()">Seguir</b-button>
+                  <b-button v-if="compruebaSiguiendo()" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="dejarSeguir()">Dejar de Seguir</b-button>
                 </b-col>
                 <b-col style="max-width: fit-content">
-                  <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''">
+                  <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''" style="color: #c7b591">
                     <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
                   </a>
-                  <a :href="tarjetaProfesor.researchGate" target="_blank" v-if="tarjetaProfesor.researchGate != ''">
+                  <a :href="tarjetaProfesor.researchGate" target="_blank" v-if="tarjetaProfesor.researchGate != ''" style="color: #c7b591">
                     <b-icon icon="book-fill" class="h4 mb-2" style="margin-left: 15px"></b-icon>
                   </a>
-                  <a :href="tarjetaProfesor.twitter" target="_blank" v-if="tarjetaProfesor.twitter != ''">
+                  <a :href="tarjetaProfesor.twitter" target="_blank" v-if="tarjetaProfesor.twitter != ''" style="color: #c7b591">
                     <b-icon icon="twitter" class="h4 mb-2" style="margin-left: 15px"></b-icon>
                   </a>
 

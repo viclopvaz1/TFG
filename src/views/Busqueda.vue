@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #dddcdc; padding-bottom: 20px;">
+  <div style="background-color: #dddcdc; min-height: 100vh; padding-bottom: 20px">
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
     <b-nav tabs align="center" style="border-color: #372d31">
