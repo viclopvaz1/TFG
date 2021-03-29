@@ -30,8 +30,6 @@
     </b-container>
 
   </div>
-
-    
 </template>
 
 <script>

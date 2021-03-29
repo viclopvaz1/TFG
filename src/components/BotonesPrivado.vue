@@ -81,6 +81,14 @@
     </div>
 </template>
 
+<style>
+    .btn-secondary:not(:disabled):not(.disabled):active:focus,
+     .btn-secondary:not(:disabled):not(.disabled).active:focus,
+      .show > .btn-secondary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+    }
+</style>
+
 <script>
 import { mapFields } from "vuex-map-fields";
 import { mapActions} from 'vuex';

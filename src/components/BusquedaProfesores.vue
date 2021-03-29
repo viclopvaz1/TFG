@@ -97,6 +97,13 @@
     </div>
 </template>
 
+<style>
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%)
+    }
+</style>
+
 
 
 <script>

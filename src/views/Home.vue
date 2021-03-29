@@ -3,17 +3,21 @@
     <BarraSinRegistrar v-if="!registrado" />
     <BarraRegistrado v-if="registrado"/>
 
-    <div style="margin-left: 150px; margin-right: 150px; margin-top: 15px;">
-     <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
-       Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
-       horas impartidas en los distintos centros en los que has estado, cursos privados 
-       en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
-       encontrar una vez te registres. ¡Pruébalo!</p>
-    </div>
-    <div style="text-align: center">
-      <b-img :src="require('@/assets/logo_tfg_grande.png')"></b-img>
-    </div>
-    
+    <b-card style="background-color: #dddcdc; border: hidden">
+      <b-row>
+        <b-col md="4" style="padding-left: 200px">
+          <b-img :src="require('@/assets/logo_TFG_Grande.png')"></b-img>
+      </b-col>
+      <b-col md="6" style="padding-left: 150px; align-self: center">
+          <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
+            Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
+            horas impartidas en los distintos centros en los que has estado, cursos privados 
+            en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
+            encontrar una vez te registres. ¡Pruébalo!</p>
+      </b-col>
+      </b-row>
+      
+    </b-card>
 
     <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
 

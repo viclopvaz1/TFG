@@ -17,13 +17,19 @@
                         <b-button v-if="compruebaNoSiguiendo(profesor)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="seguir(profesor)">Seguir</b-button>
                         <b-button v-if="compruebaSiguiendo(profesor)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="dejarSeguir(profesor)">Dejar de Seguir</b-button>
                     </b-col>
-                        
                     
                 </b-row>
             </b-card>
         </b-card>    
     </div>
 </template>
+
+<style>
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+    }
+</style>
 
 <script>
 import { mapFields } from "vuex-map-fields";

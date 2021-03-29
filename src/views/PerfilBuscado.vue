@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #dddcdc; padding-bottom: 20px;">
+  <div style="background-color: #dddcdc; padding-bottom: 20px; min-height: 100vh">
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
     
@@ -27,9 +27,8 @@
     </b-container>
 
   </div>
-
-    
 </template>
+
 
 <script>
 import BarraSinRegistrar from "@/components/BarraSinRegistrar.vue";
