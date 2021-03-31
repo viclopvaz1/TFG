@@ -18,20 +18,16 @@
       <b-card class="mt-3" style="margin-right: 30px; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.publicacionesDocentes.length > 0 || tarjetaProfesor.publicaciones.length > 0">
         <apexchart type="pie" width="380" :options="pie.chartOptions" :series="seriesPie"></apexchart>
       </b-card>
-      <b-card class="mt-3" style="background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.estancias.length > 0">
+      <b-card class="mt-3" style="margin-right: 30px; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.estancias.length > 0">
         <apexchart type="pie" width="380" :options="pieEstancias.chartOptions" :series="seriesPieEstancias"></apexchart>
       </b-card>
-    </b-row>
-    <b-row style="place-content: center;">
       <b-card class="mt-3" style="margin-right: 30px; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.cursosDocentes.length > 0">
         <apexchart type="pie" width="380" :options="pieCursos.chartOptions" :series="seriesPieCursos"></apexchart>
       </b-card>
-      <b-card class="mt-3" style="background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.seguidos.length > 0 || tarjetaProfesor.seguidores.length > 0">
+      <b-card class="mt-3" style="margin-right: 30px; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.seguidos.length > 0 || tarjetaProfesor.seguidores.length > 0">
         <apexchart type="pie" width="380" :options="pieSeguidosSeguidores.chartOptions" :series="seriesPieSeguidosSeguidores"></apexchart>
       </b-card>
-    </b-row>
-    <b-row style="place-content: center;">
-      <b-card class="mt-3" style="max-width: fit-content; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.comentarios.length > 0">
+      <b-card class="mt-3" style="margin-right: 30px; max-width: fit-content; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.comentarios.length > 0">
         <apexchart type="radar" height="350" width="480" :options="chartOptionsRadarComentarios" :series="seriesRadarComentarios"></apexchart>
       </b-card>
     </b-row>
@@ -55,6 +51,7 @@ export default {
           legend: {
                   position: "bottom",
                 },
+          colors: ['#c7b591', '#edd9b2'],
           responsive: [
             {
               breakpoint: 480,
@@ -80,6 +77,7 @@ export default {
           legend: {
                   position: "bottom",
                 },
+          colors: ['#c7b591', '#edd9b2'],
           responsive: [
             {
               breakpoint: 480,
@@ -105,6 +103,7 @@ export default {
           legend: {
                   position: "bottom",
                 },
+          colors: ['#c7b591', '#edd9b2'],
           responsive: [
             {
               breakpoint: 480,
@@ -130,6 +129,7 @@ export default {
           legend: {
                   position: "bottom",
                 },
+          colors: ['#c7b591', '#edd9b2'],
           responsive: [
             {
               breakpoint: 480,
@@ -196,59 +196,46 @@ export default {
     chartOptionsRadarComentarios: function(){
       return {
         chart: {
-              height: 350,
-              type: 'radar',
-            },
-            dataLabels: {
-              enabled: true
-            },
-            plotOptions: {
-              radar: {
-                size: 140,
-                polygons: {
-                  strokeColors: '#e9e9e9',
-                  fill: {
-                    colors: ['#f8f8f8', '#fff']
-                  }
-                }
+          height: 350,
+          type: 'radar',
+        },
+        dataLabels: {
+          enabled: true
+        },
+        plotOptions: {
+          radar: {
+            size: 140,
+            polygons: {
+              strokeColors: '#e9e9e9',
+              fill: {
+                colors: ['#f8f8f8', '#fff']
               }
-            },
-            title: {
-              text: 'Cantidad de Comentarios por valoración'
-            },
-            colors: ['#FF4560'],
-            markers: {
-              size: 4,
-              colors: ['#fff'],
-              strokeColor: '#FF4560',
-              strokeWidth: 2,
-            },
-            tooltip: {
-              y: {
-                formatter: function(val) {
-                  return val
-                }
-              },
-              enabled: false
-            },
-            xaxis: {
-              categories: ['1 Estrella', '2 Estrellas', '3 Estrellas', '4 Estrellas', '5 Estrellas']
-            },
-            // yaxis: {
-            //   tickAmount: 5,
-            //   labels: {
-            //     formatter: function(val, i) {
-            //       if (i % 2 === 0) {
-            //         return val
-            //       } else {
-            //         return ''
-            //       }
-            //     }
-            //   }
-            // }
-      }
-            
+            }
+          }
+        },
+        title: {
+          text: 'Cantidad de Comentarios por valoración'
+        },
+        colors: ['#c7b591'],
+        markers: {
+          size: 4,
+          colors: ['#fff'],
+          strokeColor: '#c7b591',
+          strokeWidth: 2,
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return val
+            }
           },
+          enabled: false
+        },
+        xaxis: {
+          categories: ['1 Estrella', '2 Estrellas', '3 Estrellas', '4 Estrellas', '5 Estrellas']
+        },
+      }
+    },
     chartOptionsBar: function() {
         var asignaturas = this.getAsignaturas();
         var horasTotal = this.getHorasTotal();
@@ -262,7 +249,7 @@ export default {
                 dataLabels: {
                   position: 'top', // top, center, bottom
                 },
-              }
+              },
             },
             dataLabels: {
               enabled: true,
@@ -275,7 +262,6 @@ export default {
                 colors: ["#304758"]
               }
             },
-            
             xaxis: {
               categories: asignaturas,
               position: 'top',
@@ -284,18 +270,6 @@ export default {
               },
               axisTicks: {
                 show: false
-              },
-              crosshairs: {
-                fill: {
-                  type: 'gradient',
-                  gradient: {
-                    colorFrom: '#D8E3F0',
-                    colorTo: '#BED1E6',
-                    stops: [0, 100],
-                    opacityFrom: 0.4,
-                    opacityTo: 0.5,
-                  }
-                }
               },
               tooltip: {
                 enabled: true,
@@ -317,7 +291,10 @@ export default {
               style: {
                 color: '#444'
               }
-            }
+            },
+          fill: {
+            colors: ['#c7b591'],
+          }
         }          
     },
   },

@@ -11,7 +11,7 @@
           <BotonesPrivado/>
         </b-col>
       
-        <b-col md="10" style="padding-right: 50px; padding-left: 35px; height: 600px">
+        <b-col md="10" style="padding-right: 50px; padding-left: 35px">
           <ModificarPerfil :style="profesor.seleccionPrivada[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <ModificarContrasena :style="profesor.seleccionPrivada[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <Comentarios :style="profesor.seleccionPrivada[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>
