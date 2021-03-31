@@ -1,6 +1,9 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px">
+        <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px; max-height: 65vh">
+            <div v-if="profe.length == 0" style="text-align: center">
+                <b-card-text>Este profesor aun no ha subido horas.</b-card-text>
+            </div>
             <b-card v-for="(hora, key) in profe" :key="key" style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
                     {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}}

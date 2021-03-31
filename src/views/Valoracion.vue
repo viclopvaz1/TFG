@@ -1,5 +1,8 @@
 <template>
-  <div style="text-align: -webkit-center; background-color: #dddcdc; padding-top: 20px; height: 100vh">
+  <div style="text-align: -webkit-center; background-color: #dddcdc; height: 100vh">
+    <BarraSinRegistrar v-if="!registrado" />
+    <BarraRegistrado v-if="registrado"/>
+
     <b-card class="overflow: hidden" style="margin: 20px; width: 60%; background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="enviarComentario">
         <b-form-group label="Correo profesor:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" style="color: #858081">
@@ -19,7 +22,7 @@
           style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
         </b-form-group>
 
-        <b-form-rating id="rating-lg" style="width: 60%; background-color: #f7f5f6" v-model.number="comentario.valoracion" no-border size="lg"></b-form-rating>
+        <b-form-rating id="rating-lg" style="width: 60%; background-color: #f7f5f6; color: #c7b591" v-model.number="comentario.valoracion" no-border size="lg"></b-form-rating>
 
         <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Enviar Comentario</b-button>
 

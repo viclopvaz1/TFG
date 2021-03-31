@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #dddcdc;     padding-bottom: 20px;">
+  <div style="background-color: #dddcdc; padding-bottom: 20px;">
     <BarraSinRegistrar v-if="!registrado" />
     <BarraRegistrado v-if="registrado"/>
 
@@ -13,7 +13,12 @@
             Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
             horas impartidas en los distintos centros en los que has estado, cursos privados 
             en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
-            encontrar una vez te registres. ¡Pruébalo!</p>
+            encontrar una vez te registres. ¡Pruébalo!
+          </p>
+          <p>
+            ¿Has recibido un correo para valorar a un profesor? Puedes valorarlo desde
+            <router-link to="/valoracion" style="color:  #c7b591">aquí</router-link>.
+          </p>
       </b-col>
       </b-row>
       

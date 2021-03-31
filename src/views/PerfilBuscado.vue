@@ -7,10 +7,10 @@
 
     <b-container style="max-width: initial">
       <b-row>
-        <b-col md="2" style="padding-left: 20px">
+        <b-col md="2" style="padding-left: 50px">
           <BotonesPublico/>
         </b-col>
-        <b-col md="8" style="padding-right: 20px">
+        <b-col md="10" style="padding-right: 50px; padding-left: 35px">
           <VisualizacionPublicacionesDocentes :style="tarjetaProfesor.seleccionPublica[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionPublicaciones :style="tarjetaProfesor.seleccionPublica[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionHoras :style="tarjetaProfesor.seleccionPublica[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>

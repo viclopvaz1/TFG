@@ -1,7 +1,11 @@
 <template>
     <div>
-        <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px">
-            <b-card v-for="(cursoDocente, key) in tarjetaProfesor.cursosDocentes" :key="key" style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
+        <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px; max-height: 65vh">
+            <div v-if="tarjetaProfesor.cursosDocentes.length == 0" style="text-align: center">
+                <b-card-text>Este profesor aun no ha subido cursos.</b-card-text>
+            </div>
+            <b-card v-for="(cursoDocente, key) in tarjetaProfesor.cursosDocentes" :key="key" 
+                    style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
                     {{cursoDocente.lugar}}
                 </b-row>

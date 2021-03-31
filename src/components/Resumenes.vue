@@ -1,12 +1,20 @@
 <template>
   <div id="chart">
+    <b-card v-if="tarjetaProfesor.horas.length == 0 && tarjetaProfesor.publicacionesDocentes.length == 0 && 
+                  tarjetaProfesor.publicaciones.length == 0 && tarjetaProfesor.estancias.length == 0 &&
+                  tarjetaProfesor.cursosDocentes.length == 0 && tarjetaProfesor.seguidos.length == 0 &&
+                  tarjetaProfesor.seguidores.length == 0 && tarjetaProfesor.comentarios.length == 0" 
+                  style="display: block; background-color: #f7f5f6; border-radius: 10px">
+      <div style="text-align: center">
+        <b-card-text>Este profesor no tiene resumenes disponibles.</b-card-text>
+      </div>
+    </b-card>
 
-      <b-card v-if="tarjetaProfesor.horas.length > 0" style="background-color: #f7f5f6; border-radius: 10px">
-        <apexchart type="bar" height="350" :options="chartOptionsBar" :series="seriesBar"></apexchart>
-      </b-card>
+    <b-card v-if="tarjetaProfesor.horas.length > 0" style="background-color: #f7f5f6; border-radius: 10px">
+      <apexchart type="bar" height="350" :options="chartOptionsBar" :series="seriesBar"></apexchart>
+    </b-card>
 
-    <b-row style="
-    place-content: center;">
+    <b-row style="place-content: center;">
       <b-card class="mt-3" style="margin-right: 30px; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.publicacionesDocentes.length > 0 || tarjetaProfesor.publicaciones.length > 0">
         <apexchart type="pie" width="380" :options="pie.chartOptions" :series="seriesPie"></apexchart>
       </b-card>
@@ -14,9 +22,7 @@
         <apexchart type="pie" width="380" :options="pieEstancias.chartOptions" :series="seriesPieEstancias"></apexchart>
       </b-card>
     </b-row>
-    <b-row
-    style="
-    place-content: center;">
+    <b-row style="place-content: center;">
       <b-card class="mt-3" style="margin-right: 30px; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.cursosDocentes.length > 0">
         <apexchart type="pie" width="380" :options="pieCursos.chartOptions" :series="seriesPieCursos"></apexchart>
       </b-card>
@@ -24,9 +30,7 @@
         <apexchart type="pie" width="380" :options="pieSeguidosSeguidores.chartOptions" :series="seriesPieSeguidosSeguidores"></apexchart>
       </b-card>
     </b-row>
-    <b-row
-    style="
-    place-content: center;">
+    <b-row style="place-content: center;">
       <b-card class="mt-3" style="max-width: fit-content; background-color: #f7f5f6; border-radius: 10px" v-if="tarjetaProfesor.comentarios.length > 0">
         <apexchart type="radar" height="350" width="480" :options="chartOptionsRadarComentarios" :series="seriesRadarComentarios"></apexchart>
       </b-card>

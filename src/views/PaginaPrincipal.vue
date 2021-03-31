@@ -10,7 +10,7 @@
         <b-col md="2" style="padding-left: 50px">
           <BotonesPublico/>
         </b-col>
-        <b-col md="10" style="padding-right: 50px; padding-left: 35px; height: 600px">
+        <b-col md="10" style="padding-right: 50px; padding-left: 35px">
           <VisualizacionPublicacionesDocentes :style="profesor.seleccionPublica[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionPublicaciones :style="profesor.seleccionPublica[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionHoras :style="profesor.seleccionPublica[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>
