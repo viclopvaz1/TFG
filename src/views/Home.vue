@@ -1,15 +1,28 @@
 <template>
-  <div>
+  <div style="background-color: #dddcdc; padding-bottom: 20px;">
     <BarraSinRegistrar v-if="!registrado" />
     <BarraRegistrado v-if="registrado"/>
 
-    <div style="margin-left: 150px; margin-right: 150px; margin-top: 15px;">
-     <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
-       Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
-       horas impartidas en los distintos centros en los que has estado, cursos privados 
-       en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
-       encontrar una vez te registres. ¡Pruebalo!</p>
-    </div>
+    <b-card style="background-color: #dddcdc; border: hidden">
+      <b-row>
+        <b-col md="4" style="padding-left: 200px">
+          <b-img :src="require('@/assets/logo_TFG_Grande.png')"></b-img>
+      </b-col>
+      <b-col md="6" style="padding-left: 150px; align-self: center">
+          <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
+            Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
+            horas impartidas en los distintos centros en los que has estado, cursos privados 
+            en empresas, supervisión de diferentes trabajos y otras muchas funciones que podrás 
+            encontrar una vez te registres. ¡Pruébalo!
+          </p>
+          <p>
+            ¿Has recibido un correo para valorar a un profesor? Puedes valorarlo desde
+            <router-link to="/valoracion" style="color:  #c7b591">aquí</router-link>.
+          </p>
+      </b-col>
+      </b-row>
+      
+    </b-card>
 
     <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
 
@@ -20,7 +33,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import BarraSinRegistrar from '@/components/BarraSinRegistrar.vue'
 import BarraRegistrado from '@/components/BarraRegistrado.vue'
 import MejoresProfesores from '@/components/MejoresProfesores.vue'

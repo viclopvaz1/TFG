@@ -1,13 +1,16 @@
 <template>
     <div>
-        <b-card v-for="(hora, key) in horas" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
-            <b-row no-gutters>
-                {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}} {{hora.ano}} {{hora.horas}} horas
-            </b-row>
-            <b-row no-gutters>
-                {{hora.justificacionHora}}
-            </b-row>
+        <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px; max-height: 65vh">
+            <b-card v-for="(hora, key) in horas" :key="key" style="margin: 20px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
+                <b-row no-gutters>
+                    {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}} {{hora.ano}} {{hora.horas}} horas
+                </b-row>
+                <b-row no-gutters>
+                    {{hora.justificacionHora}}
+                </b-row>
+            </b-card>
         </b-card>
+        
     </div>
 </template>
 

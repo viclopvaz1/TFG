@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: #dddcdc; padding-bottom: 20px; min-height: 100vh">
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
     
@@ -7,10 +7,10 @@
 
     <b-container style="max-width: initial">
       <b-row>
-        <b-col md="2" style="padding-left: 20px">
+        <b-col md="2" style="padding-left: 50px">
           <BotonesPublico/>
         </b-col>
-        <b-col md="8" style="padding-right: 20px">
+        <b-col md="10" style="padding-right: 50px; padding-left: 35px">
           <VisualizacionPublicacionesDocentes :style="profesor.seleccionPublica[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionPublicaciones :style="profesor.seleccionPublica[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionHoras :style="profesor.seleccionPublica[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>
@@ -20,6 +20,8 @@
           <VisualizacionEstancias :style="profesor.seleccionPublica[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <VisualizacionComentarios :style="profesor.seleccionPublica[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <Resumenes :style="profesor.seleccionPublica[8] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionSeguidos :style="profesor.seleccionPublica[9] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <VisualizacionSeguidores :style="profesor.seleccionPublica[10] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
     </b-container>
@@ -40,6 +42,8 @@ import VisualizacionProyectoDocente from "@/components/VisualizacionProyectoDoce
 import VisualizacionCursoDocente from "@/components/VisualizacionCursoDocente.vue";
 import VisualizacionTrabajoSupervisado from "@/components/VisualizacionTrabajoSupervisado.vue";
 import VisualizacionEstancias from "@/components/VisualizacionEstancias.vue";
+import VisualizacionSeguidos from "@/components/VisualizacionSeguidos.vue";
+import VisualizacionSeguidores from "@/components/VisualizacionSeguidores.vue";
 import Resumenes from "@/components/Resumenes";
 import { mapFields } from "vuex-map-fields";
 import { mapActions } from "vuex";
@@ -61,14 +65,16 @@ export default {
     VisualizacionCursoDocente,
     VisualizacionTrabajoSupervisado,
     VisualizacionEstancias,
-    Resumenes
+    Resumenes,
+    VisualizacionSeguidos,
+    VisualizacionSeguidores
   },
   data() {
     return {};
   },
   computed: {
-    ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB"]),
-    ...mapActions(["getData", "recuperarState", "getAdmins"]),
+    ...mapFields(["profesor", "profesoresDB", "registrado", "administradoresDB", "tarjetaProfesor"]),
+    ...mapActions(["getData", "recuperarState", "getAdmins", 'updateListaSeguidores', 'updateListaSeguidos']),
   },
   async mounted() {
     try {
@@ -95,6 +101,8 @@ export default {
           if (notAdmin) {
             store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
             this.tarjetaProfesor = this.profesor;
+            store.dispatch("updateListaSeguidores");
+            store.dispatch("updateListaSeguidos");
           }
 
         }

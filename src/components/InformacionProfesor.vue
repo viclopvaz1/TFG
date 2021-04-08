@@ -2,7 +2,7 @@
     <div>
         <b-card
       class="overflow: hidden"
-      style="margin: 20px; border-color: #17a2b8"
+      style="margin: 20px; background-color: #f7f5f6; border-radius: 10px"
     >
       <b-row no-gutters>
         <b-col md="2">
@@ -26,14 +26,18 @@
                     {{ tarjetaProfesor.despacho }} {{tarjetaProfesor.departamento}} {{tarjetaProfesor.centro}}
                   </b-card-text>
                 </b-col>
+                <b-col style="max-width: fit-content; margin-top: -5px;">
+                  <b-button v-if="compruebaNoSiguiendo()" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="seguir()">Seguir</b-button>
+                  <b-button v-if="compruebaSiguiendo()" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="dejarSeguir()">Dejar de Seguir</b-button>
+                </b-col>
                 <b-col style="max-width: fit-content">
-                  <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''">
+                  <a :href="tarjetaProfesor.paginaPersonal" target="_blank" v-if="tarjetaProfesor.paginaPersonal != ''" style="color: #c7b591">
                     <b-icon icon="house-fill" class="h4 mb-2"></b-icon>
                   </a>
-                  <a :href="tarjetaProfesor.researchGate" target="_blank" v-if="tarjetaProfesor.researchGate != ''">
+                  <a :href="tarjetaProfesor.researchGate" target="_blank" v-if="tarjetaProfesor.researchGate != ''" style="color: #c7b591">
                     <b-icon icon="book-fill" class="h4 mb-2" style="margin-left: 15px"></b-icon>
                   </a>
-                  <a :href="tarjetaProfesor.twitter" target="_blank" v-if="tarjetaProfesor.twitter != ''">
+                  <a :href="tarjetaProfesor.twitter" target="_blank" v-if="tarjetaProfesor.twitter != ''" style="color: #c7b591">
                     <b-icon icon="twitter" class="h4 mb-2" style="margin-left: 15px"></b-icon>
                   </a>
 
@@ -101,19 +105,78 @@
     </div>
 </template>
 
+<style>
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%)
+    }
+</style>
+
 <script>
 import { mapFields } from "vuex-map-fields";
 import { mapActions} from 'vuex';
+import store from '../store';
+import firebase from 'firebase';
 
 export default {
   name: "InformacionProfesor",
   computed: {
     ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
-    ...mapActions(['getData', 'recuperarState']),
+    ...mapActions(['getData', 'recuperarState', 'updateFields','updateSeguidores']),
   },
-  created() {
-    console.log("Informacion Profesor: " + this.tarjetaProfesor);
-    // this.tarjetaProfesor = this.profesor;
+  methods: {
+    compruebaNoSiguiendo() {
+      var result = false;
+      var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
+      if (this.tarjetaProfesor.email != this.profesor.email && profesor == undefined && firebase.auth().currentUser != null) {
+        result = true;
+      }
+      return result;
+    },
+    compruebaSiguiendo() {
+      var result = false;
+      var profesor = this.profesor.seguidos.find(element => element.email == this.tarjetaProfesor.email);
+      if (this.tarjetaProfesor.email != this.profesor.email && profesor != undefined && firebase.auth().currentUser != null) {
+        result = true;
+      }
+      return result;
+    },
+    seguir() {
+      var profesor = {
+        nombre: this.tarjetaProfesor.nombre,
+        apellidos: this.tarjetaProfesor.apellidos,
+        puntuacion: this.tarjetaProfesor.puntuacion,
+        email: this.tarjetaProfesor.email,
+        foto: this.tarjetaProfesor.foto
+      };
+      this.profesor.seguidos.push(profesor);
+      store.dispatch("updateFields");
+
+      var seguidor = {
+        nombre: this.profesor.nombre,
+        apellidos: this.profesor.apellidos,
+        puntuacion: this.profesor.puntuacion,
+        email: this.profesor.email,
+        foto: this.profesor.foto
+      };
+      this.tarjetaProfesor.seguidores.push(seguidor);
+      if (this.tarjetaProfesor.seguidores.length >= 2 && !this.tarjetaProfesor.puntuacionSeguidores) {
+        this.tarjetaProfesor.puntuacion += 1;
+        this.tarjetaProfesor.puntuacionSeguidores = true;
+      }
+      store.dispatch("updateSeguidores");
+    },
+    dejarSeguir() {
+      this.profesor.seguidos.splice(this.profesor.seguidos.findIndex(element => element.email == this.tarjetaProfesor.email), 1);
+      store.dispatch("updateFields");
+
+      this.tarjetaProfesor.seguidores.splice(this.tarjetaProfesor.seguidores.findIndex(element => element.email == this.profesor.email), 1);
+      if (this.tarjetaProfesor.seguidores.length < 2 && this.tarjetaProfesor.puntuacionSeguidores) {
+        this.tarjetaProfesor.puntuacion -= 1;
+        this.tarjetaProfesor.puntuacionSeguidores = false;
+      }
+      store.dispatch("updateSeguidores");
+    }
   }
   
 };

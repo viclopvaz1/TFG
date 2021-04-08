@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <div style="background-color: #dddcdc; min-height: 100vh; padding-bottom: 20px">
         <BarraAdmin/>
-
-        <b-card v-for="(profesor, key) in profesores" :key="key" style="margin-bottom: 5px; border-color: #17a2b8">
+            <b-card v-for="(profesor, key) in profesores" :key="key" style="margin: 20px; background-color: #f7f5f6; border-radius: 10px">
             <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                 <b-avatar
                     :src="profesor.foto"
@@ -16,7 +15,7 @@
                 URL al archivo: {{profesor.urlArchivoHoras}}
             </b-card-text>
 
-            <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora" style="border-color: #17a2b8">
+            <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora" style="background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
                     {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}} {{hora.ano}}
                 </b-row>
@@ -36,7 +35,7 @@
                     </b-col>
 
                     <b-col>
-                        <b-form-textarea  v-model="hora.justificacionHora" type="text" placeholder="Justificación" :maxlength="300"></b-form-textarea>
+                        <b-form-textarea  v-model="hora.justificacionHora" type="text" placeholder="Justificación" :maxlength="300" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
                     </b-col>
                 
                 </b-row>
@@ -48,8 +47,16 @@
                 </b-row>
             </b-card>
         </b-card>
+        
     </div>
 </template>
+
+<style>
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #858081 !important;
+  opacity: 1;
+}
+</style>
 
 <script>
 import { mapFields } from "vuex-map-fields";
@@ -74,13 +81,7 @@ export default {
         ...mapActions(['getData', 'recuperarState', 'updateHoras', 'updateJustificacion', 'recuperarStateAdmin', 'getAdmins']),
         profesores() {
             var profeHoras = [];
-            let profesor = {
-                foto: '',
-                nombre: '',
-                apellidos: '',
-                email: '',
-                horas: [],
-            };
+            let profesor = {};
             for (let profIndex in this.profesoresDB) {
                 profesor = {
                     foto: '',
@@ -121,7 +122,6 @@ export default {
                     }
                 }
             }
-            console.log(this.administradoresDB);
         } catch (error) {
             console.log(error);
         }
@@ -163,18 +163,15 @@ export default {
                 });
                 for (var horaIndex in this.profesor.horas) {
                     var horaDB = this.profesor.horas[horaIndex];
-                    if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
-                        
+                    if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && 
+                        horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
                         var sumaHoras = 0;
-
                         var superaHoras = false;
-
                         var nHorasValidada = this.profesor.horas.filter(element => element.validada == 1);
 
                         for (let horaValidada in nHorasValidada) {
                             sumaHoras += nHorasValidada[horaValidada].horas;
                         }
-
                         if (sumaHoras >= 200) {
                             superaHoras = true;
                         }
@@ -183,9 +180,7 @@ export default {
                         this.profesor.horas[horaIndex].justificacionHora = "";
                         hora.validada = 1;
                         hora.justificacionHora = "";
-
                         sumaHoras = 0;
-
                         nHorasValidada = this.profesor.horas.filter(element => element.validada == 1);
 
                         for (let horaValidada in nHorasValidada) {
@@ -209,30 +204,6 @@ export default {
             window.location.reload();
         },
         async noValidar(profesor, hora){
-            // if (profesor.justificacionHoras != "") {
-            //     this.profesor.email = profesor.email;
-            //     this.profesor.justificacionHoras = profesor.justificacionHoras;
-            //     profesor.tieneJustificacion = true;
-            //     this.profesor.tieneJustificacion = profesor.tieneJustificacion;
-            //     store.dispatch("updateJustificacion");
-            // } else {
-            //     profesor.tieneJustificacion = false;
-            // }
-
-
-
-
-            // if (hora.justificacionHora != "") {
-            //     for (var horaIndex in profesor.horas) {
-            //         var horaDB = profesor.horas[horaIndex];
-            //         if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == false) {
-            //             profesor.horas.splice(horaIndex, 1);
-            //             break;
-            //         }
-            //     }
-            //     this.profesor.horas = profesor.horas;
-            //     store.dispatch("updateHoras");
-            // }
             if (hora.justificacionHora != "") {
                 this.profesor.email = profesor.email;
                 try {
@@ -244,7 +215,8 @@ export default {
                     });
                     for (var horaIndex in this.profesor.horas) {
                         var horaDB = this.profesor.horas[horaIndex];
-                        if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
+                        if (horaDB.ano == hora.ano && horaDB.asignatura == hora.asignatura && horaDB.horas == hora.horas && 
+                            horaDB.idioma == hora.idioma && horaDB.institucion == hora.institucion && horaDB.validada == 0) {
                             this.profesor.horas[horaIndex].validada = 2;
                             this.profesor.horas[horaIndex].justificacionHora = hora.justificacionHora;
                             hora.validada = 2;

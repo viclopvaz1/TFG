@@ -1,18 +1,29 @@
 <template>
     <div>
-        <b-card style="border-color: #17a2b8">
+        <b-card style="background-color: #f7f5f6; border-radius: 10px">
             <b-card-text>
                 Escribe aquí los correos de tus alumnos,
                 separados por coma, para que te puedan 
                 dejar un comentario y una valoración.
             </b-card-text>
-            <b-form-textarea id="textarea" v-model="correos" placeholder="Añade el correo de tus alumnos aquí"></b-form-textarea>
-            <b-card-text v-if="!validacionCorreo">El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios</b-card-text>
-            <b-button variant="primary" style="margin-top: 15px" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
+            <b-form-textarea id="textarea" v-model="correos" placeholder="Añade el correo de tus alumnos aquí" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
+            <b-alert v-model="validacion" dismissible variant="danger" class="mt-3">
+                El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios
+            </b-alert>
 
+            <div style="text-align: center">
+                <b-button variant="primary" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px; margin-top: 15px" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
+            </div>
         </b-card>
     </div>
 </template>
+
+<style>
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #858081 !important;
+  opacity: 1;
+}
+</style>
 
 <script>
 import {
@@ -27,6 +38,7 @@ export default {
         return {
             correos: '',
             validacionCorreo: true,
+            validacion: false,
             correoErroneo: ''
         }
     },
@@ -39,12 +51,13 @@ export default {
             const emailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,63}){1,3})$/;
             var correos = this.correos.split(',');
             this.profesor.correoAlumnos = [];
-            for (let i = 0; i < correos.length; i++) {
-                this.validacionCorreo = emailRegex.test(correos[i].trim());
+            for (let correo in correos) {
+                this.validacionCorreo = emailRegex.test(correos[correo].trim());
                 if (this.validacionCorreo) {
-                    this.profesor.correoAlumnos.push(correos[i]);
+                    this.profesor.correoAlumnos.push(correos[correo]);
                 } else {
-                    this.correoErroneo = correos[i];
+                    this.correoErroneo = correos[correo];
+                    this.validacion = !this.validacionCorreo;
                     break;
                 }
             }

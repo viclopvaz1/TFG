@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: #dddcdc; padding-bottom: 20px;">
     <BarraSinRegistrar v-if="!registrado"/>
     <BarraRegistrado v-if="registrado"/>
 
@@ -7,30 +7,29 @@
 
     <b-container style="max-width: initial">
       <b-row>
-        <b-col md="2" style="padding-left: 20px">
+        <b-col md="2" style="padding-left: 50px">
           <BotonesPrivado/>
         </b-col>
       
-        <b-col md="8" style="padding-right: 20px">
+        <b-col md="10" style="padding-right: 50px; padding-left: 35px">
           <ModificarPerfil :style="profesor.seleccionPrivada[0] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <ModificarContrasena :style="profesor.seleccionPrivada[1] ? {'display' : 'grid'} : {'display' : 'none'}"/>
           <Comentarios :style="profesor.seleccionPrivada[2] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <Resumenes :style="profesor.seleccionPrivada[3] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <HorasNoValidadas :style="profesor.seleccionPrivada[4] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirPublicacionesDocentes :style="profesor.seleccionPrivada[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirPublicaciones :style="profesor.seleccionPrivada[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirHoras :style="profesor.seleccionPrivada[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirProyectosDocentes :style="profesor.seleccionPrivada[8] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirCursosDocentes :style="profesor.seleccionPrivada[9] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirTrabajosSupervisados :style="profesor.seleccionPrivada[10] ? {'display' : 'grid'} : {'display' : 'none'}"/>
-          <SubirEstancias :style="profesor.seleccionPrivada[11] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <PublicacionesSeguidos :style="profesor.seleccionPrivada[3] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <Resumenes :style="profesor.seleccionPrivada[4] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <HorasNoValidadas :style="profesor.seleccionPrivada[5] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirPublicacionesDocentes :style="profesor.seleccionPrivada[6] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirPublicaciones :style="profesor.seleccionPrivada[7] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirHoras :style="profesor.seleccionPrivada[8] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirProyectosDocentes :style="profesor.seleccionPrivada[9] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirCursosDocentes :style="profesor.seleccionPrivada[10] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirTrabajosSupervisados :style="profesor.seleccionPrivada[11] ? {'display' : 'grid'} : {'display' : 'none'}"/>
+          <SubirEstancias :style="profesor.seleccionPrivada[12] ? {'display' : 'grid'} : {'display' : 'none'}"/>
         </b-col>
       </b-row>
     </b-container>
 
   </div>
-
-    
 </template>
 
 <script>
@@ -41,6 +40,7 @@ import BotonesPrivado from "@/components/BotonesPrivado";
 import ModificarPerfil from "@/components/ModificarPerfil";
 import ModificarContrasena from "@/components/ModificarContrasena";
 import Comentarios from "@/components/Comentarios";
+import PublicacionesSeguidos from "@/components/PublicacionesSeguidos";
 import Resumenes from "@/components/Resumenes";
 import HorasNoValidadas from "@/components/HorasNoValidadas";
 import SubirHoras from "@/components/SubirHoras";
@@ -73,11 +73,12 @@ export default {
     SubirCursosDocentes,
     SubirPublicacionesDocentes,
     SubirPublicaciones,
-    HorasNoValidadas
+    HorasNoValidadas,
+    PublicacionesSeguidos
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administradoresDB"]),
-    ...mapActions(['getData', 'recuperarState', 'getAdmins']),
+    ...mapActions(['getData', 'recuperarState', 'getAdmins', 'updatePublicacionesSeguidos']),
     
   },
   data() {
@@ -88,6 +89,7 @@ export default {
     try {
       let admins = await store.dispatch("getAdmins");
       this.administradoresDB = admins;
+      store.dispatch("updatePublicacionesSeguidos");
       
     } catch (error) {
       console.log(error);
@@ -109,6 +111,7 @@ export default {
 
           if (notAdmin) {
             store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
+            store.dispatch("updatePublicacionesSeguidos");
             this.tarjetaProfesor = this.profesor;
           }
 

@@ -1,52 +1,66 @@
 <template>
   <div>
-    <b-card style="border-color: #17a2b8">
+    <b-card style="background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="guardar">
-        <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-nombre" v-model="nombre" type="text" required :maxlength="20"></b-form-input>
+        <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-nombre" v-model="nombre" type="text" required :maxlength="20" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Apellidos:" label-for="input-apellidos" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-apellidos" v-model="apellidos" type="text" required :maxlength="40"></b-form-input>
+        <b-form-group label="Apellidos:" label-for="input-apellidos" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-apellidos" v-model="apellidos" type="text" required :maxlength="40" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Descripción:" label-for="input-descripcion" class="mt-2" label-cols-md="2">
-          <b-form-textarea id="input-descripcion" v-model="descripcion" type="text" :maxlength="300"></b-form-textarea>
+        <b-form-group label="Descripción:" label-for="input-descripcion" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-textarea id="input-descripcion" v-model="descripcion" type="text" :maxlength="300" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
         </b-form-group>
 
-        <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-foto" v-model="foto" type="text" required></b-form-input>
+        <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-foto" v-model="foto" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Despacho:" label-for="input-despacho" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-despacho" v-model="despacho" type="text" :maxlength="12"></b-form-input>
+        <b-form-group label="Despacho:" label-for="input-despacho" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-despacho" v-model="despacho" type="text" :maxlength="12" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Departamento:" label-for="input-departamento" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-departamento" v-model="departamento" type="text" :maxlength="48"></b-form-input>
+        <b-form-group label="Departamento:" label-for="input-departamento" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-departamento" v-model="departamento" type="text" :maxlength="48" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Centro:" label-for="input-centro" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-centro" v-model="centro" type="text" :maxlength="48"></b-form-input>
+        <b-form-group label="Centro:" label-for="input-centro" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-centro" v-model="centro" type="text" :maxlength="48" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Página Personal:" label-for="input-paginaPersonal" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-paginaPersonal" v-model="paginaPersonal" type="url"></b-form-input>
+        <b-form-group label="Página Personal:" label-for="input-paginaPersonal" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-paginaPersonal" v-model="paginaPersonal" type="url" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Research Gate:" label-for="input-researchGate" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-researchGate" v-model="researchGate" type="url"></b-form-input>
+        <b-form-group label="Research Gate:" label-for="input-researchGate" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-researchGate" v-model="researchGate" type="url" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Twitter:" label-for="input-twitter" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-twitter" v-model="twitter" type="url"></b-form-input>
+        <b-form-group label="Twitter:" label-for="input-twitter" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-twitter" v-model="twitter" type="url" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Guardar cambios</b-button>
+        <b-alert v-model="perfilModificado" dismissible variant="success" class="mt-3">
+            Cambios guardados
+        </b-alert>
+
+        <div style="text-align: center">
+          <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Guardar cambios</b-button>
+        </div>
+        
       </form>
     </b-card>
   </div>
 </template>
+
+<style>
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+    }
+</style>
 
 <script>
 import {
@@ -69,7 +83,8 @@ export default {
       centro: '',
       paginaPersonal: '',
       researchGate: '',
-      twitter: ''
+      twitter: '',
+      perfilModificado: false,
     }
   },
   computed: {
@@ -114,12 +129,14 @@ export default {
       this.tarjetaProfesor.paginaPersonal = this.profesor.paginaPersonal;
       this.tarjetaProfesor.researchGate = this.profesor.researchGate;
 
+      this.perfilModificado = true;
+
       this.update();
       
     },
     async update(){
       try {
-        store.dispatch('updateFields');
+        await store.dispatch('updateFields');
       } catch (error) {
         console.log(error)
       }

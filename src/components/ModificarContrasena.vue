@@ -1,16 +1,19 @@
 <template>
   <div>
-    <b-card style="border-color: #17a2b8">
+    <b-card style="background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="cambiarContrasena">
-        <b-form-group label="Contraseña:" label-for="input-contrasena" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-contrasena" v-model="contrasena" type="text" required></b-form-input>
+        <b-form-group label="Contraseña:" label-for="input-contrasena" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-contrasena" v-model="contrasena" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Confirmar Contraseña:" label-for="input-confirmarContrasena" class="mt-2" label-cols-md="2">
-          <b-form-input id="input-confirmarContrasena" v-model="confirmarContrasena" type="text" required></b-form-input>
+        <b-form-group label="Confirmar Contraseña:" label-for="input-confirmarContrasena" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-input id="input-confirmarContrasena" v-model="confirmarContrasena" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary">Cambiar Contraseña</b-button>
-        <b-alert :show="validarContrasena" dismissible variant="warning" class="mt-3">
+        <div style="text-align: center">
+          <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Cambiar Contraseña</b-button>
+        </div>
+        
+        <b-alert v-model="validarContrasena" dismissible variant="danger" class="mt-3">
           Las contraseñas no coinciden
         </b-alert>
       </form>
@@ -18,13 +21,19 @@
   </div>
 </template>
 
+<style>
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+    }
+</style>
+
 <script>
 import firebase from 'firebase';
 import {
   mapFields
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
-import {db} from '../main';
 import store from '../store';
 
 export default {
@@ -58,7 +67,6 @@ export default {
           store.dispatch('updateFields');
           this.$router.replace('home');
         }).catch(function(error) {
-          // An error happened.
           console.log(error)
         });
 

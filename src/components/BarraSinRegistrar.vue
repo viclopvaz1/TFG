@@ -1,26 +1,33 @@
 <template>
   <div>
-    <b-navbar type="dark" variant="info">
-      <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px" @click="redirect"></b-img>
+    <b-navbar type="dark" style="background-color: #372d31">
+      <b-img :src="require('@/assets/logo_TFG.png')" style="height: 50px; padding: 0" class="btn" @click="redirect"></b-img>
 
       <b-collapse is-nav>
         <b-navbar-nav class="ml-auto mr-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="busqueda"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="primary" @click="busquedaProfesoresPublicaciones">Search</b-button>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="busqueda" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="busquedaProfesoresPublicaciones">Search</b-button>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
 
       <b-collapse is-nav style="max-width: fit-content">
         <b-navbar-nav>
-          <b-button variant="primary" @click="login">Iniciar Sesion</b-button>
-          <b-button variant="primary" style="margin-left: 15px" @click="registro">Regístrate</b-button>
+          <b-button style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="login">Iniciar Sesión</b-button>
+          <b-button style="margin-left: 15px; background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="registro">Regístrate</b-button>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div>
 </template>
+
+<style>
+  .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #858081 !important;
+  opacity: 1;
+}
+</style>
 
 <script>
 import {
@@ -62,14 +69,7 @@ export default {
     busquedaProfesoresPublicaciones() {
       this.profesoresNombre = [];
       this.profesoresApellidos = [];
-      let profesorPublicaciones = {
-        nombre: '',
-        apellidos: '',
-        email: '',
-        foto: '',
-        publicacionesDocentes: [],
-        publicaciones: []
-      }
+      let profesorPublicaciones = {}
       const publicaciones = [];
       const publicacionesDocentes = [];
       for (let prof in this.profesoresDB) {
@@ -145,5 +145,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

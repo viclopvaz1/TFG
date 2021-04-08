@@ -1,7 +1,7 @@
 <template>
     <div style="text-align: -webkit-center;">
         <b-card v-for="(profesor, key) in mejoresProfesores" :key="key"
-            class="overflow: hidden" style="margin: 20px; width: 50%; border-color: #17a2b8">
+            class="overflow: hidden" style="margin: 20px; width: 50%; background-color: #f7f5f6; border-radius: 10px">
             <b-row no-gutters>
                 <b-col md="2">
                     <b-avatar :src="profesor.foto" alt="Foto profesorB" size="3rem" button @click="onClick(profesor)"></b-avatar>
@@ -50,26 +50,11 @@ export default {
     ...mapActions(['getData', 'recuperarState', 'getAdmins']),
     
   },
-  async created() {
-        try {
-            let profes = await store.dispatch("getData");
-            this.profesoresDB = profes;
-            this.profesoresDB = this.mejoresProfesoresprofesoresOrdenadosPorPuntuacion();
-            this.obtenerMejoresProfesores();
-        } catch (error) {
-            console.log(error);
-        }
-      
+    created() {
+        this.inicializarMejoresProfesores();
   },
-  async mounted() {
-        try {
-            let profes = await store.dispatch("getData");
-            this.profesoresDB = profes;
-            this.profesoresDB = this.mejoresProfesoresprofesoresOrdenadosPorPuntuacion();
-            this.obtenerMejoresProfesores();
-        } catch (error) {
-            console.log(error);
-        }
+    mounted() {
+        this.inicializarMejoresProfesores();
   },
   methods: {
       onClick(profesorB) {
@@ -81,6 +66,16 @@ export default {
             this.$router.replace('perfilBuscado');
         }
       },
+      async inicializarMejoresProfesores() {
+          try {
+            let profes = await store.dispatch("getData");
+            this.profesoresDB = profes;
+            this.profesoresDB = this.mejoresProfesoresOrdenadosPorPuntuacion();
+            this.obtenerMejoresProfesores();
+        } catch (error) {
+            console.log(error);
+        }
+      },
       obtenerMejoresProfesores () {
           for (let prof in this.profesoresDB) {
             let profesor = this.profesoresDB[prof];
@@ -89,7 +84,7 @@ export default {
             }
           }
       },
-      mejoresProfesoresprofesoresOrdenadosPorPuntuacion() {
+      mejoresProfesoresOrdenadosPorPuntuacion() {
       function compare(a, b) {
         if (a.puntuacion > b.puntuacion)
           return -1;
