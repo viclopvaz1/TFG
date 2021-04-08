@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "registrado", "tarjetaProfesor", "administradoresDB"]),
-    ...mapActions(['getData', 'recuperarState', 'getAdmins', 'updatePublicacionesSeguidos']),
+    ...mapActions(['getData', 'recuperarState', 'getAdmins', 'ordenaYActualizaPublicacionesSeguidos']),
     
   },
   data() {
@@ -89,7 +89,7 @@ export default {
     try {
       let admins = await store.dispatch("getAdmins");
       this.administradoresDB = admins;
-      store.dispatch("updatePublicacionesSeguidos");
+      store.dispatch("ordenaYActualizaPublicacionesSeguidos");
       
     } catch (error) {
       console.log(error);
@@ -111,7 +111,7 @@ export default {
 
           if (notAdmin) {
             store.dispatch("recuperarState", {email: firebase.auth().currentUser.email});
-            store.dispatch("updatePublicacionesSeguidos");
+            store.dispatch("ordenaYActualizaPublicacionesSeguidos");
             this.tarjetaProfesor = this.profesor;
           }
 

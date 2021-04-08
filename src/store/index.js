@@ -312,7 +312,7 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async updatePublicacionesSeguidos({commit}) {
+    async ordenaYActualizaPublicacionesSeguidos({commit, dispatch}) {
       try {
         var publicaciones = [];
         for (let seguido in this.state.profesor.seguidos) {
@@ -334,7 +334,6 @@ export default new Vuex.Store({
             publicacion: []
           };
 
-
           profesoresRef.forEach(doc => {
             let data = doc.data();
             profesorPublicacionesSeguidos.publicacion = data.publicaciones;
@@ -351,21 +350,30 @@ export default new Vuex.Store({
 
           if (profesorPublicacionesSeguidos.publicacion.length > 0) {
             profesorPublicacionesSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
+            //profesorPublicacionesSeguidos.publicacion.sort((a, b) => new Date(a.horaSubida) - new Date(b.horaSubida));
             profesorPublicacionesSeguidos.publicacion = profesorPublicacionesSeguidos.publicacion[0];
             publicaciones.push(profesorPublicacionesSeguidos);
           }
           if (profesorPublicacionesDocenteSeguidos.publicacion.length > 0){
             profesorPublicacionesDocenteSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
+            //profesorPublicacionesDocenteSeguidos.publicacion.sort((a, b) => new Date(a.horaSubida) - new Date(b.horaSubida));
             profesorPublicacionesDocenteSeguidos.publicacion = profesorPublicacionesDocenteSeguidos.publicacion[0];
             publicaciones.push(profesorPublicacionesDocenteSeguidos);
           }
         }
-        const profesorRef = await db.collection('profesores').where('email', '==', this.state.profesor.email.toLowerCase()).get();
+        dispatch("updatePublicacionesSeguidos", {publicaciones: publicaciones})
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updatePublicacionesSeguidos({commit}, payload){
+      const profesorRef = await db.collection('profesores').where('email', '==', this.state.profesor.email.toLowerCase()).get();
 
         var p = db.collection('profesores').doc(profesorRef.docs[0].id);
 
-        publicaciones.sort((a, b) => (a.publicacion.horaSubida < b.publicacion.horaSubida) ? 1 : -1);
-        this.state.profesor.publicacionesSeguidos = publicaciones;
+        payload.publicaciones.sort((a, b) => (a.publicacion.horaSubida < b.publicacion.horaSubida) ? 1 : -1);
+        //payload.publicaciones.sort((a, b) => new Date(a.publicacion.horaSubida) - new Date(b.publicacion.horaSubida));
+        this.state.profesor.publicacionesSeguidos = payload.publicaciones;
 
         p.update({
           publicacionesSeguidos: this.state.profesor.publicacionesSeguidos
@@ -376,9 +384,6 @@ export default new Vuex.Store({
           .catch(function(error) {
               console.log("Error: " + error);
           })
-      } catch (error) {
-        console.log(error);
-      }
     },
     initialLogout() {
       firebase.auth().signOut().then(() => this.$router.replace('login'));

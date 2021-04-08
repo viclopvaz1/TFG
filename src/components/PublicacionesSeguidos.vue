@@ -5,7 +5,7 @@
                 <b-row no-gutters style="align-items: center; margin-bottom: 15px">
                     <b-avatar :src="profesorB.foto" alt="Foto profesor" size="3rem" style="margin-right: 20px" button @click="onClick(profesorB)"></b-avatar>
                     {{profesorB.nombre}} {{profesorB.apellidos}} 
-                    <b-card-text style="margin-left: 20px;">{{profesorB.publicacion.horaSubida}}</b-card-text>
+                    <b-card-text style="margin-left: 20px;">{{parse(profesorB.publicacion.horaSubida)}}</b-card-text>
                 </b-row>
                 <b-row no-gutters>
                     {{profesorB.publicacion.titulo}}
@@ -23,6 +23,7 @@ import {
   mapFields
 } from 'vuex-map-fields'
 import store from '../store';
+import moment from 'moment';
 
 export default {
 name: "PublicacionesSeguidos",
@@ -39,7 +40,11 @@ name: "PublicacionesSeguidos",
         this.tarjetaProfesor = this.profesoresDB.find(element => element.email === profesorB.email);
         localStorage.setItem('profesorBuscado', profesorB.email);
         this.$router.replace('perfilBuscado');
-      }
+      },
+      parse(date) {
+        return moment(date).format('DD/MM/YYYY HH:mm:ss');
+    }
+    
   }
 }
 </script>

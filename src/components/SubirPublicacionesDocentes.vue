@@ -41,6 +41,7 @@ import {
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
 import store from '../store';
+import moment from 'moment';
 
 export default {
   name: "SubirPublicacionesDocentes",
@@ -49,7 +50,7 @@ export default {
         publicacionDocente: {
             titulo: '',
             descripcion: '',
-            horaSubido: ''
+            horaSubida: ''
         },
         publicacionDocenteSubida: false,
         errorSubida: false,
@@ -67,9 +68,7 @@ export default {
             if (publicacionDocente == undefined) {
                 var horaSubida = new Date();
 
-                const options = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'}
-
-                this.publicacionDocente.horaSubida = horaSubida.toLocaleDateString('es-ES',options);
+                this.publicacionDocente.horaSubida = moment(String(horaSubida)).format('YYYY-MM-DD HH:mm:ss');
                 this.profesor.publicacionesDocentes.push(this.publicacionDocente);
                 this.update();
                 this.publicacionDocenteSubida = true;

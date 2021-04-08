@@ -180,12 +180,8 @@ export default {
                         this.profesor.horas[horaIndex].justificacionHora = "";
                         hora.validada = 1;
                         hora.justificacionHora = "";
-                        sumaHoras = 0;
-                        nHorasValidada = this.profesor.horas.filter(element => element.validada == 1);
 
-                        for (let horaValidada in nHorasValidada) {
-                            sumaHoras += nHorasValidada[horaValidada].horas;
-                        }
+                        sumaHoras += this.profesor.horas[horaIndex].horas;
 
                         if (sumaHoras >= 200 && !superaHoras) {
                             this.profesor.puntuacion += 1;
