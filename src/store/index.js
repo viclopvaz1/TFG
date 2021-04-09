@@ -350,13 +350,11 @@ export default new Vuex.Store({
 
           if (profesorPublicacionesSeguidos.publicacion.length > 0) {
             profesorPublicacionesSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
-            //profesorPublicacionesSeguidos.publicacion.sort((a, b) => new Date(a.horaSubida) - new Date(b.horaSubida));
             profesorPublicacionesSeguidos.publicacion = profesorPublicacionesSeguidos.publicacion[0];
             publicaciones.push(profesorPublicacionesSeguidos);
           }
           if (profesorPublicacionesDocenteSeguidos.publicacion.length > 0){
             profesorPublicacionesDocenteSeguidos.publicacion.sort((a, b) => (a.horaSubida < b.horaSubida) ? 1 : -1);
-            //profesorPublicacionesDocenteSeguidos.publicacion.sort((a, b) => new Date(a.horaSubida) - new Date(b.horaSubida));
             profesorPublicacionesDocenteSeguidos.publicacion = profesorPublicacionesDocenteSeguidos.publicacion[0];
             publicaciones.push(profesorPublicacionesDocenteSeguidos);
           }
@@ -372,7 +370,6 @@ export default new Vuex.Store({
         var p = db.collection('profesores').doc(profesorRef.docs[0].id);
 
         payload.publicaciones.sort((a, b) => (a.publicacion.horaSubida < b.publicacion.horaSubida) ? 1 : -1);
-        //payload.publicaciones.sort((a, b) => new Date(a.publicacion.horaSubida) - new Date(b.publicacion.horaSubida));
         this.state.profesor.publicacionesSeguidos = payload.publicaciones;
 
         p.update({

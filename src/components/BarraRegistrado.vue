@@ -74,7 +74,7 @@ export default {
     busquedaProfesoresPublicaciones() {
       this.profesoresNombre = [];
       this.profesoresApellidos = [];
-      let profesorPublicaciones = {}
+      let profesorPublicaciones = {}; 
       const publicaciones = [];
       const publicacionesDocentes = [];
       for (let prof in this.profesoresDB) {
@@ -92,35 +92,12 @@ export default {
         if (this.profesoresDB[prof].apellidos.toLowerCase().includes(this.busqueda.toLowerCase())) {
           this.profesoresApellidos.push(this.profesoresDB[prof]);
         }
-        for (let publ in this.profesoresDB[prof].publicaciones){
-          try {
-            if (this.profesoresDB[prof].publicaciones[publ].titulo.toLowerCase().includes(this.busqueda.toLowerCase())) {
-              profesorPublicaciones.publicaciones.push(this.profesoresDB[prof].publicaciones[publ]);
-              
-            }
-          } catch (error) {}
+        
+        if (this.profesoresPublicaciones(prof, profesorPublicaciones).publicaciones.length != 0) {
+          publicaciones.push(this.profesoresPublicaciones(prof, profesorPublicaciones));
         }
-        if (profesorPublicaciones.publicaciones.length > 0){
-          profesorPublicaciones.nombre = this.profesoresDB[prof].nombre;
-          profesorPublicaciones.apellidos = this.profesoresDB[prof].apellidos;
-          profesorPublicaciones.email = this.profesoresDB[prof].email;
-          profesorPublicaciones.foto = this.profesoresDB[prof].foto;
-          publicaciones.push(profesorPublicaciones);
-        }
-        for (let publ in this.profesoresDB[prof].publicacionesDocentes) {
-          try {
-            if (this.profesoresDB[prof].publicacionesDocentes[publ].titulo.toLowerCase().includes(this.busqueda.toLowerCase())) {
-              profesorPublicaciones.publicacionesDocentes.push(this.profesoresDB[prof].publicacionesDocentes[publ]);
-
-            }
-          } catch (error) {}
-        }
-        if (profesorPublicaciones.publicacionesDocentes.length > 0){
-          profesorPublicaciones.nombre = this.profesoresDB[prof].nombre;
-          profesorPublicaciones.apellidos = this.profesoresDB[prof].apellidos;
-          profesorPublicaciones.email = this.profesoresDB[prof].email;
-          profesorPublicaciones.foto = this.profesoresDB[prof].foto;
-          publicacionesDocentes.push(profesorPublicaciones);
+        if (this.profesoresPublicacionesDocentes(prof, profesorPublicaciones).publicacionesDocentes.length != 0) {
+          publicacionesDocentes.push(this.profesoresPublicacionesDocentes(prof, profesorPublicaciones));
         }
       }
       this.profesoresBusqueda = [];
@@ -146,6 +123,40 @@ export default {
     },
     onlyUnique(value, index, self) { 
       return self.indexOf(value) === index;
+    },
+    profesoresPublicaciones(prof, profesorPublicaciones) {
+      for (let publ in this.profesoresDB[prof].publicaciones){
+          try {
+            if (this.profesoresDB[prof].publicaciones[publ].titulo.toLowerCase().includes(this.busqueda.toLowerCase())) {
+              profesorPublicaciones.publicaciones.push(this.profesoresDB[prof].publicaciones[publ]);
+              
+            }
+          } catch (error) {}
+        }
+        if (profesorPublicaciones.publicaciones.length > 0){
+          profesorPublicaciones.nombre = this.profesoresDB[prof].nombre;
+          profesorPublicaciones.apellidos = this.profesoresDB[prof].apellidos;
+          profesorPublicaciones.email = this.profesoresDB[prof].email;
+          profesorPublicaciones.foto = this.profesoresDB[prof].foto;
+        }
+        return profesorPublicaciones;
+    },
+    profesoresPublicacionesDocentes(prof, profesorPublicaciones) {
+      for (let publ in this.profesoresDB[prof].publicacionesDocentes) {
+          try {
+            if (this.profesoresDB[prof].publicacionesDocentes[publ].titulo.toLowerCase().includes(this.busqueda.toLowerCase())) {
+              profesorPublicaciones.publicacionesDocentes.push(this.profesoresDB[prof].publicacionesDocentes[publ]);
+
+            }
+          } catch (error) {}
+        }
+        if (profesorPublicaciones.publicacionesDocentes.length > 0){
+          profesorPublicaciones.nombre = this.profesoresDB[prof].nombre;
+          profesorPublicaciones.apellidos = this.profesoresDB[prof].apellidos;
+          profesorPublicaciones.email = this.profesoresDB[prof].email;
+          profesorPublicaciones.foto = this.profesoresDB[prof].foto;
+        }
+        return profesorPublicaciones;
     },
     logout() {
       this.profesor.email = '';
