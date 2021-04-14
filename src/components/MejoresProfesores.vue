@@ -71,18 +71,20 @@ export default {
             let profes = await store.dispatch("getData");
             this.profesoresDB = profes;
             this.profesoresDB = this.mejoresProfesoresOrdenadosPorPuntuacion();
-            this.obtenerMejoresProfesores();
+            this.mejoresProfesores = this.obtenerMejoresProfesores();
         } catch (error) {
             console.log(error);
         }
       },
       obtenerMejoresProfesores () {
+          var profesores = [];
           for (let prof in this.profesoresDB) {
             let profesor = this.profesoresDB[prof];
-            if (this.mejoresProfesores.length < 5) {
-                this.mejoresProfesores.push(profesor);
+            if (profesores.length < 5) {
+                profesores.push(profesor);
             }
           }
+          return profesores;
       },
       mejoresProfesoresOrdenadosPorPuntuacion() {
       function compare(a, b) {

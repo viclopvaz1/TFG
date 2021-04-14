@@ -25,12 +25,12 @@
 
                 <b-row no-gutters>
                     <b-col style="max-width: fit-content; margin-right: 100px">
-                        <b-button @click="validar(profesor, hora)" variant="primary" type="submit">Validar</b-button>
+                        <b-button @click="validar(profesor, hora)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" type="submit">Validar</b-button>
                     </b-col>
                 
                     <b-col style="max-width: fit-content; margin-right: 15px">
                         <form @submit.prevent="noValidar(profesor, hora)">
-                            <b-button type="submit" variant="primary">No validar</b-button>
+                            <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">No validar</b-button>
                         </form>
                     </b-col>
 
@@ -56,6 +56,10 @@
   color: #858081 !important;
   opacity: 1;
 }
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+    }
 </style>
 
 <script>

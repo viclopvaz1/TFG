@@ -28,7 +28,7 @@
                 </b-form-group>
 
                 <b-alert v-model="horasSubidas" dismissible variant="success" class="mt-3">
-                    Tus horas se han subido y un adminstrador las validará pronto
+                    Tus horas se han subido y un administrador las validará pronto
                 </b-alert>
                 <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Estas horas ya han sido validadas previamente o están pendientes de validación
