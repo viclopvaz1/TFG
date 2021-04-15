@@ -36,8 +36,8 @@ export default {
     ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
     ...mapActions(['getData', 'recuperarState']),
     },
-    created() {
-        this.tarjetaProfesor = this.profesor;
-    }
+    // created() {
+    //     this.tarjetaProfesor = this.profesor;
+    // }
 }
 </script>

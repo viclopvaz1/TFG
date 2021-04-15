@@ -147,9 +147,9 @@ export default {
       },
     };
   },
-  mounted() {
-      this.tarjetaProfesor = this.profesor;
-  },
+  // mounted() {
+  //     this.tarjetaProfesor = this.profesor;
+  // },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
     seriesPie: function () {

@@ -39,8 +39,8 @@ export default {
             return profeHoras;
         }
     },
-    created() {
-        this.tarjetaProfesor = this.profesor;
-    }
+    // created() {
+    //     this.tarjetaProfesor = this.profesor;
+    // }
 }
 </script>
