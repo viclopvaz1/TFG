@@ -14,8 +14,15 @@
           <b-form-textarea id="input-descripcion" v-model="descripcion" type="text" :maxlength="300" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
         </b-form-group>
 
-        <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2" style="color: #858081">
+        <!-- <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-foto" v-model="foto" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+        </b-form-group> -->
+
+        <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2" style="color: #858081">
+          <b-form-file id="input-foto" ref="foto" placeholder="Sube tu imagen en formato jpg o png" 
+          drop-placeholder="Arrastra tu imagen aquí..." :disabled="loading"
+          accept="image/jpg, image/png"
+          style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-file>
         </b-form-group>
 
         <b-form-group label="Despacho:" label-for="input-despacho" class="mt-2" label-cols-md="2" style="color: #858081">
@@ -47,7 +54,7 @@
         </b-alert>
 
         <div style="text-align: center">
-          <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Guardar cambios</b-button>
+          <b-button type="submit" :disabled="loading" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Guardar cambios</b-button>
         </div>
         
       </form>
@@ -78,6 +85,7 @@ export default {
       apellidos: '',
       descripcion: '',
       foto: '',
+      loading: false,
       despacho: '',
       departamento: '',
       centro: '',
@@ -105,12 +113,12 @@ export default {
     this.researchGate = this.profesor.researchGate;
   },
   methods: {
-    guardar() {
+    async guardar() {
 
       this.profesor.nombre = this.nombre;
       this.profesor.apellidos = this.apellidos;
       this.profesor.descripcion = this.descripcion;
-      this.profesor.foto = this.foto;
+      // this.profesor.foto = this.foto;
       this.profesor.despacho = this.despacho;
       this.profesor.departamento = this.departamento;
       this.profesor.centro = this.centro;
@@ -121,7 +129,7 @@ export default {
       this.tarjetaProfesor.nombre = this.profesor.nombre;
       this.tarjetaProfesor.apellidos = this.profesor.apellidos;
       this.tarjetaProfesor.descripcion = this.profesor.descripcion;
-      this.tarjetaProfesor.foto = this.profesor.foto;
+      // this.tarjetaProfesor.foto = this.profesor.foto;
       this.tarjetaProfesor.despacho = this.profesor.despacho;
       this.tarjetaProfesor.departamento = this.profesor.departamento;
       this.tarjetaProfesor.centro = this.profesor.centro;
@@ -129,9 +137,41 @@ export default {
       this.tarjetaProfesor.paginaPersonal = this.profesor.paginaPersonal;
       this.tarjetaProfesor.researchGate = this.profesor.researchGate;
 
+      try {
+        const { files } = this.$refs.foto;
+        this.loading = true;
+        const file = files[0];
+        if (file) {
+          const isJpg = file.type === 'image/jpg';
+          const isPng = file.type === 'image/png';
+          console.log(file.type)
+          if (isJpg || isPng) {
+            const response = await firebase
+              .storage()
+              .ref(`${this.profesor.email}/foto`)
+              .put(file);
+            const url = await response.ref.getDownloadURL();
+            this.profesor.foto = url;
+            this.tarjetaProfesor.foto = url;
+          } else {
+            console.log('Archivo no valido');
+          }
+        } else {
+          console.log('falta el archivo');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false;
+
       this.perfilModificado = true;
 
-      this.update();
+      try {
+        await store.dispatch('updateFields');
+      } catch (error) {
+        console.log(error)
+      }
+    }
       
     },
     async update(){
@@ -141,6 +181,6 @@ export default {
         console.log(error)
       }
     }
-  }
+  
 }
 </script>
