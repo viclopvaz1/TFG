@@ -15,7 +15,7 @@
             <p v-if="validarLogin">El email o la contraseña son incorrectos</p>
           </b-form-group> 
 
-          <b-button type="submit" variant="primary"> Acceder </b-button>
+          <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px"> Acceder </b-button>
         </form>
 
         <div>

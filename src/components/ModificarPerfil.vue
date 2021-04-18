@@ -14,15 +14,12 @@
           <b-form-textarea id="input-descripcion" v-model="descripcion" type="text" :maxlength="300" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
         </b-form-group>
 
-        <!-- <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2" style="color: #858081">
-          <b-form-input id="input-foto" v-model="foto" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
-        </b-form-group> -->
-
         <b-form-group label="Foto:" label-for="input-foto" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-file id="input-foto" ref="foto" placeholder="Sube tu imagen en formato jpg o png" 
-          drop-placeholder="Arrastra tu imagen aquí..." :disabled="loading"
-          accept="image/jpg, image/png"
-          style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-file>
+            drop-placeholder="Arrastra tu imagen aquí..." :disabled="loading"
+            accept="image/jpg, image/png"
+            style="background-color: #fffcf5; border-color: #9d9d9d">
+          </b-form-file>
         </b-form-group>
 
         <b-form-group label="Despacho:" label-for="input-despacho" class="mt-2" label-cols-md="2" style="color: #858081">
@@ -63,9 +60,13 @@
 </template>
 
 <style>
-    .btn:focus, .btn.focus {
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+  .btn:focus, .btn.focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
+  }
+  .custom-file-label {
+        background-color: #fffcf5 !important; 
+        border-color: #9d9d9d !important
     }
 </style>
 
@@ -118,7 +119,6 @@ export default {
       this.profesor.nombre = this.nombre;
       this.profesor.apellidos = this.apellidos;
       this.profesor.descripcion = this.descripcion;
-      // this.profesor.foto = this.foto;
       this.profesor.despacho = this.despacho;
       this.profesor.departamento = this.departamento;
       this.profesor.centro = this.centro;
@@ -129,7 +129,6 @@ export default {
       this.tarjetaProfesor.nombre = this.profesor.nombre;
       this.tarjetaProfesor.apellidos = this.profesor.apellidos;
       this.tarjetaProfesor.descripcion = this.profesor.descripcion;
-      // this.tarjetaProfesor.foto = this.profesor.foto;
       this.tarjetaProfesor.despacho = this.profesor.despacho;
       this.tarjetaProfesor.departamento = this.profesor.departamento;
       this.tarjetaProfesor.centro = this.profesor.centro;
@@ -144,7 +143,6 @@ export default {
         if (file) {
           const isJpg = file.type === 'image/jpg';
           const isPng = file.type === 'image/png';
-          console.log(file.type)
           if (isJpg || isPng) {
             const response = await firebase
               .storage()
@@ -174,13 +172,6 @@ export default {
     }
       
     },
-    async update(){
-      try {
-        await store.dispatch('updateFields');
-      } catch (error) {
-        console.log(error)
-      }
-    }
   
 }
 </script>

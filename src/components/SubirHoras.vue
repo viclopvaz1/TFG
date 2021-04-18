@@ -1,10 +1,19 @@
 <template>
     <div>
         <b-card style="background-color: #f7f5f6; border-radius: 10px">
+
+            <b-card-text style="color: #858081">
+                Tu PDF con tus horas está disponible <a :href="profesor.urlArchivoHoras" target="_blank" style="color: #c7b591">aquí</a> 
+            </b-card-text>
+
             <form @submit.prevent="subirHoras">
 
-                <b-form-group label="URL del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
-                    <b-form-input id="input-url" v-model="profesor.urlArchivoHoras" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+                <b-form-group label="PDF del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-file id="input-url" ref="archivoHoras" placeholder="Sube un único PDF con todas tus horas" 
+                        drop-placeholder="Arrastra tu PDF aquí..." :disabled="loading"
+                        accept="application/pdf"
+                        style="background-color: #fffcf5; border-color: #9d9d9d">
+                    </b-form-file>
                 </b-form-group>
 
                 <b-form-group label="Institución:" label-for="input-institucion" class="mt-2" label-cols-md="2" style="color: #858081">
@@ -35,7 +44,7 @@
                 </b-alert>
 
                 <div style="text-align: center">
-                    <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir horas</b-button>
+                    <b-button type="submit" :disabled="loading" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir horas</b-button>
                 </div>
                 
             </form>
@@ -48,6 +57,10 @@
         outline: 0;
         box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
     }
+    .custom-file-label {
+        background-color: #fffcf5 !important; 
+        border-color: #9d9d9d !important
+    }
 </style>
 
 <script>
@@ -56,6 +69,7 @@ import {
 } from 'vuex-map-fields'
 import { mapActions} from 'vuex';
 import store from '../store';
+import firebase from 'firebase';
 
 export default {
   name: "SubirHoras",
@@ -72,6 +86,7 @@ export default {
         },
         horasSubidas: false,
         errorSubida: false,
+        loading: false
     }
   },
   computed: {
@@ -79,13 +94,10 @@ export default {
     ...mapActions(["getData", "updateFields"])
   },
   methods: {
-      subirHoras() {
+      async subirHoras() {
             this.horasSubidas = false;
             this.errorSubida = false;
             var hora = this.profesor.horas.find(element => element.asignatura == this.hora.asignatura && element.ano == this.hora.ano && element.horas == this.hora.horas && element.idioma == this.hora.idioma && element.institucion == this.hora.institucion && (element.validada == 0 || element.validada == 1));
-            console.log(hora);
-            console.log(this.hora.asignatura);
-            console.log(this.profesor.horas);
             if (hora == undefined) {
                 this.profesor.horas.push(this.hora);
                 this.horasSubidas = true;
@@ -98,6 +110,31 @@ export default {
                     validada: 0,
                     justificacionHora: ""
                 }
+
+                try {
+                    const { files } = this.$refs.archivoHoras;
+                    this.loading = true;
+                    const file = files[0];
+                    if (file) {
+                        const isPdf = file.type === 'application/pdf';
+                        if (isPdf) {
+                            const response = await firebase
+                                .storage()
+                                .ref(`${this.profesor.email}/archivoHoras`)
+                                .put(file);
+                            const url = await response.ref.getDownloadURL();
+                            this.profesor.urlArchivoHoras = url;
+                            this.tarjetaProfesor.urlArchivoHoras = url;
+                        } else {
+                            console.log('Archivo no valido');
+                        }
+                    } else {
+                        console.log('falta el archivo');
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+                console.log(this.profesor.urlArchivoHoras);
                 this.update();
             } else {
                 this.errorSubida = true

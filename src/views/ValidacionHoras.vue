@@ -11,8 +11,9 @@
                 </b-avatar>
                 {{profesor.nombre}} {{profesor.apellidos}} {{profesor.email}}
             </b-row>
+            
             <b-card-text>
-                URL al archivo: {{profesor.urlArchivoHoras}}
+                Descargue el PDF con las horas <a :href="profesor.urlArchivoHoras" target="_blank" style="color: #c7b591">aquí</a> 
             </b-card-text>
 
             <b-card v-for="(hora, keyHora) in profesor.horas" :key="keyHora" style="background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
@@ -52,14 +53,15 @@
 </template>
 
 <style>
-.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #858081 !important;
-  opacity: 1;
-}
+    .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #858081 !important;
+    opacity: 1;
+    }
     .btn:focus, .btn.focus {
         outline: 0;
         box-shadow: 0 0 0 0.2rem rgb(199 181 145 / 50%) !important
     }
+    
 </style>
 
 <script>
