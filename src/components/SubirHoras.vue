@@ -16,37 +16,41 @@
                     </b-form-file>
                 </b-form-group>
 
-                <b-form-group label="Institución:" label-for="input-institucion" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Institución*:" label-for="input-institucion" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-institucion" v-model="hora.institucion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Asignatura:" label-for="input-asignatura" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Asignatura*:" label-for="input-asignatura" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-asignatura" v-model="hora.asignatura" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Idioma:" label-for="input-idioma" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Idioma*:" label-for="input-idioma" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-idioma" v-model="hora.idioma" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Año:" label-for="input-ano" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Año*:" label-for="input-ano" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-ano" v-model="hora.ano" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Horas:" label-for="input-horas" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Horas*:" label-for="input-horas" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-horas" v-model.number="hora.horas" type="number" min="0" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
-
-                <b-alert v-model="horasSubidas" dismissible variant="success" class="mt-3">
-                    Tus horas se han subido y un administrador las validará pronto
-                </b-alert>
-                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
-                    Estas horas ya han sido validadas previamente o están pendientes de validación
-                </b-alert>
 
                 <div style="text-align: center">
                     <b-button type="submit" :disabled="loading" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir horas</b-button>
                 </div>
+
+                <b-alert v-model="horasSubidas" dismissible variant="success" class="mt-3">
+                    Tus horas se han subido y un administrador las validará pronto
+                </b-alert>
                 
+                <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
+                    Estas horas ya han sido validadas previamente o están pendientes de validación
+                </b-alert>
+
+                <b-card-text style="color: #858081">
+                    *: Los campos con un asterisco son obligatorios.
+                </b-card-text>
             </form>
         </b-card>
     </div>

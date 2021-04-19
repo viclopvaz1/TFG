@@ -3,26 +3,29 @@
         <b-card style="background-color: #f7f5f6; border-radius: 10px">
             <form @submit.prevent="subirPublicaciones">
 
-                <b-form-group label="Titulo:" label-for="input-titulo" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Título*:" label-for="input-titulo" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-titulo" v-model="publicacion.titulo" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Descripción:" label-for="input-descripcion" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Descripción*:" label-for="input-descripcion" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-descripcion" v-model="publicacion.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
+
+                <div style="text-align: center">
+                    <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir Publicaciones</b-button>
+                </div>
 
                 <b-alert v-model="publicacionSubida" dismissible variant="success" class="mt-3">
                     Tu Publicación se ha publicado correctamente
                 </b-alert>
 
                 <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
-                    Esta Publicación ya se encuentra subido en su perfil.
+                    Esta Publicación ya se encuentra subida en su perfil.
                 </b-alert>
 
-                <div style="text-align: center">
-                    <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir Publicaciones</b-button>
-                </div>
-                
+                <b-card-text style="color: #858081">
+                    *: Los campos con un asterisco son obligatorios.
+                </b-card-text>
             </form>
         </b-card>
     </div>

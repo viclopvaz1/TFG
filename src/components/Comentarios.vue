@@ -7,13 +7,14 @@
                 dejar un comentario y una valoración.
             </b-card-text>
             <b-form-textarea id="textarea" v-model="correos" placeholder="Añade el correo de tus alumnos aquí" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
-            <b-alert v-model="validacion" dismissible variant="danger" class="mt-3">
-                El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios
-            </b-alert>
 
             <div style="text-align: center">
                 <b-button variant="primary" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px; margin-top: 15px" @click.prevent="enviarInvitacion">Enviar Invitación</b-button>
             </div>
+
+            <b-alert v-model="validacion" dismissible variant="danger" class="mt-3">
+                El correo {{ correoErroneo }} no tiene un formato correcto. Debe tener 4 o menos subdominios
+            </b-alert>
         </b-card>
     </div>
 </template>

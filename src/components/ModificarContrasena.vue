@@ -2,11 +2,11 @@
   <div>
     <b-card style="background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="cambiarContrasena">
-        <b-form-group label="Contraseña:" label-for="input-contrasena" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Contraseña*:" label-for="input-contrasena" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-contrasena" v-model="contrasena" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Confirmar Contraseña:" label-for="input-confirmarContrasena" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Confirmar Contraseña*:" label-for="input-confirmarContrasena" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-confirmarContrasena" v-model="confirmarContrasena" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
         <div style="text-align: center">
@@ -16,6 +16,10 @@
         <b-alert v-model="validarContrasena" dismissible variant="danger" class="mt-3">
           Las contraseñas no coinciden
         </b-alert>
+
+        <b-card-text style="color: #858081">
+          *: Los campos con un asterisco son obligatorios.
+        </b-card-text>
       </form>
     </b-card>
   </div>

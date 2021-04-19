@@ -21,6 +21,7 @@ export default new Vuex.Store({
       foto: '',
       puntuacion: 0.0,
       puntuacionComentario: 0.0,
+      puntuacionSeguidores: false,
       centro: '',
       departamento: '',
       despacho: '',
@@ -55,6 +56,7 @@ export default new Vuex.Store({
       foto: '',
       puntuacion: 0.0,
       puntuacionComentario: 0.0,
+      puntuacionSeguidores: false,
       centro: '',
       departamento: '',
       despacho: '',
@@ -413,6 +415,7 @@ export default new Vuex.Store({
         this.state.profesor.foto = data.foto;
         this.state.profesor.puntuacion = data.puntuacion;
         this.state.profesor.puntuacionComentario = data.puntuacionComentario;
+        this.state.profesor.puntuacionSeguidores = data.puntuacionSeguidores;
         this.state.profesor.centro = data.centro;
         this.state.profesor.departamento = data.departamento;
         this.state.profesor.despacho = data.despacho;

@@ -5,19 +5,19 @@
 
     <b-card class="overflow: hidden" style="margin: 20px; width: 60%; background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="enviarComentario">
-        <b-form-group label="Correo profesor:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Correo profesor*:" label-for="input-correoProfesor" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-correoProfesor" v-model="correoProfesor" type="email" 
           placeholder="Introduce el correo del profesor al que quieres hacer el comentario" required
           style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Tu correo:" label-for="input-tuCorreo" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Tu correo*:" label-for="input-tuCorreo" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-tuCorreo" v-model="correoAlumno" type="email" 
           placeholder="Introduce tu correo electrónico" required
           style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Comentario:" label-for="input-comentario" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Comentario*:" label-for="input-comentario" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-textarea id="input-comentario" v-model="comentario.texto" type="text" :maxlength="300" required
           style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
         </b-form-group>
@@ -34,9 +34,13 @@
 
         <b-row class="mt-3" style="justify-content: center">
             <b-alert :show="errorCorreoAlumno" dismissible variant="warning">
-                El correo que has introducido no pertenece a la lista de correos del profesor que permite que le hagan comentarios
+                Tu correo no pertenece a la lista de correos del profesor que permite que le hagan comentarios
             </b-alert>
         </b-row>
+
+        <b-card-text style="color: #858081">
+          *: Los campos con un asterisco son obligatorios.
+        </b-card-text>
 
       </form>
 

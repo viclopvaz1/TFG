@@ -2,11 +2,11 @@
   <div>
     <b-card style="background-color: #f7f5f6; border-radius: 10px">
       <form @submit.prevent="guardar">
-        <b-form-group label="Nombre:" label-for="input-nombre" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Nombre*:" label-for="input-nombre" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-nombre" v-model="nombre" type="text" required :maxlength="20" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Apellidos:" label-for="input-apellidos" class="mt-2" label-cols-md="2" style="color: #858081">
+        <b-form-group label="Apellidos*:" label-for="input-apellidos" class="mt-2" label-cols-md="2" style="color: #858081">
           <b-form-input id="input-apellidos" v-model="apellidos" type="text" required :maxlength="40" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
@@ -46,13 +46,17 @@
           <b-form-input id="input-twitter" v-model="twitter" type="url" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
         </b-form-group>
 
+        <div style="text-align: center">
+          <b-button type="submit" :disabled="loading" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Guardar cambios</b-button>
+        </div>
+
         <b-alert v-model="perfilModificado" dismissible variant="success" class="mt-3">
             Cambios guardados
         </b-alert>
 
-        <div style="text-align: center">
-          <b-button type="submit" :disabled="loading" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Guardar cambios</b-button>
-        </div>
+        <b-card-text style="color: #858081">
+          *: Los campos con un asterisco son obligatorios.
+        </b-card-text>
         
       </form>
     </b-card>

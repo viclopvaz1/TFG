@@ -3,25 +3,29 @@
         <b-card style="background-color: #f7f5f6; border-radius: 10px">
             <form @submit.prevent="subirEstancias">
 
-                <b-form-group label="Asignatura:" label-for="input-asignatura" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Asignatura*:" label-for="input-asignatura" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-asignatura" v-model="estancia.asignatura" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Duración:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Duración*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-duracion" v-model.number="estancia.duracion" type="number" min="0" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Idioma:" label-for="input-idioma" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Idioma*:" label-for="input-idioma" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-idioma" v-model="estancia.idioma" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Lugar:" label-for="input-lugar" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Lugar*:" label-for="input-lugar" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-lugar" v-model="estancia.lugar" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Tipo:" label-for="input-tipo" class="mt-2" label-cols-md="2" style="color: #858081">
-                    <b-form-select v-model="estancia.tipo" :options="tipo" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-select>
+                <b-form-group label="Tipo*:" label-for="input-tipo" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-select v-model="estancia.tipo" :options="tipo" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-select>
                 </b-form-group>
+
+                <div style="text-align: center">
+                    <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir Estancias</b-button>
+                </div>
 
                 <b-alert v-model="estanciaSubida" dismissible variant="success" class="mt-3">
                     Tu Estancia se ha publicado correctamente
@@ -30,11 +34,10 @@
                 <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Proyecto Docente ya se encuentra subido en su perfil.
                 </b-alert>
-
-                <div style="text-align: center">
-                    <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir Estancias</b-button>
-                </div>
                 
+                <b-card-text style="color: #858081">
+                    *: Los campos con un asterisco son obligatorios.
+                </b-card-text>
             </form>
         </b-card>
     </div>

@@ -102,13 +102,16 @@ export default {
           this.profesor.foto = data.foto;
           this.profesor.puntuacion = data.puntuacion;
           this.profesor.puntuacionComentario = data.puntuacionComentario;
+          this.profesor.puntuacionSeguidores = data.puntuacionSeguidores;
           this.profesor.centro = data.centro;
           this.profesor.departamento = data.departamento;
           this.profesor.despacho = data.despacho;
           this.profesor.proyectosDocentes = data.proyectosDocentes;
           this.profesor.publicacionesDocentes = data.publicacionesDocentes;
           this.profesor.publicaciones = data.publicaciones;
+          this.profesor.publicacionesSeguidos = data.publicacionesSeguidos;
           this.profesor.horas = data.horas;
+          this.profesor.urlArchivoHoras = data.urlArchivoHoras;
           this.profesor.cursosDocentes = data.cursosDocentes;
           this.profesor.trabajosSupervisados = data.trabajosSupervisados;
           this.profesor.estancias = data.estancias;
