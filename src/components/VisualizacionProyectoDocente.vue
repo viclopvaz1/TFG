@@ -7,13 +7,22 @@
             <b-card v-for="(proyectoDocente, key) in tarjetaProfesor.proyectosDocentes" :key="key" 
                     style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
-                    {{proyectoDocente.titulo}}
+                    <b-card-text style="font-weight: bold">Título</b-card-text>
+                </b-row> 
+                <b-row no-gutters>
+                    <b-card-text>{{proyectoDocente.titulo}}</b-card-text>
                 </b-row>
                 <b-row no-gutters>
-                    {{proyectoDocente.descripcion}}
+                    <b-card-text style="font-weight: bold">Descripción</b-card-text>
                 </b-row>
                 <b-row no-gutters>
-                    {{proyectoDocente.url}}
+                    <b-card-text>{{proyectoDocente.descripcion}}</b-card-text>
+                </b-row>
+                <b-row no-gutters>
+                    <b-card-text>
+                        <b>URL: </b>
+                        {{proyectoDocente.url}}
+                    </b-card-text>
                 </b-row>
             </b-card>
         </b-card>
