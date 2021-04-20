@@ -138,7 +138,7 @@ export default {
                 } catch (error) {
                     console.error(error);
                 }
-                console.log(this.profesor.urlArchivoHoras);
+                this.loading = false;
                 this.update();
             } else {
                 this.errorSubida = true
