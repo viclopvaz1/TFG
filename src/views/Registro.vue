@@ -35,7 +35,7 @@
           </b-form-group>
 
           <b-form-group label="Descripción:" label-for="input-descripción" class="mt-2" style="color: #858081">
-            <b-form-input id="input-descripción" v-model="proyectoDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+            <b-form-textarea id="input-descripción" v-model="proyectoDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
           </b-form-group>
 
           <b-form-group label="URL al archivo:" label-for="input-url" 

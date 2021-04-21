@@ -4,7 +4,7 @@
             <form @submit.prevent="subirCursosDocentes">
 
                 <b-form-group label="Descripción*:" label-for="input-descripcion" class="mt-2" label-cols-md="2" style="color: #858081">
-                    <b-form-input id="input-descripcion" v-model="cursoDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+                    <b-form-textarea id="input-descripcion" v-model="cursoDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
                 </b-form-group>
 
                 <b-form-group label="Duración*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
