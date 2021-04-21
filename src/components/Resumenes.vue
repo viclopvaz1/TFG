@@ -10,7 +10,7 @@
       </div>
     </b-card>
 
-    <b-card v-if="tarjetaProfesor.horas.length > 0" style="background-color: #f7f5f6; border-radius: 10px">
+    <b-card v-if="compruebaHorasValidadas" style="background-color: #f7f5f6; border-radius: 10px">
       <apexchart type="bar" height="350" :options="chartOptionsBar" :series="seriesBar"></apexchart>
     </b-card>
 
@@ -152,6 +152,15 @@ export default {
   // },
   computed: {
     ...mapFields(["profesor", "profesoresDB", "tarjetaProfesor"]),
+    compruebaHorasValidadas() {
+      var result = false;
+      var horasValidadas = this.tarjetaProfesor.horas.find(element => element.validada == 1);
+      if (horasValidadas != undefined) {
+        result = true;
+      }
+      return result;
+
+    },
     seriesPie: function () {
       return [
         this.tarjetaProfesor.publicacionesDocentes.length,
