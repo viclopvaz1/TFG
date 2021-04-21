@@ -159,7 +159,6 @@ export default {
         result = true;
       }
       return result;
-
     },
     seriesPie: function () {
       return [

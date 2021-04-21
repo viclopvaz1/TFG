@@ -1,6 +1,9 @@
 <template>
     <div>
         <b-card class="overflow-auto" style="display: block; background-color: #f7f5f6; border-radius: 10px; max-height: 65vh">
+            <div v-if="horas.length == 0" style="text-align: center">
+                <b-card-text>No tienes horas no validadas.</b-card-text>
+            </div>
             <b-card v-for="(hora, key) in horas" :key="key" style="margin: 20px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
                     {{hora.institucion}} {{hora.asignatura}} {{hora.idioma}} {{hora.ano}} {{hora.horas}} horas
