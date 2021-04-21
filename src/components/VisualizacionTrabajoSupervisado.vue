@@ -7,13 +7,22 @@
             <b-card v-for="(trabajoSupervisado, key) in tarjetaProfesor.trabajosSupervisados" :key="key" 
                     style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Título</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{trabajoSupervisado.titulo}}
+                </b-row>
+                <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Descripción</b-card-text>
                 </b-row>
                 <b-row no-gutters>
                     {{trabajoSupervisado.descripcion}}
                 </b-row>
                 <b-row no-gutters>
-                    {{trabajoSupervisado.tipo}}
+                    <b-card-text>
+                        <b>Tipo: </b>
+                        {{trabajoSupervisado.tipo}}
+                    </b-card-text>
                 </b-row>
             </b-card>
         </b-card>
