@@ -7,7 +7,7 @@
                     <b-form-textarea id="input-descripcion" v-model="cursoDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
                 </b-form-group>
 
-                <b-form-group label="Duración*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Duración (en horas)*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-duracion" v-model.number="cursoDocente.duracion" type="number" min="1" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 

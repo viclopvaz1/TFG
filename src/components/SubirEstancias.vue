@@ -7,7 +7,7 @@
                     <b-form-input id="input-asignatura" v-model="estancia.asignatura" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Duración*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
+                <b-form-group label="Duración (en días)*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-input id="input-duracion" v-model.number="estancia.duracion" type="number" min="0" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
