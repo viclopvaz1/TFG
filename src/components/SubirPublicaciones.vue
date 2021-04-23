@@ -11,6 +11,10 @@
                     <b-form-textarea id="input-descripcion" v-model="publicacion.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
                 </b-form-group>
 
+                <b-form-group label="URL:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-url" v-model="publicacion.url" type="url" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+                </b-form-group>
+
                 <div style="text-align: center">
                     <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir Publicaciones</b-button>
                 </div>
@@ -53,7 +57,8 @@ export default {
         publicacion: {
             titulo: '',
             descripcion: '',
-            horaSubida: ''
+            horaSubida: '',
+            url: ''
         },
         publicacionSubida: false,
         errorSubida: false,
@@ -67,7 +72,7 @@ export default {
       subirPublicaciones() {
             this.publicacionSubida = false;
             this.errorSubida = false;
-            var publicacion = this.profesor.publicaciones.find(element => element.titulo == this.publicacion.titulo && element.descripcion == this.publicacion.descripcion);
+            var publicacion = this.profesor.publicaciones.find(element => element.titulo == this.publicacion.titulo && element.descripcion == this.publicacion.descripcion && element.url == this.publicacion.url);
             if (publicacion == undefined) {
                 var horaSubida = new Date(); 
 
@@ -76,7 +81,8 @@ export default {
                 this.publicacionSubida = true;
                 this.publicacion = {
                     titulo: '',
-                    descripcion: ''
+                    descripcion: '',
+                    url: ''
                 }
 
                 if (this.profesor.publicaciones.length == 3) {

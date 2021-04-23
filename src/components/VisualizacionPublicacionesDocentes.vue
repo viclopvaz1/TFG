@@ -18,6 +18,12 @@
                 <b-row no-gutters>
                     <b-card-text>{{pd.descripcion}}</b-card-text>
                 </b-row>
+                <b-row no-gutters v-if="pd.url != ''">
+                    <b-card-text>
+                        <b>URL: </b>
+                        Pulse <a :href="pd.url" target="_blank" style="color:  #c7b591">aquí</a> para acceder.
+                    </b-card-text>
+                </b-row>
             </b-card>
         </b-card>
         

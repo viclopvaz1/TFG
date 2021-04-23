@@ -18,6 +18,12 @@
                 <b-row no-gutters>
                     <b-card-text>{{publicacion.descripcion}}</b-card-text>
                 </b-row>
+                <b-row no-gutters v-if="publicacion.url != ''">
+                    <b-card-text>
+                        <b>URL: </b>
+                        Pulse <a :href="publicacion.url" target="_blank" style="color:  #c7b591">aquí</a> para acceder.
+                    </b-card-text>
+                </b-row>
             </b-card>
         </b-card>
         

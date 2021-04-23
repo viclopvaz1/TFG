@@ -11,6 +11,10 @@
                     <b-form-textarea id="input-descripcion" v-model="publicacionDocente.descripcion" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-textarea>
                 </b-form-group>
 
+                <b-form-group label="URL:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-input id="input-url" v-model="publicacionDocente.url" type="url" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+                </b-form-group>
+
                 <div style="text-align: center">
                     <b-button type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px">Subir Publicaciones Docentes</b-button>
                 </div>
@@ -54,7 +58,8 @@ export default {
         publicacionDocente: {
             titulo: '',
             descripcion: '',
-            horaSubida: ''
+            horaSubida: '',
+            url: ''
         },
         publicacionDocenteSubida: false,
         errorSubida: false,
@@ -68,17 +73,17 @@ export default {
       subirPublicacionesDocentes() {
             this.publicacionDocenteSubida = false;
             this.errorSubida = false;
-            var publicacionDocente = this.profesor.publicacionesDocentes.find(element => element.titulo == this.publicacionDocente.titulo && element.descripcion == this.publicacionDocente.descripcion);
+            var publicacionDocente = this.profesor.publicacionesDocentes.find(element => element.titulo == this.publicacionDocente.titulo && element.descripcion == this.publicacionDocente.descripcion && element.url == this.publicacionDocente.url);
             if (publicacionDocente == undefined) {
                 var horaSubida = new Date();
 
                 this.publicacionDocente.horaSubida = moment(String(horaSubida)).format('YYYY-MM-DD HH:mm:ss');
                 this.profesor.publicacionesDocentes.push(this.publicacionDocente);
-                this.update();
                 this.publicacionDocenteSubida = true;
                 this.publicacionDocente = {
                     titulo: '',
-                    descripcion: ''
+                    descripcion: '',
+                    url: ''
                 }
 
                 if (this.profesor.publicacionesDocentes.length == 3) {

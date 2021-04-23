@@ -21,7 +21,7 @@
                 <b-row no-gutters>
                     <b-card-text>
                         <b>URL: </b>
-                        {{proyectoDocente.url}}
+                        Pulse <a :href="proyectoDocente.url" target="_blank" style="color:  #c7b591">aquí</a> para acceder.
                     </b-card-text>
                 </b-row>
             </b-card>

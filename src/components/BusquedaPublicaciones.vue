@@ -15,7 +15,7 @@
                 </b-row>
             </b-card>
 
-            <h5 v-if="profesorB.publicacionesDocentes.length > 0">Publicaciones Docentes</h5>
+            <h5 v-if="profesorB.publicacionesDocentes.length > 0" style="margin-top: 15px">Publicaciones Docentes</h5>
             <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesorB.publicacionesDocentes" :key="keyPublicacionDocente" style="border-color: #9d9d9d; background-color: #f7f5f6; border-radius: 10px">
                 <b-row no-gutters>
                     {{publicacionDocente.titulo}}
