@@ -8,20 +8,44 @@
             <h5 v-if="profesorB.publicaciones.length > 0">Publicaciones</h5>
             <b-card v-for="(publicacion, keyPublicacion) in profesorB.publicaciones" :key="keyPublicacion" style="border-color: #9d9d9d; background-color: #f7f5f6; border-radius: 10px">
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Título</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{publicacion.titulo}}
                 </b-row>
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Descripción</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{publicacion.descripcion}}
+                </b-row>
+                <b-row no-gutters v-if="publicacion.url != ''">
+                    <b-card-text>
+                        <b>URL: </b>
+                        Pulse <a :href="publicacion.url" target="_blank" style="color:  #c7b591">aquí</a> para acceder.
+                    </b-card-text>
                 </b-row>
             </b-card>
 
             <h5 v-if="profesorB.publicacionesDocentes.length > 0" style="margin-top: 15px">Publicaciones Docentes</h5>
             <b-card v-for="(publicacionDocente, keyPublicacionDocente) in profesorB.publicacionesDocentes" :key="keyPublicacionDocente" style="border-color: #9d9d9d; background-color: #f7f5f6; border-radius: 10px">
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Título</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{publicacionDocente.titulo}}
                 </b-row>
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Descripción</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{publicacionDocente.descripcion}}
+                </b-row>
+                <b-row no-gutters v-if="publicacionDocente.url != ''">
+                    <b-card-text>
+                        <b>URL: </b>
+                        Pulse <a :href="publicacionDocente.url" target="_blank" style="color:  #c7b591">aquí</a> para acceder.
+                    </b-card-text>
                 </b-row>
             </b-card>
         </b-card>

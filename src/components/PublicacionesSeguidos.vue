@@ -11,10 +11,22 @@
                     <b-card-text style="margin-left: 20px;">{{parse(profesorB.publicacion.horaSubida)}}</b-card-text>
                 </b-row>
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Título</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{profesorB.publicacion.titulo}}
                 </b-row>
                 <b-row no-gutters>
+                    <b-card-text style="font-weight: bold">Descripción</b-card-text>
+                </b-row>
+                <b-row no-gutters>
                     {{profesorB.publicacion.descripcion}}
+                </b-row>
+                <b-row no-gutters v-if="profesorB.publicacion.url != ''">
+                    <b-card-text>
+                        <b>URL: </b>
+                        Pulse <a :href="profesorB.publicacion.url" target="_blank" style="color:  #c7b591">aquí</a> para acceder.
+                    </b-card-text>
                 </b-row>
             </b-card>
         </b-card>
