@@ -55,7 +55,7 @@ export default {
             for (let correo in correos) {
                 this.validacionCorreo = emailRegex.test(correos[correo].trim());
                 if (this.validacionCorreo) {
-                    this.profesor.correoAlumnos.push(correos[correo]);
+                    this.profesor.correoAlumnos.push(correos[correo].trim());
                 } else {
                     this.correoErroneo = correos[correo];
                     this.validacion = !this.validacionCorreo;

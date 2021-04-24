@@ -98,9 +98,8 @@ export default {
         if (this.profesorComentario.nombre == '') {
             this.errorCorreoProfesor = true;
         } else {
-            this.errorCorreoProfesor = false;
             if (this.profesorComentario.correoAlumnos.includes(this.correoAlumno)) {
-                this.profesorComentario.correoAlumnos.splice(this.profesorComentario.correoAlumnos.indexOf(this.correoAlumno));
+                this.profesorComentario.correoAlumnos.splice(this.profesorComentario.correoAlumnos.indexOf(this.correoAlumno), 1);
                 this.profesorComentario.comentarios.push(this.comentario);    
 
                 this.profesorComentario.puntuacion -= this.profesorComentario.puntuacionComentario;
