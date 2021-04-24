@@ -6,7 +6,7 @@
             </div>
             <b-card v-for="(comentario, key) in tarjetaProfesor.comentarios" :key="key" 
                     style="margin-bottom: 5px; background-color: #f7f5f6; border-radius: 10px; border-color: #9d9d9d">
-                <b-row no-gutters style="padding-left: 10px">
+                <b-row no-gutters style="padding-left: 15px">
                     {{comentario.texto}}
                 </b-row>
                 <b-row no-gutters>
