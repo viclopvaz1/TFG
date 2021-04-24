@@ -68,6 +68,7 @@ export default {
         .then(() => {
           console.log('Update successful.');
           this.profesor.contrasena = this.contrasena;
+          this.profesor.confirmarContrasena = this.confirmarContrasena;
           store.dispatch('updateFields');
           this.$router.replace('home');
         }).catch(function(error) {

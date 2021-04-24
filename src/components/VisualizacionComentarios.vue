@@ -10,7 +10,6 @@
                     {{comentario.texto}}
                 </b-row>
                 <b-row no-gutters>
-                    <!-- {{comentario.valoracion}} -->
                     <b-form-rating id="rating-lg" style="width: 20%; background-color: #f7f5f6; color: #c7b591; padding: 0" v-model.number="comentario.valoracion" no-border readonly size="lg"></b-form-rating>
                 </b-row>
             </b-card>
