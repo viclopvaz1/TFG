@@ -8,7 +8,7 @@
                 </b-form-group>
 
                 <b-form-group label="Duración (en días)*:" label-for="input-duracion" class="mt-2" label-cols-md="2" style="color: #858081">
-                    <b-form-input id="input-duracion" v-model.number="estancia.duracion" type="number" min="0" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+                    <b-form-input id="input-duracion" v-model.number="estancia.duracion" type="number" min="1" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
                 <b-form-group label="Idioma*:" label-for="input-idioma" class="mt-2" label-cols-md="2" style="color: #858081">
@@ -33,6 +33,14 @@
 
                 <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Proyecto Docente ya se encuentra subido en su perfil.
+                </b-alert>
+
+                <b-alert v-model="errorTipoDuracion" dismissible variant="danger" class="mt-3">
+                    La duración debe ser un número positivo.
+                </b-alert>
+
+                <b-alert v-model="errorTipo" dismissible variant="danger" class="mt-3">
+                    Se tiene que seleccionar uno de los dos tipos proporcionados.
                 </b-alert>
                 
                 <b-card-text style="color: #858081">
@@ -64,7 +72,7 @@ export default {
     return {
         estancia: {
             asignatura: '',
-            duracion: '',
+            duracion: 1,
             idioma: '',
             lugar: '',
             tipo: ''
@@ -75,6 +83,8 @@ export default {
             ],
         estanciaSubida: false,
         errorSubida: false,
+        errorTipoDuracion: false,
+        errorTipo: false,
         estanciaDocentes: 3,
         estanciaErasmus: 3
     }
@@ -94,35 +104,42 @@ export default {
   },
   methods: {
       subirEstancias() {
-            this.estanciaSubida = false;
-            this.errorSubida = false;
-            var estancia = this.profesor.estancias.find(element => element.asignatura == this.estancia.asignatura && element.duracion == this.estancia.duracion && element.idioma == this.estancia.idioma && element.lugar == this.estancia.lugar && element.tipo == this.estancia.tipo);
-            if (estancia == undefined) {
-                this.profesor.estancias.push(this.estancia);
-                this.estanciaSubida = true;
-                this.estancia = {
-                    asignatura: '',
-                    duracion: '',
-                    idioma: '',
-                    lugar: '',
-                    tipo: ''
+        if (this.estancia.duracion === parseInt(this.estancia.duracion, 10) && this.estancia.duracion > 0) {
+            if (this.estancia.tipo == "Erasmus" || this.estancia.tipo == "Docente") {
+                this.estanciaSubida = false;
+                this.errorSubida = false;
+                var estancia = this.profesor.estancias.find(element => element.asignatura == this.estancia.asignatura && element.duracion == this.estancia.duracion && element.idioma == this.estancia.idioma && element.lugar == this.estancia.lugar && element.tipo == this.estancia.tipo);
+                if (estancia == undefined) {
+                    this.profesor.estancias.push(this.estancia);
+                    this.estanciaSubida = true;
+                    this.estancia = {
+                        asignatura: '',
+                        duracion: 1,
+                        idioma: '',
+                        lugar: '',
+                        tipo: ''
+                    }
+                    if (this.profesor.estancias.filter(element => element.tipo == "Docente").length == this.estanciaDocentes) {
+                        this.profesor.puntuacion += 0.5;
+                        this.estanciaDocentes = 0;
+                    } 
+
+                    if (this.profesor.estancias.filter(element => element.tipo == "Erasmus").length == this.estanciaErasmus) {
+                        this.profesor.puntuacion += 0.5;
+                        this.estanciaErasmus = 0;
+                    } 
+
+                    this.update();
+
+                } else {
+                    this.errorSubida = true;
                 }
-                if (this.profesor.estancias.filter(element => element.tipo == "Docente").length == this.estanciaDocentes) {
-                    this.profesor.puntuacion += 0.5;
-                    this.estanciaDocentes = 0;
-                } 
-
-                if (this.profesor.estancias.filter(element => element.tipo == "Erasmus").length == this.estanciaErasmus) {
-                    this.profesor.puntuacion += 0.5;
-                    this.estanciaErasmus = 0;
-                } 
-
-                this.update();
-
             } else {
-                this.errorSubida = true
+                this.errorTipo = true;
             }
-          
+        } else {
+            this.errorTipoDuracion = true;
+        } 
       },
       async update(){
         try {

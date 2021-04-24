@@ -30,6 +30,14 @@
                 <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Este Curso ya se encuentra subido en su perfil.
                 </b-alert>
+
+                <b-alert v-model="errorTipoDuracion" dismissible variant="danger" class="mt-3">
+                    La duración debe ser un número positivo.
+                </b-alert>
+
+                <b-alert v-model="errorTipo" dismissible variant="danger" class="mt-3">
+                    Se tiene que seleccionar uno de los dos tipos proporcionados.
+                </b-alert>
                 
                 <b-card-text style="color: #858081">
                     *: Los campos con un asterisco son obligatorios.
@@ -60,7 +68,7 @@ export default {
     return {
         cursoDocente: {
             descripcion: '',
-            duracion: '',
+            duracion: 1,
             lugar: '',
             tipo: ''
         },
@@ -70,6 +78,8 @@ export default {
             ],
         cursoSubido: false,
         errorSubida: false,
+        errorTipoDuracion: false,
+        errorTipo: false,
         cursosDocentesDados: 3,
         cursosDocentesRecibidos: 3
     }
@@ -89,34 +99,41 @@ export default {
   },
   methods: {
       subirCursosDocentes() {
-            this.cursoSubido = false;
-            this.errorSubida = false;
-            var cursoDocente = this.profesor.cursosDocentes.find(element => element.descripcion == this.cursoDocente.descripcion && element.duracion == this.cursoDocente.duracion && element.lugar == this.cursoDocente.lugar && element.tipo == this.cursoDocente.tipo);
-            if (cursoDocente == undefined) {
-                this.profesor.cursosDocentes.push(this.cursoDocente);
-                
-                this.cursoSubido = true;
-                this.cursoDocente = {
-                    descripcion: '',
-                    duracion: '',
-                    lugar: '',
-                    tipo: ''
+        if (this.cursoDocente.duracion === parseInt(this.cursoDocente.duracion, 10) && this.cursoDocente.duracion > 0) {
+            if (this.cursoDocente.tipo == "Dado" || this.cursoDocente.tipo == "Recibido") {
+                this.cursoSubido = false;
+                this.errorSubida = false;
+                var cursoDocente = this.profesor.cursosDocentes.find(element => element.descripcion == this.cursoDocente.descripcion && element.duracion == this.cursoDocente.duracion && element.lugar == this.cursoDocente.lugar && element.tipo == this.cursoDocente.tipo);
+                if (cursoDocente == undefined) {
+                    this.profesor.cursosDocentes.push(this.cursoDocente);
+                    
+                    this.cursoSubido = true;
+                    this.cursoDocente = {
+                        descripcion: '',
+                        duracion: 1,
+                        lugar: '',
+                        tipo: ''
+                    }
+                    if (this.profesor.cursosDocentes.filter(element => element.tipo == "Dado").length == this.cursosDocentesDados) {
+                        this.profesor.puntuacion += 0.5;
+                        this.cursosDocentesDados = 0;
+                    } 
+
+                    if (this.profesor.cursosDocentes.filter(element => element.tipo == "Recibido").length == this.cursosDocentesRecibidos) {
+                        this.profesor.puntuacion += 0.5;
+                        this.cursosDocentesRecibidos = 0;
+                    } 
+
+                    this.update();
+                } else {
+                    this.errorSubida = true;
                 }
-                if (this.profesor.cursosDocentes.filter(element => element.tipo == "Dado").length == this.cursosDocentesDados) {
-                    this.profesor.puntuacion += 0.5;
-                    this.cursosDocentesDados = 0;
-                } 
-
-                if (this.profesor.cursosDocentes.filter(element => element.tipo == "Recibido").length == this.cursosDocentesRecibidos) {
-                    this.profesor.puntuacion += 0.5;
-                    this.cursosDocentesRecibidos = 0;
-                } 
-
-                this.update();
             } else {
-                this.errorSubida = true
+                this.errorTipo = true;
             }
-          
+        } else {
+            this.errorTipoDuracion = true;
+        }
       },
       async update(){
         try {

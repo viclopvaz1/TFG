@@ -36,7 +36,7 @@
                 </b-form-group>
 
                 <b-form-group label="Horas*:" label-for="input-horas" class="mt-2" label-cols-md="2" style="color: #858081">
-                    <b-form-input id="input-horas" v-model.number="hora.horas" type="number" min="0" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+                    <b-form-input id="input-horas" v-model.number="hora.horas" type="number" min="1" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
                 </b-form-group>
 
                 <div style="text-align: center">
@@ -49,6 +49,10 @@
                 
                 <b-alert v-model="errorSubida" dismissible variant="danger" class="mt-3">
                     Estas horas ya han sido validadas previamente o están pendientes de validación
+                </b-alert>
+
+                <b-alert v-model="errorHoras" dismissible variant="danger" class="mt-3">
+                    Las horas debe ser un número positivo.
                 </b-alert>
 
                 <b-card-text style="color: #858081">
@@ -86,13 +90,14 @@ export default {
             institucion: '',
             asignatura: '',
             idioma: '',
-            horas: 0,
+            horas: 1,
             ano: '',
             validada: 0,
             justificacionHora: ""
         },
         horasSubidas: false,
         errorSubida: false,
+        errorHoras: false,
         loading: false
     }
   },
@@ -102,6 +107,7 @@ export default {
   },
   methods: {
       async subirHoras() {
+        if (this.hora.horas === parseInt(this.hora.horas, 10) && this.hora.horas > 0) {
             this.horasSubidas = false;
             this.errorSubida = false;
             var hora = this.profesor.horas.find(element => element.asignatura == this.hora.asignatura && element.ano == this.hora.ano && element.horas == this.hora.horas && element.idioma == this.hora.idioma && element.institucion == this.hora.institucion && (element.validada == 0 || element.validada == 1));
@@ -112,7 +118,7 @@ export default {
                     institucion: '',
                     asignatura: '',
                     idioma: '',
-                    horas: 0,
+                    horas: 1,
                     ano: '',
                     validada: 0,
                     justificacionHora: ""
@@ -146,7 +152,9 @@ export default {
             } else {
                 this.errorSubida = true
             }
-          
+        } else {
+            this.errorHoras = true;
+        } 
       },
       async update(){
         try {
