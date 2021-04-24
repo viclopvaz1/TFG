@@ -2,11 +2,16 @@
     <div>
         <b-card style="background-color: #f7f5f6; border-radius: 10px">
 
-            <b-card-text style="color: #858081">
+            <b-card-text v-if="profesor.urlArchivoHoras != ''" style="color: #858081">
                 Tu PDF con tus horas está disponible <a :href="profesor.urlArchivoHoras" target="_blank" style="color: #c7b591">aquí</a> 
             </b-card-text>
-            <b-card-text style="color: #858081">
-                Si no has subido nunca un archivo los administradores pueden no validar tus horas. 
+            
+            <b-card-text v-if="profesor.urlArchivoHoras == ''" style="color: #858081">
+                No tienes ningún archivo de horas subido.
+            </b-card-text>
+
+            <b-card-text v-if="profesor.urlArchivoHoras == ''" style="color: #858081">
+                Si no has subido nunca un archivo los administradores pueden no validar tus horas.
             </b-card-text>
 
             <form @submit.prevent="subirHoras">
