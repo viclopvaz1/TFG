@@ -6,7 +6,7 @@
     <b-card style="background-color: #dddcdc; border: hidden">
       <b-row>
       <b-col md="2"></b-col>
-          <b-img :src="require('@/assets/logo_TFG_Grande.png')" style="max-width: 100%; height: auto;"></b-img>
+          <b-img :src="require('@/assets/logo_tfg_grande.png')" style="max-width: 100%; height: auto;"></b-img>
       <b-col id="texto" lg="6" md="12" sm="12" style="padding-left: 150px; align-self: center">
           <p>Esta aplicación es la oportunidad de hacer pública tu trayectoria docente. 
             Con esto en mente, la aplicación te permitirá subir tus trabajos docentes, 
