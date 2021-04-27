@@ -1,5 +1,7 @@
 <template>
     <div style="text-align: -webkit-center;">
+        <h2 v-if="mejoresProfesores.length > 0">Estos son los mejores profesores</h2>
+
         <b-card v-for="(profesor, key) in mejoresProfesores" :key="key"
             class="overflow: hidden" style="margin: 20px; width: 50%; background-color: #f7f5f6; border-radius: 10px">
             <b-row no-gutters>

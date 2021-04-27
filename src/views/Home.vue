@@ -23,8 +23,6 @@
       
     </b-card>
 
-    <h2 style="text-align: -webkit-center">Estos son los mejores profesores</h2>
-
     <MejoresProfesores/>
 
   </div>
