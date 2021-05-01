@@ -6,8 +6,8 @@
       <b-collapse is-nav>
         <b-navbar-nav class="ml-auto mr-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search" v-model="busqueda" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="busquedaProfesoresPublicaciones">Search</b-button>
+            <b-form-input size="sm" class="mr-sm-2" type="text" v-model="busqueda" style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px" @click="busquedaProfesoresPublicaciones">Buscar</b-button>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
