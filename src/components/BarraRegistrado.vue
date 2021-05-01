@@ -16,7 +16,7 @@
         <template #button-content>
             <b-icon icon="gear-fill" aria-hidden="true"></b-icon> {{profesor.nombre}}
         </template>
-        <b-dropdown-item to="/paginaPrincipal">Pagina Principal</b-dropdown-item>
+        <b-dropdown-item to="/paginaPrincipal">Página Principal</b-dropdown-item>
         <b-dropdown-item to="/miPerfil">Mi Perfil</b-dropdown-item>
         <b-dropdown-item-button @click="logout">
           Cerrar sesión

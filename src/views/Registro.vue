@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #dddcdc">
+  <div style="background-color: #dddcdc; min-height: 100vh">
     <BarraSinRegistrar/>
 
     <div class="mt-5 col-md-4 text-center mx-auto" style="padding-bottom: 48px">
@@ -14,7 +14,7 @@
             <b-form-input id="input-apellidos" v-model="profesor.apellidos" type="text" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Email:" label-for="input-email" class="mt-2" style="color: #858081">
+          <b-form-group label="Correo electrónico:" label-for="input-email" class="mt-2" style="color: #858081">
             <b-form-input id="input-email" v-model="emailUsuario" type="email" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
             <p v-if="validarCorreo">Este correo ya está registrado</p>
           </b-form-group>

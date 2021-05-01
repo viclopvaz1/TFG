@@ -242,6 +242,9 @@ export default {
         xaxis: {
           categories: ['1 Estrella', '2 Estrellas', '3 Estrellas', '4 Estrellas', '5 Estrellas']
         },
+        yaxis: {
+          show: false
+        }
       }
     },
     chartOptionsBar: function() {

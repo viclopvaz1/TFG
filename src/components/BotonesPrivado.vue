@@ -29,7 +29,7 @@
 
             <b-row style="margin-bottom: 10px; justify-content: center">
                 <b-button @click="privada(4)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px; width: -webkit-fill-available"
-                 :pressed.sync="profesor.seleccionPrivada[4]">Resumenes</b-button>
+                 :pressed.sync="profesor.seleccionPrivada[4]">Resúmenes</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 10px; justify-content: center">

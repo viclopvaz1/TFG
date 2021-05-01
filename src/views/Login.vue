@@ -6,7 +6,7 @@
       <b-card style="background-color: #f7f5f6; border-radius: 10px" class="mt-5 mb-5 col-md-4 text-center mx-auto">
         <h2>Inicio de sesión</h2>
         <form @submit.prevent="login">
-          <b-form-group id="input-group-1" label="Correo Electronico" label-for="input-1" class="mt-5" style="color: #858081">
+          <b-form-group id="input-group-1" label="Correo Electrónico" label-for="input-1" class="mt-5" style="color: #858081">
             <b-form-input v-model="emailUsuario" type="email" required style="background-color: #fffcf5; border-color: #9d9d9d"></b-form-input>
           </b-form-group> 
 

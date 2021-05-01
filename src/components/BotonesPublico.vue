@@ -44,7 +44,7 @@
 
             <b-row style="margin-bottom: 10px; justify-content: center">
                 <b-button @click="publica(8)" style="background-color: #c7b591; border-color: #c7b591; border-radius: 20px; width: -webkit-fill-available" 
-                :pressed.sync="tarjetaProfesor.seleccionPublica[8]">Resumenes</b-button>
+                :pressed.sync="tarjetaProfesor.seleccionPublica[8]">Resúmenes</b-button>
             </b-row>
 
             <b-row style="margin-bottom: 10px; justify-content: center">
