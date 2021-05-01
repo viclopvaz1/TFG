@@ -100,9 +100,11 @@ export default {
         } else {
             if (this.profesorComentario.correoAlumnos.includes(this.correoAlumno)) {
                 this.profesorComentario.correoAlumnos.splice(this.profesorComentario.correoAlumnos.indexOf(this.correoAlumno), 1);
-                this.profesorComentario.comentarios.push(this.comentario);    
+                this.profesorComentario.comentarios.push(this.comentario);  
+                
+                var puntuacionComentarioAnterior = this.profesorComentario.puntuacionComentario;
 
-                this.profesorComentario.puntuacion -= this.profesorComentario.puntuacionComentario;
+                this.profesorComentario.puntuacion -= puntuacionComentarioAnterior;
 
                 if (this.profesorComentario.comentarios.length >= 10) {
                   var valoracionMaxima = this.profesorComentario.comentarios.length * 5;
@@ -116,7 +118,9 @@ export default {
                   this.profesorComentario.puntuacionComentario = Math.round(((valoracionReal * 2) / valoracionMaxima) * 100) / 100;
                 }
 
-                this.profesorComentario.puntuacion += this.profesorComentario.puntuacionComentario;
+                var puntuacionComentarioNueva = this.profesorComentario.puntuacionComentario;
+
+                this.profesorComentario.puntuacion += puntuacionComentarioNueva;
 
                 await this.updateProfesor();
                 this.$router.replace('home');
@@ -134,8 +138,8 @@ export default {
             profesor.forEach(doc => {
                 let data = doc.data();
                 this.profesorComentario.nombre = data.nombre;
-                this.profesorComentario.puntuacion = data.puntuacionComentario;
-                this.profesorComentario.puntuacionComentario = data.puntuacion;
+                this.profesorComentario.puntuacion = data.puntuacion;
+                this.profesorComentario.puntuacionComentario = data.puntuacionComentario;
                 this.profesorComentario.correoAlumnos = data.correoAlumnos;
                 this.profesorComentario.comentarios = data.comentarios;
             });
