@@ -19,7 +19,7 @@
         <b-dropdown-item to="/paginaPrincipal">Pagina Principal</b-dropdown-item>
         <b-dropdown-item to="/miPerfil">Mi Perfil</b-dropdown-item>
         <b-dropdown-item-button @click="logout">
-          Logout
+          Cerrar sesión
         </b-dropdown-item-button>
       </b-dropdown>
       
