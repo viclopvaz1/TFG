@@ -64,7 +64,7 @@ export default {
             }
 
             if (this.validacionCorreo) {
-                var mailTo = 'mailTo:' + this.correos + '?subject=Enlace para valoracion&body=http://localhost:8080/#/valoracion';
+                var mailTo = 'mailTo:' + this.correos + '?subject=Enlace para valoracion&body=https://tfgus-fce00.web.app/#/valoracion';
                 window.open(mailTo);
                 store.dispatch('updateFields');
             }
