@@ -16,8 +16,16 @@
 
             <form @submit.prevent="subirHoras">
 
-                <b-form-group label="PDF del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
+                <!-- <b-form-group label="PDF del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
                     <b-form-file id="input-url" ref="archivoHoras" placeholder="Sube un único PDF con todas tus horas" 
+                        drop-placeholder="Arrastra tu PDF aquí..." :disabled="loading"
+                        accept="application/pdf"
+                        style="background-color: #fffcf5; border-color: #9d9d9d">
+                    </b-form-file>
+                </b-form-group> -->
+
+                <b-form-group label="PDF del archivo de horas:" label-for="input-url" class="mt-2" label-cols-md="2" style="color: #858081">
+                    <b-form-file id="input-hora" ref="archivoHoras" placeholder="Sube un único PDF con todas tus horas" 
                         drop-placeholder="Arrastra tu PDF aquí..." :disabled="loading"
                         accept="application/pdf"
                         style="background-color: #fffcf5; border-color: #9d9d9d">
