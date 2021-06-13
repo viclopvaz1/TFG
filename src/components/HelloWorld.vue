@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+
+    <a href="#" @click="logout">Logout</a>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -33,10 +35,17 @@
 </template>
 
 <script>
+import firebase from 'firebase';
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods: {
+    logout() {
+      firebase.auth().signOut().then(() => this.$router.replace('login'));
+    }
   }
 }
 </script>
